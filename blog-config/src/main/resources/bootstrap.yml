@@ -1,0 +1,18 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: blog-config-server
+  profiles:
+    active: dev
+  cloud:
+    config:
+      server:
+        git:
+          url: https://github.com/chenjie1995/blog-cloud.git
+          search-paths: config-file
+eureka:
+  client:
+    service-url:
+      defalutZone: http://localhost:9000
