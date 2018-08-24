@@ -9,10 +9,12 @@ spring:
   cloud:
     config:
       server:
-        git:
-          url: https://github.com/chenjie1995/blog-cloud.git
-          search-paths: config-file
+          git:
+            uri: https://github.com/chenjie1995/blog-cloud.git
+            search-paths: config-file
+
 eureka:
   client:
-    service-url:
-      defalutZone: http://localhost:9000
+    serviceUrl:
+      defalutZone: http://localhost:9000/eureka/
+

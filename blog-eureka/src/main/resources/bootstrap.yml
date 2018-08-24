@@ -6,8 +6,10 @@ spring:
     name: blog-eureka-server
 
 eureka:
+  instance:
+    hostname: localhost
   client:
-    fetch-registry: false
-    register-with-eureka: false
+    registerWithEureka: false
+    fetchRegistry: false
     serviceUrl:
-      defaultZone: http://localhost:${server.port}
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
