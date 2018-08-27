@@ -1,0 +1,12 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: blog-user-service
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+

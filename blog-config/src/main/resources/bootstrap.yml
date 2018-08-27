@@ -17,4 +17,3 @@ eureka:
   client:
     serviceUrl:
       defalutZone: http://localhost:9000/eureka/
-
