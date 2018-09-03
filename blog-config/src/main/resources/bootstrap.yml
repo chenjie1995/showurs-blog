@@ -15,5 +15,5 @@ spring:
 
 eureka:
   client:
-    serviceUrl:
+    service-url:
       defalutZone: http://localhost:9000/eureka/

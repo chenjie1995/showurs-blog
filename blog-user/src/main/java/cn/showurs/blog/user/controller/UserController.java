@@ -22,17 +22,11 @@ public class UserController {
         this.userService = userService;
     }
 
-    @ApiOperation(value = "get示例方法", notes = "示例作用，根据用户ID获取用户信息")
+    @ApiOperation(value = "根据ID获取用户", notes = "根据用户ID获取用户信息")
     @ApiImplicitParam(name="id", value="用户ID", required = true)
     @GetMapping("/{id}")
     public UserVo get(@PathVariable("id") Integer id) {
         return userService.findById(id);
     }
 
-//    @ApiOperation(value = "Redis Set示例方法", notes = "示例作用，再Redis中设置键为userValue的值")
-//    @ApiImplicitParam(name="value", value="userValue", required = true)
-//    @PostMapping("/value")
-//    public String postUserValue(@RequestParam("value") String value) {
-//        return userService.setUserValue(value);
-//    }
 }

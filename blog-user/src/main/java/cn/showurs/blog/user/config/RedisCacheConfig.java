@@ -1,5 +1,6 @@
 package cn.showurs.blog.user.config;
 
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
@@ -12,6 +13,8 @@ import java.io.Serializable;
 /**
  * Created by CJ on 2018/9/3 10:15.
  */
+
+@EnableCaching
 @Configuration
 public class RedisCacheConfig {
 

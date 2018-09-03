@@ -19,7 +19,7 @@ public abstract class EntityService<P, V> {
      * @param vo 值对象
      * @return P
      */
-    public P voToPo(V vo) {
+    protected P voToPo(V vo) {
         if (vo == null) {
             return null;
         }
@@ -38,7 +38,7 @@ public abstract class EntityService<P, V> {
      * @param po 持久化对象
      * @return V
      */
-    public V poToVo(P po) {
+    protected V poToVo(P po) {
         if (po == null) {
             return null;
         }
@@ -57,7 +57,7 @@ public abstract class EntityService<P, V> {
      * @param pos 持久化对象列表
      * @return 值对象列表
      */
-    public List<V> posToVos(List<P> pos) {
+    protected List<V> posToVos(List<P> pos) {
         List<V> vos = new ArrayList<>();
         pos.forEach(po -> vos.add(poToVo(po)));
         return vos;
@@ -68,7 +68,7 @@ public abstract class EntityService<P, V> {
      * @param vos 值对象列表
      * @return 持久化对象列表
      */
-    public List<P> vosToPos(List<V> vos) {
+    protected List<P> vosToPos(List<V> vos) {
         List<P> pos = new ArrayList<>();
         vos.forEach(vo -> pos.add(voToPo(vo)));
         return pos;

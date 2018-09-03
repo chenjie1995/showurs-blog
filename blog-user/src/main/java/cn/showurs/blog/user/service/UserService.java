@@ -1,6 +1,5 @@
 package cn.showurs.blog.user.service;
 
-import cn.showurs.blog.user.po.UserPo;
 import cn.showurs.blog.user.vo.UserVo;
 
 /**
@@ -8,5 +7,5 @@ import cn.showurs.blog.user.vo.UserVo;
  */
 public interface UserService {
     UserVo findById(Integer id);
-    String setUserValue(String value);
+    UserVo save(UserVo userVo);
 }
