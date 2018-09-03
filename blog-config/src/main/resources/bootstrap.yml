@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: blog-config-server
+    name: blog-config
   profiles:
     active: dev
   cloud:
