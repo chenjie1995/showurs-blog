@@ -11,7 +11,15 @@ spring:
       server:
           git:
             uri: https://github.com/chenjie1995/blog-cloud.git
-            search-paths: config-file
+            search-paths: cloud-config
+#    bus:
+#      trace:
+#        enabled: true
+#  rabbitmq:
+#    host: 127.0.0.1
+#    port: 5672
+#    username: chenjie
+#    password: 228136
 
 eureka:
   client:
