@@ -6,6 +6,7 @@ import cn.showurs.blog.user.repository.UserRepository;
 import cn.showurs.blog.user.service.UserService;
 import cn.showurs.blog.user.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -26,7 +27,7 @@ public class UserServiceImpl extends EntityService<UserPo, UserVo> implements Us
     }
 
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
-    @Cacheable(value = "users", key = "#id", unless = "#result == null")
+    @Cacheable(cacheNames = "users", key = "#id", unless = "#result == null")
     @Override
     public UserVo findById(Integer id) {
         Optional<UserPo> optionalUserPo = userRepository.findById(id);
@@ -34,7 +35,7 @@ public class UserServiceImpl extends EntityService<UserPo, UserVo> implements Us
     }
 
     @Transactional
-    @Cacheable(value = "users", key = "#result.id", unless = "#result == null")
+    @CachePut(cacheNames = "users", key = "#result.id")
     @Override
     public UserVo save(UserVo userVo) {
         return poToVo(userRepository.save(voToPo(userVo)));

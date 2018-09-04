@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Api(value = "/users", tags = "用户相关接口")
 @RestController
-@RequestMapping("/users")
+@RequestMapping("users")
 public class UserController {
     private UserService userService;
 
@@ -24,9 +25,14 @@ public class UserController {
 
     @ApiOperation(value = "根据ID获取用户", notes = "根据用户ID获取用户信息")
     @ApiImplicitParam(name="id", value="用户ID", required = true)
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public UserVo get(@PathVariable("id") Integer id) {
         return userService.findById(id);
     }
 
+    @ApiOperation(value = "添加用户", notes = "填写用户信息")
+    @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public UserVo post(@RequestBody UserVo userVo) {
+        return userService.save(userVo);
+    }
 }
