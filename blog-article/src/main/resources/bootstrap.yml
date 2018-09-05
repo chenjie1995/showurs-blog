@@ -6,6 +6,8 @@ spring:
     name: blog-article
   cloud:
     config:
+      name: blog-cloud
+      profile: dev
       discovery:
         enabled: true
         service-id: blog-config
