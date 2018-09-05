@@ -11,8 +11,17 @@ spring:
           uri: https://github.com/chenjie1995/blog-cloud.git
           search-paths: cloud-config
       label: master
+    bus:
+      trace:
+        enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:9000/eureka/
+
