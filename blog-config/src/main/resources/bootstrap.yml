@@ -4,24 +4,15 @@ server:
 spring:
   application:
     name: blog-config
-  profiles:
-    active: dev
   cloud:
     config:
       server:
-          git:
-            uri: https://github.com/chenjie1995/blog-cloud.git
-            search-paths: cloud-config
-#    bus:
-#      trace:
-#        enabled: true
-#  rabbitmq:
-#    host: 127.0.0.1
-#    port: 5672
-#    username: chenjie
-#    password: 228136
+        git:
+          uri: https://github.com/chenjie1995/blog-cloud.git
+          search-paths: cloud-config
+      label: master
 
 eureka:
   client:
     service-url:
-      defalutZone: http://localhost:9000/eureka/
+      defaultZone: http://localhost:9000/eureka/

@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: blog-article
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: blog-config
 
 eureka:
   client:
