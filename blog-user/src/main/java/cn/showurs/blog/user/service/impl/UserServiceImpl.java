@@ -1,5 +1,7 @@
 package cn.showurs.blog.user.service.impl;
 
+import cn.showurs.blog.user.exception.BusinessException;
+import cn.showurs.blog.user.exception.NoDataException;
 import cn.showurs.blog.user.service.EntityService;
 import cn.showurs.blog.user.po.UserPo;
 import cn.showurs.blog.user.repository.UserRepository;
@@ -33,7 +35,7 @@ public class UserServiceImpl extends EntityService<UserPo, UserVo> implements Us
     @Override
     public UserVo findById(Integer id) {
         Optional<UserPo> optionalUserPo = userRepository.findById(id);
-        return optionalUserPo.map(this::poToVo).orElse(null);
+        return optionalUserPo.map(this::poToVo).orElseThrow(NoDataException::new);
     }
 
     @Transactional
