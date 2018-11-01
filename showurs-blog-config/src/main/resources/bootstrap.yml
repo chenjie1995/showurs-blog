@@ -1,0 +1,33 @@
+server:
+  port: 9100
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka/
+
+spring:
+  application:
+    name: showurs-blog-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/chenjie1995/showurs-blog.git
+          search-paths: config-file
+      label: master
+    bus:
+      trace:
+        enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh
+
