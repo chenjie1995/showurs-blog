@@ -13,3 +13,11 @@ eureka:
 spring:
   application:
     name: showurs-blog-eureka
+  cloud:
+    config:
+      name: showurs-blog-eureka
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: showurs-blog-config
+      label: master

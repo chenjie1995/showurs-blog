@@ -1,0 +1,19 @@
+server:
+  port: 9300
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka/
+
+spring:
+  application:
+    name: showurs-blog-user
+  cloud:
+    config:
+      name: showurs-blog-user
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: showurs-blog-config
+      label: master
