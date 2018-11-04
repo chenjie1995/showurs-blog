@@ -22,7 +22,7 @@ spring:
       time-to-live: 1h #进入到期。默认情况下，这些条目永不到期
       #key-prefix: blog-user- #键前缀
   redis:
-    host: 127.0.0.1 #Redis服务器主机
+    host: localhost #Redis服务器主机
     port: 6379 #redis服务器端口
     password: #登录redis服务器的密码
     timeout: 15s #连接超时
@@ -34,3 +34,8 @@ spring:
         max-wait: -1ms #连接分配在池耗尽时抛出异常之前应阻塞的最长时间量。使用负值可以无限期地阻止
         min-idle: 0 #目标为要在池中维护的最小空闲连接数。如果该设置是肯定的，则该设置仅起作用
       shutdown-timeout: 100ms #关机超时
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
