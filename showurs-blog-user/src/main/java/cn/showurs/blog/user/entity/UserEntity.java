@@ -2,6 +2,8 @@ package cn.showurs.blog.user.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by CJ on 2018/11/6 22:03.
@@ -13,32 +15,48 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
+
     @Column(nullable = false, unique = true)
     private String username;
-    @Column(length = 32)
-    private String phone;
+
     @Column(nullable = false, unique = true)
     private String email;
+
     @Column(nullable = false)
     private String password;
+
     @Column(length = 128)
     private String nickname;
+
     @Column(length = 512)
     private String avatar;
+
     @Column
     private Integer sex;
+
     @Column
     private Date birthday;
+
     @Column(length = 512)
     private String signature;
+
     @Column(length = 512)
     private String backgroundImage;
-    @Column
+
+    @Column(nullable = false)
     private Date createTime;
+
     @Column
     private Date lastLoginTime;
-    @Column
+
+    @Column(nullable = false)
     private Integer status;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    private Set<RoleEntity> roles = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -54,14 +72,6 @@ public class UserEntity {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getEmail() {
@@ -150,5 +160,13 @@ public class UserEntity {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Set<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
     }
 }
