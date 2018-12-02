@@ -1,5 +1,7 @@
 package cn.showurs.blog.user.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -52,11 +54,8 @@ public class UserEntity {
     @Column(nullable = false)
     private Integer status;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private Set<RoleEntity> roles = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<UserRoleEntity> userRoles = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -162,11 +161,11 @@ public class UserEntity {
         this.status = status;
     }
 
-    public Set<RoleEntity> getRoles() {
-        return roles;
+    public Set<UserRoleEntity> getUserRoles() {
+        return userRoles;
     }
 
-    public void setRoles(Set<RoleEntity> roles) {
-        this.roles = roles;
+    public void setUserRoles(Set<UserRoleEntity> userRoles) {
+        this.userRoles = userRoles;
     }
 }

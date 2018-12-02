@@ -2,6 +2,7 @@ package cn.showurs.blog.user.vo;
 
 /**
  * Created by CJ on 2018/11/30 22:44.
+ * 接口返回的统一结果
  */
 public class Result<T> {
     private Integer code;

@@ -21,8 +21,11 @@ public class RoleEntity {
     @Column(length = 512)
     private String description;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<UserEntity> users = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "role")
+    private Set<UserRoleEntity> userRoles = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "role")
+    private Set<RolePowerEntity> rolePowers = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -48,11 +51,19 @@ public class RoleEntity {
         this.description = description;
     }
 
-    public Set<UserEntity> getUsers() {
-        return users;
+    public Set<UserRoleEntity> getUserRoles() {
+        return userRoles;
     }
 
-    public void setUsers(Set<UserEntity> users) {
-        this.users = users;
+    public void setUserRoles(Set<UserRoleEntity> userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    public Set<RolePowerEntity> getRolePowers() {
+        return rolePowers;
+    }
+
+    public void setRolePowers(Set<RolePowerEntity> rolePowers) {
+        this.rolePowers = rolePowers;
     }
 }
