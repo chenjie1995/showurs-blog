@@ -24,6 +24,7 @@
         <java.version>1.8</java.version>
         <spring-cloud.version>Finchley.SR2</spring-cloud.version>
         <swagger2.version>2.9.2</swagger2.version>
+        <jjwt.version>0.9.1</jjwt.version>
     </properties>
 
     <dependencyManagement>
