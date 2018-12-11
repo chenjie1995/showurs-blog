@@ -6,14 +6,15 @@ package cn.showurs.blog.user.constant;
 public enum ResultCode {
     SUCCESS(200, "成功"),
     FAIL(400, "失败"),
+    UNAUTHORIZED(401, "未授权"),
     ERROR(500, "服务器错误");
 
     private int code;
-    private String message;
+    private String description;
 
-    ResultCode(int code, String message) {
+    ResultCode(int code, String description) {
         this.code = code;
-        this.message = message;
+        this.description = description;
     }
 
     public int getCode() {
@@ -24,11 +25,11 @@ public enum ResultCode {
         this.code = code;
     }
 
-    public String getMessage() {
-        return message;
+    public String getDescription() {
+        return description;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

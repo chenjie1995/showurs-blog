@@ -1,6 +1,8 @@
 package cn.showurs.blog.user.config;
 
 import cn.showurs.blog.user.constant.ResultCode;
+import cn.showurs.blog.user.exception.BusinessException;
+import cn.showurs.blog.user.exception.UnauthorizedException;
 import cn.showurs.blog.user.util.ResultGenerator;
 import cn.showurs.blog.user.vo.Result;
 import org.slf4j.Logger;
@@ -34,8 +36,38 @@ public class GlobalExceptionHandler {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
         exception.printStackTrace();
         response.setStatus(ResultCode.ERROR.getCode());
-        return ResultGenerator.genFailResult(ResultCode.ERROR.getCode(), ResultCode.ERROR.getMessage());
+        return ResultGenerator.genFailResult(ResultCode.ERROR.getCode(), ResultCode.ERROR.getDescription());
     }
 
+    /**
+     * 业务异常处理
+     * @param request 请求
+     * @param response 响应
+     * @param exception 异常
+     * @return 异常信息
+     */
+    @ExceptionHandler(BusinessException.class)
+    public Result businessExceptionHandler(HttpServletRequest request,
+                                           HttpServletResponse response,
+                                           BusinessException exception) {
+        logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
+        response.setStatus(exception.getCode());
+        return ResultGenerator.genFailResult(exception.getCode(), exception.getMessage());
+    }
 
+    /**
+     * 未授权异常处理
+     * @param request 请求
+     * @param response 响应
+     * @param exception 异常
+     * @return 异常信息
+     */
+    @ExceptionHandler(UnauthorizedException.class)
+    public Result unauthorizedExceptionHandler(HttpServletRequest request,
+                                               HttpServletResponse response,
+                                               BusinessException exception) {
+        logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
+        response.setStatus(exception.getCode());
+        return ResultGenerator.genFailResult(exception.getCode(), exception.getMessage());
+    }
 }
