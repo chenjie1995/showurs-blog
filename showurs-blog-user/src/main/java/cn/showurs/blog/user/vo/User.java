@@ -1,38 +1,56 @@
 package cn.showurs.blog.user.vo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 import java.util.List;
 
 /**
  * Created by CJ on 2018/12/7 23:47.
  */
+@ApiModel(value = "用户")
 public class User {
+    @ApiModelProperty("ID")
     private Long id;
 
+    @ApiModelProperty("用户名")
     private String username;
 
+    @ApiModelProperty("邮箱")
     private String email;
 
+    @ApiModelProperty("密码")
     private String password;
 
+    @ApiModelProperty("昵称")
     private String nickname;
 
+    @ApiModelProperty("头像")
     private String avatar;
 
+    @ApiModelProperty("性别")
     private Integer sex;
 
+    @ApiModelProperty("生日")
     private Date birthday;
 
+    @ApiModelProperty("签名")
     private String signature;
 
+    @ApiModelProperty("背景图")
     private String backgroundImage;
 
+    @ApiModelProperty("创建时间")
     private Date createTime;
 
+    @ApiModelProperty("上一次登录时间")
     private Date lastLoginTime;
 
+    @ApiModelProperty("状态")
     private Integer status;
 
+    @ApiModelProperty("拥有的角色")
     private List<Role> roles;
 
     public Long getId() {

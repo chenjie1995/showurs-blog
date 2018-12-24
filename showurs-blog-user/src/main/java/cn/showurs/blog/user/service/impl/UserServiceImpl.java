@@ -7,6 +7,7 @@ import cn.showurs.blog.user.service.RoleService;
 import cn.showurs.blog.user.service.UserService;
 import cn.showurs.blog.user.vo.Role;
 import cn.showurs.blog.user.vo.User;
+import cn.showurs.blog.user.vo.UserRegister;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -34,6 +35,12 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User, Long> i
     public User findById(Long id) {
         UserEntity userEntity = userRepository.findById(id).orElse(null);
         return poToVo(userEntity);
+    }
+
+    @Transactional
+    @Override
+    public User register(UserRegister userRegister) {
+        return null;
     }
 
     @Override

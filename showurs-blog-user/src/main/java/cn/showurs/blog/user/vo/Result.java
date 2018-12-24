@@ -5,9 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Created by CJ on 2018/11/30 22:44.
- * 接口统一返回的结果
  */
-@ApiModel(value = "结果", description = "统一的返回结果")
+@ApiModel(value = "结果")
 public class Result<T> {
     @ApiModelProperty("编码")
     private Integer code;

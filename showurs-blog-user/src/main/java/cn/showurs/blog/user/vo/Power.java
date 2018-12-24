@@ -1,13 +1,21 @@
 package cn.showurs.blog.user.vo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * Created by CJ on 2018/12/24 16:19.
  */
+@ApiModel(value = "权限")
 public class Power {
+
+    @ApiModelProperty("ID")
     private Long id;
 
+    @ApiModelProperty("名称")
     private String name;
 
+    @ApiModelProperty("描述")
     private String description;
 
     public Long getId() {
