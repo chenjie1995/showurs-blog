@@ -1,11 +1,7 @@
 package cn.showurs.blog.user.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by CJ on 2018/11/6 22:03.
@@ -55,7 +51,7 @@ public class UserEntity {
     private Integer status;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    private Set<UserRoleEntity> userRoles = new HashSet<>();
+    private List<UserRoleEntity> userRoles = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -161,11 +157,11 @@ public class UserEntity {
         this.status = status;
     }
 
-    public Set<UserRoleEntity> getUserRoles() {
+    public List<UserRoleEntity> getUserRoles() {
         return userRoles;
     }
 
-    public void setUserRoles(Set<UserRoleEntity> userRoles) {
+    public void setUserRoles(List<UserRoleEntity> userRoles) {
         this.userRoles = userRoles;
     }
 }

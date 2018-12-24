@@ -1,7 +1,9 @@
 package cn.showurs.blog.user.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -22,10 +24,10 @@ public class RoleEntity {
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "role")
-    private Set<UserRoleEntity> userRoles = new HashSet<>();
+    private List<UserRoleEntity> userRoles = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "role")
-    private Set<RolePowerEntity> rolePowers = new HashSet<>();
+    private List<RolePowerEntity> rolePowers = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -51,19 +53,19 @@ public class RoleEntity {
         this.description = description;
     }
 
-    public Set<UserRoleEntity> getUserRoles() {
+    public List<UserRoleEntity> getUserRoles() {
         return userRoles;
     }
 
-    public void setUserRoles(Set<UserRoleEntity> userRoles) {
+    public void setUserRoles(List<UserRoleEntity> userRoles) {
         this.userRoles = userRoles;
     }
 
-    public Set<RolePowerEntity> getRolePowers() {
+    public List<RolePowerEntity> getRolePowers() {
         return rolePowers;
     }
 
-    public void setRolePowers(Set<RolePowerEntity> rolePowers) {
+    public void setRolePowers(List<RolePowerEntity> rolePowers) {
         this.rolePowers = rolePowers;
     }
 }

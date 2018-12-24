@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by CJ on 2018/12/2 23:36.
  */
 @Entity
-@Table(name = "role_power")
+@Table(name = "role_power", uniqueConstraints = {@UniqueConstraint(columnNames = {"role_id", "power_id"})})
 public class RolePowerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

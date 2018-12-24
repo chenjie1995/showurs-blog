@@ -1,6 +1,6 @@
-package cn.showurs.blog.user.exception;
+package cn.showurs.blog.user.common.exception;
 
-import cn.showurs.blog.user.constant.ResultCode;
+import cn.showurs.blog.user.common.constant.code.ResultCode;
 
 /**
  * Created by CJ on 2018/12/12 0:05.

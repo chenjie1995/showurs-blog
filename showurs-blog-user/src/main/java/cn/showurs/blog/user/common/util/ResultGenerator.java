@@ -1,6 +1,6 @@
-package cn.showurs.blog.user.util;
+package cn.showurs.blog.user.common.util;
 
-import cn.showurs.blog.user.constant.ResultCode;
+import cn.showurs.blog.user.common.constant.code.ResultCode;
 import cn.showurs.blog.user.vo.Result;
 
 /**
@@ -11,14 +11,14 @@ public class ResultGenerator {
     public static Result genSuccessResult() {
         Result result = new Result();
         result.setCode(ResultCode.SUCCESS.getCode());
-        result.setMessage(ResultCode.SUCCESS.getMessage());
+        result.setMessage(ResultCode.SUCCESS.getDescription());
         return result;
     }
 
     public static <T> Result<T> genSuccessResult(T data) {
         Result<T> result = new Result<>();
         result.setCode(ResultCode.SUCCESS.getCode());
-        result.setMessage(ResultCode.SUCCESS.getMessage());
+        result.setMessage(ResultCode.SUCCESS.getDescription());
         result.setData(data);
         return result;
     }

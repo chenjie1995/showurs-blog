@@ -1,9 +1,9 @@
 package cn.showurs.blog.user.config;
 
-import cn.showurs.blog.user.constant.ResultCode;
-import cn.showurs.blog.user.exception.BusinessException;
-import cn.showurs.blog.user.exception.UnauthorizedException;
-import cn.showurs.blog.user.util.ResultGenerator;
+import cn.showurs.blog.user.common.constant.code.ResultCode;
+import cn.showurs.blog.user.common.exception.BusinessException;
+import cn.showurs.blog.user.common.exception.UnauthorizedException;
+import cn.showurs.blog.user.common.util.ResultGenerator;
 import cn.showurs.blog.user.vo.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

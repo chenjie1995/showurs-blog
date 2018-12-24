@@ -14,17 +14,11 @@ import java.util.List;
  * @param <V> 缺省返回的VO
  * @param <ID> 主键字段
  */
-public abstract class EntityServiceImpl<P, V, ID> implements EntityService<V, ID> {
+public abstract class EntityServiceImpl<P, V, ID> implements EntityService<P, V, ID> {
     private static final int P_INDEX = 0;
     private static final int V_INDEX = 1;
 
-    /**
-     * 值对象转数据库对象
-     * @param vo 值对象
-     * @param <VO> 值对象泛型
-     * @return 数据库对象
-     */
-    protected <VO> P voToPo(VO vo) {
+    public <VO> P voToPo(VO vo) {
         if (vo == null) {
             return null;
         }
@@ -38,26 +32,13 @@ public abstract class EntityServiceImpl<P, V, ID> implements EntityService<V, ID
         return po;
     }
 
-    /**
-     * 值对象列表转数据库对象列表
-     * @param vos 值对象列表
-     * @param <VO> 值对象泛型
-     * @return 数据库对象列表
-     */
-    protected <VO> List<P> vosToPos(List<VO> vos) {
+    public <VO> List<P> vosToPos(List<VO> vos) {
         List<P> pos = new ArrayList<>();
         vos.forEach(vo -> pos.add(voToPo(vo)));
         return pos;
     }
 
-    /**
-     * 数据库对象转值对象
-     * @param po 数据库对象
-     * @param voClass 值对象Class
-     * @param <VO> 值对象泛型
-     * @return 值对象
-     */
-    protected <VO> VO poToVo(P po, Class<VO> voClass)  {
+    public <VO> VO poToVo(P po, Class<VO> voClass)  {
         if (po == null) {
             return null;
         }
@@ -71,34 +52,17 @@ public abstract class EntityServiceImpl<P, V, ID> implements EntityService<V, ID
         return vo;
     }
 
-    /**
-     * 数据库对象转缺省的值对象
-     * @param po 数据库对象
-     * @return 缺省的值对象
-     */
-    protected V poToVo(P po) {
+    public V poToVo(P po) {
         return poToVo(po, getVClass());
     }
 
-    /**
-     * 数据库对象列表转值对象列表
-     * @param pos 数据库对象列表
-     * @param voClass 值对象Class
-     * @param <VO> 值对象泛型
-     * @return 值对象列表
-     */
-    protected <VO> List<VO> posToVos(List<P> pos, Class<VO> voClass) {
+    public <VO> List<VO> posToVos(List<P> pos, Class<VO> voClass) {
         List<VO> vos = new ArrayList<>();
         pos.forEach(po -> vos.add(poToVo(po, voClass)));
         return vos;
     }
 
-    /**
-     * 数据库对象列表转缺省的值对象列表
-     * @param pos 数据库对象列表
-     * @return 缺省的值对象列表
-     */
-    protected List<V> posToVos(List<P> pos) {
+    public List<V> posToVos(List<P> pos) {
         return posToVos(pos, getVClass());
     }
 

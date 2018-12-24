@@ -1,4 +1,4 @@
-package cn.showurs.blog.user.constant;
+package cn.showurs.blog.user.common.constant.code;
 
 /**
  * Created by CJ on 2018/12/8 23:27.

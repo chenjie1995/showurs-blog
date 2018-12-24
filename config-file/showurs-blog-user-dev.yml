@@ -20,7 +20,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   cache:
     redis:
-      cache-null-values: true #是否允许缓存空值
+      cache-null-values: false #是否允许缓存空值
       use-key-prefix: true #写入redis前是否使用密钥前缀
       time-to-live: 1h #进入到期。默认情况下，这些条目永不到期
       #key-prefix: blog-user- #键前缀
