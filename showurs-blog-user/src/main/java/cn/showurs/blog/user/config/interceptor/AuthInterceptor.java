@@ -2,7 +2,7 @@ package cn.showurs.blog.user.config.interceptor;
 
 import cn.showurs.blog.user.common.annotation.Auth;
 import cn.showurs.blog.user.common.constant.JwtInfo;
-import cn.showurs.blog.user.common.constant.RequestAuth;
+import cn.showurs.blog.user.common.constant.RequestInfo;
 import cn.showurs.blog.user.common.exception.UnauthorizedException;
 import cn.showurs.blog.user.vo.UserJwtSubject;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,7 +31,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             boolean hasAuth = ((HandlerMethod) handler).hasMethodAnnotation(Auth.class);
 
             if (hasAuth) {
-                String token = request.getHeader(RequestAuth.HTTP_HEADER_TOKEN_NAME);
+                String token = request.getHeader(RequestInfo.HEADER_TOKEN_NAME);
 
                 if (StringUtils.isEmpty(token)) {
                     throw new UnauthorizedException("无Token");
@@ -49,7 +49,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                     throw new UnauthorizedException("Token验证失败");
                 }
 
-                request.setAttribute(RequestAuth.REQUEST_USER_INFO, userJwtSubject);
+                request.setAttribute(RequestInfo.ATTRIBUTE_USER_INFO_NAME, userJwtSubject);
             }
         }
 

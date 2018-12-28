@@ -7,8 +7,10 @@ import cn.showurs.blog.user.common.util.ResultGenerator;
 import cn.showurs.blog.user.vo.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +39,38 @@ public class GlobalExceptionHandler {
         exception.printStackTrace();
         response.setStatus(ResultCode.ERROR.getCode());
         return ResultGenerator.genFailResult(ResultCode.ERROR.getCode(), ResultCode.ERROR.getDescription());
+    }
+
+    /**
+     * 方法参数类型不匹配异常
+     * @param request 请求
+     * @param response 响应
+     * @param exception 异常
+     * @return 异常信息
+     */
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public Result MethodArgumentTypeMismatchExceptionHandler(HttpServletRequest request,
+                                                             HttpServletResponse response,
+                                                             MethodArgumentTypeMismatchException exception) {
+        response.setStatus(ResultCode.UNSUPPORTED_MEDIA_TYPE.getCode());
+        logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
+        return ResultGenerator.genFailResult(ResultCode.UNSUPPORTED_MEDIA_TYPE.getCode(), "方法参数类型不匹配");
+    }
+
+    /**
+     * 请求体格式错误异常
+     * @param request 请求
+     * @param response 响应
+     * @param exception 异常
+     * @return 异常信息
+     */
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public Result httpMessageNotReadableExceptionHandler(HttpServletRequest request,
+                                                         HttpServletResponse response,
+                                                         HttpMessageNotReadableException exception) {
+        logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
+        response.setStatus(ResultCode.UNSUPPORTED_MEDIA_TYPE.getCode());
+        return ResultGenerator.genFailResult(ResultCode.UNSUPPORTED_MEDIA_TYPE.getCode(), "请求的JSON格式错误");
     }
 
     /**
@@ -70,4 +104,5 @@ public class GlobalExceptionHandler {
         response.setStatus(exception.getCode());
         return ResultGenerator.genFailResult(exception.getCode(), exception.getMessage());
     }
+
 }

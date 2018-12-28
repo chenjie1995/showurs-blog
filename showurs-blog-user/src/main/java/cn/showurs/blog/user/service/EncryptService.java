@@ -16,6 +16,12 @@ public interface EncryptService {
     String encryptPassword(String password, String salt);
 
     /**
+     * 生成简单随机字符串token
+     * @return token
+     */
+    String generateToken();
+
+    /**
      * 生成JWT字符串token
      * @param userJwtSubject 存储的用户信息
      * @return token

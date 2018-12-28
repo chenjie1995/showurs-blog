@@ -12,6 +12,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by CJ on 2018/12/24 9:47.
@@ -22,6 +23,11 @@ public class EncryptServiceImpl implements EncryptService {
     public String encryptPassword(String password, String salt) {
         String temp = Encrypt.sha256(password + salt);
         return Encrypt.sha256(temp + salt);
+    }
+
+    @Override
+    public String generateToken() {
+        return Encrypt.sha256(UUID.randomUUID().toString() + System.currentTimeMillis());
     }
 
     @Override

@@ -7,6 +7,7 @@ public enum ResultCode {
     SUCCESS(200, "成功"),
     FAIL(400, "失败"),
     UNAUTHORIZED(401, "未授权"),
+    UNSUPPORTED_MEDIA_TYPE(415, "请求格式错误"),
     ERROR(500, "服务器错误");
 
     private int code;

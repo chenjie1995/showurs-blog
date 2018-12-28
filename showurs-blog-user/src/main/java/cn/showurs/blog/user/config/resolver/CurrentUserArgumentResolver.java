@@ -1,7 +1,7 @@
 package cn.showurs.blog.user.config.resolver;
 
 import cn.showurs.blog.user.common.annotation.CurrentUser;
-import cn.showurs.blog.user.common.constant.RequestAuth;
+import cn.showurs.blog.user.common.constant.RequestInfo;
 import cn.showurs.blog.user.common.exception.BusinessException;
 import cn.showurs.blog.user.common.exception.UnauthorizedException;
 import cn.showurs.blog.user.service.UserService;
@@ -37,7 +37,7 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
             throw new BusinessException("request为空");
         }
 
-        UserJwtSubject userJwtSubject = (UserJwtSubject) request.getAttribute(RequestAuth.REQUEST_USER_INFO);
+        UserJwtSubject userJwtSubject = (UserJwtSubject) request.getAttribute(RequestInfo.ATTRIBUTE_USER_INFO_NAME);
 
         if (userJwtSubject == null) {
             throw new UnauthorizedException("无Token");

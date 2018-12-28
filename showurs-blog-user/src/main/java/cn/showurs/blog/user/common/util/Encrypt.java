@@ -11,11 +11,11 @@ public class Encrypt {
     private static final String SHA_512 = "SHA-512";
 
     public static String sha256(final String text) {
-        return encryptText(SHA_256, text);
+        return encryptText(text, SHA_256);
     }
 
     public static String sha512(final String text) {
-        return encryptText(SHA_512, text);
+        return encryptText(text, SHA_512);
     }
 
     private static String encryptText(final String text, final String type) {

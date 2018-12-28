@@ -1,6 +1,7 @@
 package cn.showurs.blog.user.service;
 
 import cn.showurs.blog.user.entity.UserEntity;
+import cn.showurs.blog.user.vo.CaptchaImage;
 import cn.showurs.blog.user.vo.User;
 import cn.showurs.blog.user.vo.UserRegister;
 
@@ -10,4 +11,5 @@ import cn.showurs.blog.user.vo.UserRegister;
 public interface UserService extends EntityService<UserEntity, User, Long> {
     User findById(Long id);
     User register(UserRegister userRegister);
+    CaptchaImage getCaptchaImage(Integer width, Integer height);
 }
