@@ -8,6 +8,7 @@ import cn.showurs.blog.user.vo.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -52,8 +53,8 @@ public class GlobalExceptionHandler {
     public Result MethodArgumentTypeMismatchExceptionHandler(HttpServletRequest request,
                                                              HttpServletResponse response,
                                                              MethodArgumentTypeMismatchException exception) {
-        response.setStatus(ResultCode.UNSUPPORTED_MEDIA_TYPE.getCode());
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
+        response.setStatus(ResultCode.UNSUPPORTED_MEDIA_TYPE.getCode());
         return ResultGenerator.genFailResult(ResultCode.UNSUPPORTED_MEDIA_TYPE.getCode(), "方法参数类型不匹配");
     }
 
@@ -71,6 +72,23 @@ public class GlobalExceptionHandler {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
         response.setStatus(ResultCode.UNSUPPORTED_MEDIA_TYPE.getCode());
         return ResultGenerator.genFailResult(ResultCode.UNSUPPORTED_MEDIA_TYPE.getCode(), "请求的JSON格式错误");
+    }
+
+    /**
+     * 请求参数校验失败异常
+     * @param request 请求
+     * @param response 响应
+     * @param exception 异常
+     * @return 异常信息
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Result MethodArgumentNotValidExceptionHandler(HttpServletRequest request,
+                                                         HttpServletResponse response,
+                                                         MethodArgumentNotValidException exception) {
+        logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
+        String message = exception.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
+        response.setStatus(ResultCode.UNPROCESSABLE_ENTITY.getCode());
+        return ResultGenerator.genFailResult(ResultCode.UNPROCESSABLE_ENTITY.getCode(), message);
     }
 
     /**
