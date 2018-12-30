@@ -1,6 +1,8 @@
 package cn.showurs.blog.user.controller;
 
+import cn.showurs.blog.user.common.constant.RequestInfo;
 import cn.showurs.blog.user.common.constant.ResponseInfo;
+import cn.showurs.blog.user.common.exception.BusinessException;
 import cn.showurs.blog.user.common.util.ResultGenerator;
 import cn.showurs.blog.user.service.UserService;
 import cn.showurs.blog.user.vo.CaptchaImage;
@@ -10,6 +12,7 @@ import cn.showurs.blog.user.vo.UserRegister;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,8 +36,14 @@ public class UserController {
 
     @ApiOperation("注册用户")
     @PostMapping(value = "register", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Result<User> register(@Validated @RequestBody UserRegister userRegister) {
-        return ResultGenerator.genSuccessResult(userService.register(userRegister));
+    public Result<User> register(@Validated @RequestBody UserRegister userRegister,
+                                 @RequestHeader(RequestInfo.HEADER_CAPTCHA_KEY_NAME) String key) {
+
+        if (StringUtils.isEmpty(key)) {
+            throw new BusinessException("验证码KEY值不能为空");
+        }
+
+        return ResultGenerator.genSuccessResult(userService.register(key, userRegister));
     }
 
     @ApiOperation("获取验证码图片")

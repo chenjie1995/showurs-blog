@@ -1,3 +1,13 @@
+spring:
+  application:
+    name: showurs-blog-eureka
+  profiles:
+    active: dev
+
+---
+spring:
+  profiles: dev
+
 server:
   port: 9000
 
@@ -10,6 +20,18 @@ eureka:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
 
+---
 spring:
-  application:
-    name: showurs-blog-eureka
+  profiles: prod
+
+server:
+  port: 9000
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/

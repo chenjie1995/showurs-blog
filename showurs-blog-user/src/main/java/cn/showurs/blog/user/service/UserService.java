@@ -10,6 +10,6 @@ import cn.showurs.blog.user.vo.UserRegister;
  */
 public interface UserService extends EntityService<UserEntity, User, Long> {
     User findById(Long id);
-    User register(UserRegister userRegister);
+    User register(String key, UserRegister userRegister);
     CaptchaImage getCaptchaImage(Integer width, Integer height);
 }

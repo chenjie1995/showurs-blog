@@ -1,11 +1,12 @@
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:9000/eureka/
-
 spring:
   application:
     name: showurs-blog-user
+  profiles:
+    active: dev
+
+---
+spring:
+  profiles: dev
   cloud:
     config:
       name: showurs-blog-user
@@ -14,3 +15,25 @@ spring:
         enabled: true
         service-id: showurs-blog-config
       label: master
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka/
+
+---
+spring:
+  profiles: prod
+  cloud:
+    config:
+      name: showurs-blog-user
+      profile: prod
+      discovery:
+        enabled: true
+        service-id: showurs-blog-config
+      label: master
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka/
