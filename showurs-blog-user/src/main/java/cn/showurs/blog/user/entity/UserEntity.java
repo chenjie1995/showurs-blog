@@ -1,6 +1,7 @@
 package cn.showurs.blog.user.entity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -33,7 +34,7 @@ public class UserEntity {
     private Integer sex;
 
     @Column
-    private Date birthday;
+    private LocalDateTime birthday;
 
     @Column(length = 512)
     private String signature;
@@ -42,10 +43,10 @@ public class UserEntity {
     private String backgroundImage;
 
     @Column(nullable = false)
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @Column
-    private Date lastLoginTime;
+    private LocalDateTime lastLoginTime;
 
     @Column(nullable = false)
     private Integer status;
@@ -109,11 +110,11 @@ public class UserEntity {
         this.sex = sex;
     }
 
-    public Date getBirthday() {
+    public LocalDateTime getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDateTime birthday) {
         this.birthday = birthday;
     }
 
@@ -133,19 +134,19 @@ public class UserEntity {
         this.backgroundImage = backgroundImage;
     }
 
-    public Date getCreateTime() {
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 
-    public Date getLastLoginTime() {
+    public LocalDateTime getLastLoginTime() {
         return lastLoginTime;
     }
 
-    public void setLastLoginTime(Date lastLoginTime) {
+    public void setLastLoginTime(LocalDateTime lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
 

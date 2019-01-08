@@ -10,8 +10,9 @@ import java.util.List;
 
 /**
  * Created by CJ on 2018/12/7 23:48.
- * @param <P> 数据库持久化PO
- * @param <V> 缺省返回的VO
+ *
+ * @param <P>  数据库持久化PO
+ * @param <V>  缺省返回的VO
  * @param <ID> 主键字段
  */
 public abstract class EntityServiceImpl<P, V, ID> implements EntityService<P, V, ID> {
@@ -38,7 +39,7 @@ public abstract class EntityServiceImpl<P, V, ID> implements EntityService<P, V,
         return pos;
     }
 
-    public <VO> VO poToVo(P po, Class<VO> voClass)  {
+    public <VO> VO poToVo(P po, Class<VO> voClass) {
         if (po == null) {
             return null;
         }
@@ -68,6 +69,7 @@ public abstract class EntityServiceImpl<P, V, ID> implements EntityService<P, V,
 
     /**
      * 获取P的类型
+     *
      * @return Class
      */
     @SuppressWarnings("unchecked")
@@ -77,6 +79,7 @@ public abstract class EntityServiceImpl<P, V, ID> implements EntityService<P, V,
 
     /**
      * 获取V的类型
+     *
      * @return Class
      */
     @SuppressWarnings("unchecked")
@@ -86,6 +89,7 @@ public abstract class EntityServiceImpl<P, V, ID> implements EntityService<P, V,
 
     /**
      * 获取其子类赋予的泛型类型
+     *
      * @param i 下标
      * @return Class
      */
@@ -93,6 +97,6 @@ public abstract class EntityServiceImpl<P, V, ID> implements EntityService<P, V,
         Type superclass = getClass().getGenericSuperclass();
         ParameterizedType parameterizedType = (ParameterizedType) superclass;
         Type[] params = parameterizedType.getActualTypeArguments();
-        return (Class)params[i];
+        return (Class) params[i];
     }
 }

@@ -3,13 +3,16 @@ package cn.showurs.blog.user.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by CJ on 2018/12/24 16:06.
  */
 @ApiModel(value = "角色")
-public class Role {
+public class Role implements Serializable {
+
+    private static final long serialVersionUID = -8203438106834973549L;
 
     @ApiModelProperty("ID")
     private Long id;

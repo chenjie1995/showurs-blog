@@ -3,11 +3,15 @@ package cn.showurs.blog.user.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+
 /**
  * Created by CJ on 2018/11/30 22:44.
  */
 @ApiModel(value = "结果")
-public class Result<T> {
+public class Result<T> implements Serializable {
+    private static final long serialVersionUID = -7263005976774998331L;
+
     @ApiModelProperty("编码")
     private Integer code;
 

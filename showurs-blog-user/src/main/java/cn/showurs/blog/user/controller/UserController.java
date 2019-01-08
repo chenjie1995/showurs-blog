@@ -10,6 +10,7 @@ import cn.showurs.blog.user.vo.Result;
 import cn.showurs.blog.user.vo.User;
 import cn.showurs.blog.user.vo.UserRegister;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
@@ -34,6 +35,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @ApiImplicitParam(value = "验证码KEY", paramType = "header", required = true, name = RequestInfo.HEADER_CAPTCHA_KEY_NAME, dataType = "String")
     @ApiOperation("注册用户")
     @PostMapping(value = "register", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Result<User> register(@Validated @RequestBody UserRegister userRegister,
@@ -49,8 +51,8 @@ public class UserController {
     @ApiOperation("获取验证码图片")
     @GetMapping(value = "captcha-image")
     public void getCaptchaImage(@RequestParam(defaultValue = "120") Integer width,
-                               @RequestParam(defaultValue = "36") Integer height,
-                               HttpServletResponse response) {
+                                @RequestParam(defaultValue = "36") Integer height,
+                                HttpServletResponse response) {
 
         try {
             CaptchaImage captchaImage = this.userService.getCaptchaImage(width, height);
@@ -67,5 +69,11 @@ public class UserController {
             e.printStackTrace();
         }
 
+    }
+
+    @ApiOperation("根据用户ID获取用户信息")
+    @GetMapping(value = "{id}")
+    public Result<User> getById(@PathVariable Long id) {
+        return ResultGenerator.genSuccessResult(userService.findById(id));
     }
 }

@@ -27,8 +27,9 @@ public class GlobalExceptionHandler {
 
     /**
      * 缺省异常处理
-     * @param request 请求
-     * @param response 响应
+     *
+     * @param request   请求
+     * @param response  响应
      * @param exception 异常
      * @return 异常信息
      */
@@ -44,8 +45,9 @@ public class GlobalExceptionHandler {
 
     /**
      * 方法参数类型不匹配异常
-     * @param request 请求
-     * @param response 响应
+     *
+     * @param request   请求
+     * @param response  响应
      * @param exception 异常
      * @return 异常信息
      */
@@ -60,8 +62,9 @@ public class GlobalExceptionHandler {
 
     /**
      * 请求体格式错误异常
-     * @param request 请求
-     * @param response 响应
+     *
+     * @param request   请求
+     * @param response  响应
      * @param exception 异常
      * @return 异常信息
      */
@@ -76,8 +79,9 @@ public class GlobalExceptionHandler {
 
     /**
      * 请求参数校验失败异常
-     * @param request 请求
-     * @param response 响应
+     *
+     * @param request   请求
+     * @param response  响应
      * @param exception 异常
      * @return 异常信息
      */
@@ -93,8 +97,9 @@ public class GlobalExceptionHandler {
 
     /**
      * 业务异常处理
-     * @param request 请求
-     * @param response 响应
+     *
+     * @param request   请求
+     * @param response  响应
      * @param exception 异常
      * @return 异常信息
      */
@@ -109,8 +114,9 @@ public class GlobalExceptionHandler {
 
     /**
      * 未授权异常处理
-     * @param request 请求
-     * @param response 响应
+     *
+     * @param request   请求
+     * @param response  响应
      * @param exception 异常
      * @return 异常信息
      */

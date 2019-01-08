@@ -25,9 +25,11 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -37,17 +39,18 @@ import java.util.stream.Collectors;
 public class UserServiceImpl extends EntityServiceImpl<UserEntity, User, Long> implements UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     private static final int CAPTCHA_LENGTH = 4;
+    private static final int CAPTCHA_EXPIRED_SECOND = 60 * 30;
 
     private UserRepository userRepository;
     private RoleService roleService;
     private EncryptService encryptService;
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, Serializable> redisTemplate;
     private RoleRepository roleRepository;
 
     public UserServiceImpl(UserRepository userRepository,
                            RoleService roleService,
                            EncryptService encryptService,
-                           RedisTemplate<String, Object> redisTemplate,
+                           RedisTemplate<String, Serializable> redisTemplate,
                            RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleService = roleService;
@@ -57,7 +60,7 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User, Long> i
     }
 
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
-    @Cacheable(value = "blogUser:users", key = "#id", unless = "#result == null")
+    @Cacheable(value = "blogUser:user", key = "#id", unless = "#result == null")
     @Override
     public User findById(Long id) {
         return userRepository.findById(id).map(this::poToVo).orElse(null);
@@ -71,7 +74,7 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User, Long> i
             throw new BusinessException("验证码已过期");
         }
 
-        if (!captcha.equals(userRegister.getCaptcha())) {
+        if (!captcha.equalsIgnoreCase(userRegister.getCaptcha())) {
             throw new BusinessException("验证码错误");
         }
 
@@ -83,13 +86,17 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User, Long> i
             throw new BusinessException("邮箱（" + userRegister.getEmail() + "）已被使用");
         }
 
+        redisTemplate.delete(RedisKey.CAPTCHA_KEY + key);
+
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(userRegister.getUsername());
         userEntity.setEmail(userRegister.getEmail());
         userEntity.setPassword(encryptService.encryptPassword(userRegister.getPassword(), userRegister.getUsername()));
-        userEntity.setCreateTime(new Date());
+        userEntity.setCreateTime(LocalDateTime.now());
         userEntity.setStatus(UserStatus.NOT_EMAIL.getCode());
-        userEntity = userRepository.save(userEntity);
+        userRepository.save(userEntity);
+
+        logger.info("用户保存ID：{}", userEntity.getId());
 
         RoleEntity roleEntity = roleRepository.findByName("user");
         if (roleEntity == null) {
@@ -97,8 +104,8 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User, Long> i
         }
 
 
-
-        return poToVo(userRepository.save(userEntity));
+        return null;
+//        return poToVo(userRepository.save(userEntity));
     }
 
     @Transactional
@@ -112,7 +119,7 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User, Long> i
         captchaImage.setImage(Captcha.createCaptchaImage(captcha, width, height));
         captchaImage.setKey(key);
 
-        redisTemplate.opsForValue().set(RedisKey.CAPTCHA_KEY + key, captcha);
+        redisTemplate.opsForValue().set(RedisKey.CAPTCHA_KEY + key, captcha, CAPTCHA_EXPIRED_SECOND, TimeUnit.SECONDS);
 
         return captchaImage;
     }

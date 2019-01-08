@@ -3,6 +3,8 @@ package cn.showurs.blog.user.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +12,10 @@ import java.util.List;
  * Created by CJ on 2018/12/7 23:47.
  */
 @ApiModel(value = "用户")
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = -647425811894360299L;
+
     @ApiModelProperty("ID")
     private Long id;
 
@@ -33,7 +38,7 @@ public class User {
     private Integer sex;
 
     @ApiModelProperty("生日")
-    private Date birthday;
+    private LocalDateTime birthday;
 
     @ApiModelProperty("签名")
     private String signature;
@@ -42,10 +47,10 @@ public class User {
     private String backgroundImage;
 
     @ApiModelProperty("创建时间")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @ApiModelProperty("上一次登录时间")
-    private Date lastLoginTime;
+    private LocalDateTime lastLoginTime;
 
     @ApiModelProperty("状态")
     private Integer status;
@@ -109,11 +114,11 @@ public class User {
         this.sex = sex;
     }
 
-    public Date getBirthday() {
+    public LocalDateTime getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDateTime birthday) {
         this.birthday = birthday;
     }
 
@@ -133,19 +138,19 @@ public class User {
         this.backgroundImage = backgroundImage;
     }
 
-    public Date getCreateTime() {
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 
-    public Date getLastLoginTime() {
+    public LocalDateTime getLastLoginTime() {
         return lastLoginTime;
     }
 
-    public void setLastLoginTime(Date lastLoginTime) {
+    public void setLastLoginTime(LocalDateTime lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
 
