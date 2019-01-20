@@ -1,14 +1,13 @@
 package cn.showurs.blog.user.controller;
 
+import cn.showurs.blog.user.common.annotation.Auth;
+import cn.showurs.blog.user.common.annotation.CurrentUser;
 import cn.showurs.blog.user.common.constant.RequestInfo;
 import cn.showurs.blog.user.common.constant.ResponseInfo;
 import cn.showurs.blog.user.common.exception.BusinessException;
 import cn.showurs.blog.user.common.util.ResultGenerator;
 import cn.showurs.blog.user.service.UserService;
-import cn.showurs.blog.user.vo.CaptchaImage;
-import cn.showurs.blog.user.vo.Result;
-import cn.showurs.blog.user.vo.User;
-import cn.showurs.blog.user.vo.UserRegister;
+import cn.showurs.blog.user.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -16,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
@@ -71,9 +71,25 @@ public class UserController {
 
     }
 
+    @ApiOperation("登录")
+    @PostMapping("login")
+    public Result<UserToken> login(@Validated @RequestBody UserLogin userLogin) {
+        return ResultGenerator.genSuccessResult(userService.login(userLogin.getUsername(), userLogin.getPassword()));
+    }
+
+    @Auth
+    @ApiImplicitParam(value = "用户Token", paramType = "header", required = true, name = RequestInfo.HEADER_TOKEN_NAME, dataType = "String")
     @ApiOperation("根据用户ID获取用户信息")
     @GetMapping(value = "{id}")
     public Result<User> getById(@PathVariable Long id) {
         return ResultGenerator.genSuccessResult(userService.findById(id));
+    }
+
+    @Auth
+    @ApiImplicitParam(value = "用户Token", paramType = "header", required = true, name = RequestInfo.HEADER_TOKEN_NAME, dataType = "String")
+    @ApiOperation("获取当前用户信息")
+    @GetMapping(value = "me")
+    public Result<User> me(@ApiIgnore @CurrentUser User user) {
+        return ResultGenerator.genSuccessResult(user);
     }
 }

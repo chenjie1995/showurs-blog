@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ public class Role implements Serializable {
     private String description;
 
     @ApiModelProperty("拥有的权限")
-    private List<Power> powers;
+    private List<Power> powers = new ArrayList<>();
 
     public Long getId() {
         return id;

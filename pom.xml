@@ -57,6 +57,7 @@
     <modules>
         <module>showurs-blog-eureka</module>
         <module>showurs-blog-config</module>
+        <module>showurs-blog-gateway</module>
         <module>showurs-blog-user</module>
     </modules>
 

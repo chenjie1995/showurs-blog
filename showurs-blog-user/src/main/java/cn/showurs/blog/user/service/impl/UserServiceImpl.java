@@ -1,6 +1,7 @@
 package cn.showurs.blog.user.service.impl;
 
 import cn.showurs.blog.user.common.constant.RedisKey;
+import cn.showurs.blog.user.common.constant.RoleInfo;
 import cn.showurs.blog.user.common.constant.code.UserStatus;
 import cn.showurs.blog.user.common.exception.BusinessException;
 import cn.showurs.blog.user.common.util.Captcha;
@@ -12,10 +13,7 @@ import cn.showurs.blog.user.repository.UserRepository;
 import cn.showurs.blog.user.service.EncryptService;
 import cn.showurs.blog.user.service.RoleService;
 import cn.showurs.blog.user.service.UserService;
-import cn.showurs.blog.user.vo.CaptchaImage;
-import cn.showurs.blog.user.vo.Role;
-import cn.showurs.blog.user.vo.User;
-import cn.showurs.blog.user.vo.UserRegister;
+import cn.showurs.blog.user.vo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
@@ -88,24 +86,27 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User, Long> i
 
         redisTemplate.delete(RedisKey.CAPTCHA_KEY + key);
 
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUsername(userRegister.getUsername());
-        userEntity.setEmail(userRegister.getEmail());
+        UserEntity userEntity = voToPo(userRegister);
         userEntity.setPassword(encryptService.encryptPassword(userRegister.getPassword(), userRegister.getUsername()));
+        userEntity.setNickname(userRegister.getUsername());
         userEntity.setCreateTime(LocalDateTime.now());
         userEntity.setStatus(UserStatus.NOT_EMAIL.getCode());
         userRepository.save(userEntity);
 
         logger.info("用户保存ID：{}", userEntity.getId());
 
-        RoleEntity roleEntity = roleRepository.findByName("user");
+        RoleEntity roleEntity = roleRepository.findByName(RoleInfo.ROLE_DEFAULT_BLOGGER_NAME);
         if (roleEntity == null) {
             throw new BusinessException("角色信息缺失，请联系管理员");
         }
 
+        UserRoleEntity userRoleEntity = new UserRoleEntity();
+        userRoleEntity.setUser(userEntity);
+        userRoleEntity.setRole(roleEntity);
 
-        return null;
-//        return poToVo(userRepository.save(userEntity));
+        userEntity.getUserRoles().add(userRoleEntity);
+
+        return poToVo(userRepository.save(userEntity));
     }
 
     @Transactional
@@ -124,6 +125,30 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User, Long> i
         return captchaImage;
     }
 
+    @Transactional
+    @Override
+    public UserToken login(String username, String password) {
+        UserEntity userEntity = userRepository.findByUsername(username);
+
+        if (userEntity == null) {
+            throw new BusinessException("用户不存在");
+        }
+
+        if (!userEntity.getPassword().equals(encryptService.encryptPassword(password, username))) {
+            throw new BusinessException("密码错误");
+        }
+
+        UserJwtSubject userJwtSubject = new UserJwtSubject();
+        userJwtSubject.setUserId(userEntity.getId());
+
+        String token = encryptService.generateToken(userJwtSubject);
+
+        UserToken userToken = new UserToken();
+        userToken.setToken(token);
+
+        return userToken;
+    }
+
     @Override
     public User poToVo(UserEntity po) {
         if (po == null) {
@@ -131,10 +156,12 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User, Long> i
         }
 
         User user = super.poToVo(po);
+
         List<Role> roles = roleService.posToVos(po.getUserRoles().stream().map(UserRoleEntity::getRole).collect(Collectors.toList()));
 
         user.setRoles(roles);
 
-        return super.poToVo(po);
+        return user;
     }
+
 }

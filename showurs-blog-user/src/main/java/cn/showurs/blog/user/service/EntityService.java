@@ -10,6 +10,7 @@ import java.util.List;
  * @param <ID> 主键字段
  */
 public interface EntityService<P, V, ID> {
+
     /**
      * 值对象转数据库对象
      *

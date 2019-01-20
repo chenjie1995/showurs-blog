@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class User implements Serializable {
     private Integer status;
 
     @ApiModelProperty("拥有的角色")
-    private List<Role> roles;
+    private List<Role> roles = new ArrayList<>();
 
     public Long getId() {
         return id;

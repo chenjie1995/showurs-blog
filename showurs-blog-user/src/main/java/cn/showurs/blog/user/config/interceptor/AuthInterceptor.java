@@ -8,7 +8,9 @@ import cn.showurs.blog.user.vo.UserJwtSubject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.messaging.handler.HandlerMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,6 +21,9 @@ import javax.servlet.http.HttpServletResponse;
  * Created by CJ on 2018/12/24 11:30.
  */
 public class AuthInterceptor implements HandlerInterceptor {
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthInterceptor.class);
+
     /**
      * preHandle方法是进行处理器拦截用的，顾名思义，该方法将在Controller处理之前进行调用，SpringMVC中的Interceptor拦截器是链式的，可以同时存在
      * 多个Interceptor，然后SpringMVC会根据声明的前后顺序一个接一个的执行，而且所有的Interceptor中的preHandle方法都会在
@@ -27,6 +32,7 @@ public class AuthInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
         if (handler.getClass().isAssignableFrom(HandlerMethod.class)) {
             boolean hasAuth = ((HandlerMethod) handler).hasMethodAnnotation(Auth.class);
 
@@ -34,6 +40,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                 String token = request.getHeader(RequestInfo.HEADER_TOKEN_NAME);
 
                 if (StringUtils.isEmpty(token)) {
+                    logger.info("拦截器");
                     throw new UnauthorizedException("无Token");
                 }
 
@@ -44,16 +51,27 @@ public class AuthInterceptor implements HandlerInterceptor {
                             .parseClaimsJws(token)
                             .getBody()
                             .getSubject(); //Will throw `SignatureException` if signature validation fails.
+
+                    logger.info("UserJwtSubject:{}", subject);
+
                     userJwtSubject = new ObjectMapper().readValue(subject, UserJwtSubject.class);
                 } catch (Exception e) {
                     throw new UnauthorizedException("Token验证失败");
                 }
 
                 request.setAttribute(RequestInfo.ATTRIBUTE_USER_INFO_NAME, userJwtSubject);
+                return true;
+
+            } else {
+                logger.info("没有Auth注解");
+                return true;
             }
+
+        } else {
+            logger.info("没有进入HandlerMethod判断");
+            return true;
         }
 
-        return true;
     }
 
     /**
