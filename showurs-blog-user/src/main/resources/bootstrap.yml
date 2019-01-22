@@ -9,7 +9,6 @@ spring:
   profiles: dev
   cloud:
     config:
-      name: showurs-blog-user
       profile: dev
       discovery:
         enabled: true
@@ -26,7 +25,6 @@ spring:
   profiles: prod
   cloud:
     config:
-      name: showurs-blog-user
       profile: prod
       discovery:
         enabled: true
