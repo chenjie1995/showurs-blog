@@ -27,7 +27,7 @@ import java.io.OutputStream;
  */
 @Api(value = "用户", description = "用户相关接口😉")
 @RestController
-@RequestMapping(value = "user/users", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "users", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UserController {
     private UserService userService;
 

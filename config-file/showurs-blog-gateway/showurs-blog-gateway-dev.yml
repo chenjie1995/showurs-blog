@@ -8,10 +8,12 @@ spring:
     port: 5672
     username: guest
     password: guest
-#  cloud:
-#    gateway:
-#      routes:
-#        - id: showurs-blog-user
-#          uri: lb://showurs-blog-user
-#          predicates:
-#            - Path=/user
+  cloud:
+    gateway:
+      routes:
+      - id: showurs-blog-user
+        uri: lb://showurs-blog-user
+        predicates:
+        - Path=/user/**
+        filters:
+        - StripPrefix=1
