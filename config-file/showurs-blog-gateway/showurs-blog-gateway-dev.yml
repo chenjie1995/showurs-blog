@@ -14,6 +14,6 @@ spring:
         - id: showurs-blog-user
           uri: lb://showurs-blog-user
           predicates:
-            - Path=/user
+            - Path=/user/**
           filters:
             - StripPrefix=1
