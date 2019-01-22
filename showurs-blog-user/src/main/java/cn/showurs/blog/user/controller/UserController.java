@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @ApiImplicitParam(value = "验证码KEY", paramType = "header", required = true, name = RequestInfo.HEADER_CAPTCHA_KEY_NAME, dataType = "String")
-    @ApiOperation("注册用户")
+    @ApiOperation("注册")
     @PostMapping(value = "register", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Result<User> register(@Validated @RequestBody UserRegister userRegister,
                                  @RequestHeader(RequestInfo.HEADER_CAPTCHA_KEY_NAME) String key) {

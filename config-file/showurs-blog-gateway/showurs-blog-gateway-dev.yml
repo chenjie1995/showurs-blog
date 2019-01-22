@@ -3,16 +3,17 @@ server:
 
 spring:
   profiles: dev
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   cloud:
     gateway:
       routes:
-        - id: test
-          uri: http://imccp-management-webui.imccp
+        - id: showurs-blog-user
+          uri: lb://showurs-blog-user
           predicates:
-            - Path=/test
+            - Path=/user
           filters:
             - StripPrefix=1
-        - id: testStatic
-          uri: http://imccp-management-webui.imccp
-          predicates:
-            - Path=/static/**
