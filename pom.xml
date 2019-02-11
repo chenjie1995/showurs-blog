@@ -59,6 +59,7 @@
         <module>showurs-blog-config</module>
         <module>showurs-blog-gateway</module>
         <module>showurs-blog-user</module>
+        <module>showurs-blog-article</module>
     </modules>
 
 </project>
