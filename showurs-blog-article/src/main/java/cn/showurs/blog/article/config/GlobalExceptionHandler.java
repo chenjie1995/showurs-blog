@@ -1,4 +1,4 @@
-package cn.showurs.blog.user.config;
+package cn.showurs.blog.article.config;
 
 import cn.showurs.blog.common.constant.code.ResultCode;
 import cn.showurs.blog.common.exception.BusinessException;

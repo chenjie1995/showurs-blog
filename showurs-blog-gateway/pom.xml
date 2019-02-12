@@ -11,12 +11,8 @@
     </parent>
 
     <artifactId>showurs-blog-gateway</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>showurs-blog-gateway</name>
     <description>showurs-blog-gateway</description>
-
-    <properties>
-    </properties>
 
     <dependencies>
         <dependency>

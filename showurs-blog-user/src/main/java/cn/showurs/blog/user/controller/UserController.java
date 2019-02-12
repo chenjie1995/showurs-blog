@@ -1,13 +1,14 @@
 package cn.showurs.blog.user.controller;
 
-import cn.showurs.blog.user.common.annotation.Auth;
-import cn.showurs.blog.user.common.annotation.CurrentUser;
-import cn.showurs.blog.user.common.constant.RequestInfo;
-import cn.showurs.blog.user.common.constant.ResponseInfo;
-import cn.showurs.blog.user.common.exception.BusinessException;
-import cn.showurs.blog.user.common.util.ResultGenerator;
+import cn.showurs.blog.common.annotation.Auth;
+import cn.showurs.blog.common.annotation.CurrentUser;
+import cn.showurs.blog.common.constant.RequestInfo;
+import cn.showurs.blog.common.constant.ResponseInfo;
+import cn.showurs.blog.common.exception.BusinessException;
+import cn.showurs.blog.common.util.ResultGenerator;
+import cn.showurs.blog.common.vo.user.*;
 import cn.showurs.blog.user.service.UserService;
-import cn.showurs.blog.user.vo.*;
+import cn.showurs.blog.common.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

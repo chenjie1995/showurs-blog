@@ -1,6 +1,6 @@
 package cn.showurs.blog.user.service;
 
-import cn.showurs.blog.user.vo.UserJwtSubject;
+import cn.showurs.blog.common.vo.user.UserJwtSubject;
 
 /**
  * Created by CJ on 2018/12/24 9:39.

@@ -1,10 +1,11 @@
 package cn.showurs.blog.user.service.impl;
 
-import cn.showurs.blog.user.common.constant.RedisKey;
-import cn.showurs.blog.user.common.constant.RoleInfo;
-import cn.showurs.blog.user.common.constant.code.UserStatus;
-import cn.showurs.blog.user.common.exception.BusinessException;
-import cn.showurs.blog.user.common.util.Captcha;
+import cn.showurs.blog.common.constant.RedisKey;
+import cn.showurs.blog.common.constant.RoleInfo;
+import cn.showurs.blog.common.constant.code.UserStatus;
+import cn.showurs.blog.common.exception.BusinessException;
+import cn.showurs.blog.common.util.Captcha;
+import cn.showurs.blog.common.vo.user.*;
 import cn.showurs.blog.user.entity.RoleEntity;
 import cn.showurs.blog.user.entity.UserEntity;
 import cn.showurs.blog.user.entity.UserRoleEntity;
@@ -13,7 +14,7 @@ import cn.showurs.blog.user.repository.UserRepository;
 import cn.showurs.blog.user.service.EncryptService;
 import cn.showurs.blog.user.service.RoleService;
 import cn.showurs.blog.user.service.UserService;
-import cn.showurs.blog.user.vo.*;
+import cn.showurs.blog.common.vo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;

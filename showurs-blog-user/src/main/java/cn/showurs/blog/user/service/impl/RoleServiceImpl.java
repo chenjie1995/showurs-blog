@@ -4,8 +4,8 @@ import cn.showurs.blog.user.entity.RoleEntity;
 import cn.showurs.blog.user.entity.RolePowerEntity;
 import cn.showurs.blog.user.service.PowerService;
 import cn.showurs.blog.user.service.RoleService;
-import cn.showurs.blog.user.vo.Power;
-import cn.showurs.blog.user.vo.Role;
+import cn.showurs.blog.common.vo.user.Power;
+import cn.showurs.blog.common.vo.user.Role;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

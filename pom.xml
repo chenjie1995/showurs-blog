@@ -23,6 +23,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <spring-cloud.version>Finchley.SR2</spring-cloud.version>
+        <showurs-blog.version>0.0.1-SNAPSHOT</showurs-blog.version>
         <swagger2.version>2.9.2</swagger2.version>
         <jjwt.version>0.9.1</jjwt.version>
     </properties>
@@ -58,6 +59,7 @@
         <module>showurs-blog-eureka</module>
         <module>showurs-blog-config</module>
         <module>showurs-blog-gateway</module>
+        <module>showurs-blog-common</module>
         <module>showurs-blog-user</module>
         <module>showurs-blog-article</module>
     </modules>

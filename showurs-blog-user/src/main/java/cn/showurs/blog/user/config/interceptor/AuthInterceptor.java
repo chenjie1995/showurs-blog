@@ -1,10 +1,10 @@
 package cn.showurs.blog.user.config.interceptor;
 
-import cn.showurs.blog.user.common.annotation.Auth;
-import cn.showurs.blog.user.common.constant.JwtInfo;
-import cn.showurs.blog.user.common.constant.RequestInfo;
-import cn.showurs.blog.user.common.exception.UnauthorizedException;
-import cn.showurs.blog.user.vo.UserJwtSubject;
+import cn.showurs.blog.common.annotation.Auth;
+import cn.showurs.blog.common.constant.JwtInfo;
+import cn.showurs.blog.common.constant.RequestInfo;
+import cn.showurs.blog.common.exception.UnauthorizedException;
+import cn.showurs.blog.common.vo.user.UserJwtSubject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import org.apache.commons.lang.StringUtils;

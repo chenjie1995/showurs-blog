@@ -2,20 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>cn.showurs.blog</groupId>
         <artifactId>showurs-blog</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <artifactId>showurs-blog-article</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>showurs-blog-article</name>
-    <description>showurs-blog-article</description>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
+    <artifactId>showurs-blog-article</artifactId>
+    <name>showurs-blog-article</name>
+    <description>文章微服务</description>
 
     <dependencies>
         <dependency>
@@ -86,6 +83,12 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>${jjwt.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.showurs.blog</groupId>
+            <artifactId>showurs-blog-common</artifactId>
+            <version>${showurs-blog.version}</version>
         </dependency>
     </dependencies>
 

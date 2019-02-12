@@ -1,10 +1,10 @@
 package cn.showurs.blog.user.service;
 
+import cn.showurs.blog.common.vo.user.CaptchaImage;
+import cn.showurs.blog.common.vo.user.User;
+import cn.showurs.blog.common.vo.user.UserRegister;
+import cn.showurs.blog.common.vo.user.UserToken;
 import cn.showurs.blog.user.entity.UserEntity;
-import cn.showurs.blog.user.vo.CaptchaImage;
-import cn.showurs.blog.user.vo.User;
-import cn.showurs.blog.user.vo.UserRegister;
-import cn.showurs.blog.user.vo.UserToken;
 
 /**
  * Created by CJ on 2018/11/10 23:54.

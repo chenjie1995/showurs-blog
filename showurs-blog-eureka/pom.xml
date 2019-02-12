@@ -3,13 +3,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>showurs-blog-eureka</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
-
-    <name>showurs-blog-eureka</name>
-    <description>服务注册中心</description>
-
     <parent>
         <groupId>cn.showurs.blog</groupId>
         <artifactId>showurs-blog</artifactId>
@@ -17,8 +10,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <properties>
-    </properties>
+    <artifactId>showurs-blog-eureka</artifactId>
+    <name>showurs-blog-eureka</name>
+    <description>服务注册中心</description>
 
     <dependencies>
         <dependency>

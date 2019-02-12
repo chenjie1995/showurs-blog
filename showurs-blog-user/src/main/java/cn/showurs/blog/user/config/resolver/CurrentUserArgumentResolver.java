@@ -1,12 +1,12 @@
 package cn.showurs.blog.user.config.resolver;
 
-import cn.showurs.blog.user.common.annotation.CurrentUser;
-import cn.showurs.blog.user.common.constant.RequestInfo;
-import cn.showurs.blog.user.common.exception.BusinessException;
-import cn.showurs.blog.user.common.exception.UnauthorizedException;
+import cn.showurs.blog.common.annotation.CurrentUser;
+import cn.showurs.blog.common.constant.RequestInfo;
+import cn.showurs.blog.common.exception.BusinessException;
+import cn.showurs.blog.common.exception.UnauthorizedException;
 import cn.showurs.blog.user.service.UserService;
-import cn.showurs.blog.user.vo.User;
-import cn.showurs.blog.user.vo.UserJwtSubject;
+import cn.showurs.blog.common.vo.user.User;
+import cn.showurs.blog.common.vo.user.UserJwtSubject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
