@@ -21,4 +21,27 @@ public class TagEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tag")
     private List<ArticleTagEntity> articleTags = new ArrayList<>();
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<ArticleTagEntity> getArticleTags() {
+        return articleTags;
+    }
+
+    public void setArticleTags(List<ArticleTagEntity> articleTags) {
+        this.articleTags = articleTags;
+    }
 }

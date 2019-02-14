@@ -1,5 +1,6 @@
 package cn.showurs.blog.user.service.impl;
 
+import cn.showurs.blog.common.core.impl.EntityServiceImpl;
 import cn.showurs.blog.user.entity.RoleEntity;
 import cn.showurs.blog.user.entity.RolePowerEntity;
 import cn.showurs.blog.user.service.PowerService;

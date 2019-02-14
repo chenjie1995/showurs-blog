@@ -1,4 +1,4 @@
-package cn.showurs.blog.user.service;
+package cn.showurs.blog.common.core;
 
 import java.util.List;
 

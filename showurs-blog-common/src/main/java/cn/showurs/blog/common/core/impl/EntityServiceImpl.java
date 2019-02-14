@@ -1,6 +1,6 @@
-package cn.showurs.blog.user.service.impl;
+package cn.showurs.blog.common.core.impl;
 
-import cn.showurs.blog.user.service.EntityService;
+import cn.showurs.blog.common.core.EntityService;
 import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.ParameterizedType;

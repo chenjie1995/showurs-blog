@@ -23,4 +23,36 @@ public class SortEntity {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sort")
     private List<ArticleEntity> articles = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<ArticleEntity> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<ArticleEntity> articles) {
+        this.articles = articles;
+    }
 }
