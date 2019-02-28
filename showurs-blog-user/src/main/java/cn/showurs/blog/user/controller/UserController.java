@@ -18,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -30,11 +31,8 @@ import java.io.OutputStream;
 @RestController
 @RequestMapping(value = "users", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UserController {
+    @Resource
     private UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @ApiImplicitParam(value = "验证码KEY", paramType = "header", required = true, name = RequestInfo.HEADER_CAPTCHA_KEY_NAME, dataType = "String")
     @ApiOperation("注册")

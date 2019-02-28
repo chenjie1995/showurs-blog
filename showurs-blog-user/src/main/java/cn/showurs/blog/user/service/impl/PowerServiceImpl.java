@@ -10,5 +10,5 @@ import org.springframework.stereotype.Service;
  * Created by CJ on 2018/12/24 16:26.
  */
 @Service
-public class PowerServiceImpl extends EntityServiceImpl<PowerEntity, Power, Long> implements PowerService {
+public class PowerServiceImpl extends EntityServiceImpl<PowerEntity, Power> implements PowerService {
 }

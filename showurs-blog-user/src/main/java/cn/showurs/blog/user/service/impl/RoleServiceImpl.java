@@ -9,6 +9,7 @@ import cn.showurs.blog.common.vo.user.Power;
 import cn.showurs.blog.common.vo.user.Role;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,12 +17,9 @@ import java.util.stream.Collectors;
  * Created by CJ on 2018/12/24 16:23.
  */
 @Service
-public class RoleServiceImpl extends EntityServiceImpl<RoleEntity, Role, Long> implements RoleService {
+public class RoleServiceImpl extends EntityServiceImpl<RoleEntity, Role> implements RoleService {
+    @Resource
     private PowerService powerService;
-
-    public RoleServiceImpl(PowerService powerService) {
-        this.powerService = powerService;
-    }
 
     @Override
     public Role poToVo(RoleEntity po) {

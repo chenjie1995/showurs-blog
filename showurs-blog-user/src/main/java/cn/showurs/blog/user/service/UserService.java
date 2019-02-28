@@ -10,7 +10,7 @@ import cn.showurs.blog.user.entity.UserEntity;
 /**
  * Created by CJ on 2018/11/10 23:54.
  */
-public interface UserService extends EntityService<UserEntity, User, Long> {
+public interface UserService extends EntityService<UserEntity, User> {
     User findById(Long id);
 
     User register(String key, UserRegister userRegister);

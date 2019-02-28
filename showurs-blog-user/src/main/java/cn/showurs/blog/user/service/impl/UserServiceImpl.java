@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -35,28 +36,25 @@ import java.util.stream.Collectors;
  * Created by CJ on 2018/11/18 21:58.
  */
 @Service
-public class UserServiceImpl extends EntityServiceImpl<UserEntity, User, Long> implements UserService {
+public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> implements UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     private static final int CAPTCHA_LENGTH = 4;
     private static final int CAPTCHA_EXPIRED_SECOND = 60 * 30;
 
+    @Resource
     private UserRepository userRepository;
-    private RoleService roleService;
-    private EncryptService encryptService;
-    private RedisTemplate<String, Serializable> redisTemplate;
-    private RoleRepository roleRepository;
 
-    public UserServiceImpl(UserRepository userRepository,
-                           RoleService roleService,
-                           EncryptService encryptService,
-                           RedisTemplate<String, Serializable> redisTemplate,
-                           RoleRepository roleRepository) {
-        this.userRepository = userRepository;
-        this.roleService = roleService;
-        this.encryptService = encryptService;
-        this.redisTemplate = redisTemplate;
-        this.roleRepository = roleRepository;
-    }
+    @Resource
+    private RoleService roleService;
+
+    @Resource
+    private EncryptService encryptService;
+
+    @Resource
+    private RedisTemplate<String, Serializable> redisTemplate;
+
+    @Resource
+    private RoleRepository roleRepository;
 
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
     @Cacheable(value = "blogUser:user", key = "#id", unless = "#result == null")

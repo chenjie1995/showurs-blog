@@ -9,7 +9,6 @@ import cn.showurs.blog.common.vo.user.User;
 import cn.showurs.blog.common.vo.user.UserJwtSubject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -17,6 +16,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolver {
     private static final Logger logger = LoggerFactory.getLogger(CurrentUserArgumentResolver.class);
 
-    @Autowired
+    @Resource
     private UserService userService;
 
     @Override

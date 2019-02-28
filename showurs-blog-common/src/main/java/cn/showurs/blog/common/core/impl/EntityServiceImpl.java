@@ -7,15 +7,15 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by CJ on 2018/12/7 23:48.
  *
  * @param <P>  数据库持久化PO
  * @param <V>  缺省返回的VO
- * @param <ID> 主键字段
  */
-public abstract class EntityServiceImpl<P, V, ID> implements EntityService<P, V, ID> {
+public abstract class EntityServiceImpl<P, V> implements EntityService<P, V> {
     private static final int P_INDEX = 0;
     private static final int V_INDEX = 1;
 
@@ -34,9 +34,7 @@ public abstract class EntityServiceImpl<P, V, ID> implements EntityService<P, V,
     }
 
     public <VO> List<P> vosToPos(List<VO> vos) {
-        List<P> pos = new ArrayList<>();
-        vos.forEach(vo -> pos.add(voToPo(vo)));
-        return pos;
+        return vos.stream().map(this::voToPo).collect(Collectors.toList());
     }
 
     public <VO> VO poToVo(P po, Class<VO> voClass) {
@@ -58,9 +56,7 @@ public abstract class EntityServiceImpl<P, V, ID> implements EntityService<P, V,
     }
 
     public <VO> List<VO> posToVos(List<P> pos, Class<VO> voClass) {
-        List<VO> vos = new ArrayList<>();
-        pos.forEach(po -> vos.add(poToVo(po, voClass)));
-        return vos;
+        return pos.stream().map(po -> poToVo(po, voClass)).collect(Collectors.toList());
     }
 
     public List<V> posToVos(List<P> pos) {

@@ -7,9 +7,8 @@ import java.util.List;
  *
  * @param <P>  数据库持久化PO
  * @param <V>  缺省返回的VO对象
- * @param <ID> 主键字段
  */
-public interface EntityService<P, V, ID> {
+public interface EntityService<P, V> {
 
     /**
      * 值对象转数据库对象
