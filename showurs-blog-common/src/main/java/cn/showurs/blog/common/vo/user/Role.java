@@ -5,7 +5,9 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by CJ on 2018/12/24 16:06.
@@ -25,7 +27,7 @@ public class Role implements Serializable {
     private String description;
 
     @ApiModelProperty("拥有的权限")
-    private List<Power> powers = new ArrayList<>();
+    private Set<Power> powers = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -51,11 +53,11 @@ public class Role implements Serializable {
         this.description = description;
     }
 
-    public List<Power> getPowers() {
+    public Set<Power> getPowers() {
         return powers;
     }
 
-    public void setPowers(List<Power> powers) {
+    public void setPowers(Set<Power> powers) {
         this.powers = powers;
     }
 }

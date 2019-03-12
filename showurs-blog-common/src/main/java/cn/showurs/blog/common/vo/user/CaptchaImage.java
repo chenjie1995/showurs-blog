@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 /**
+ * 图片验证码
+ *
  * Created by CJ on 2018/12/27 17:03.
  */
 public class CaptchaImage implements Serializable {

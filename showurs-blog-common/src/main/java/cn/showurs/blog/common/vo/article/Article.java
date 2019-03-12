@@ -22,7 +22,9 @@ public class Article {
 
     private Long clickCount;
 
-    private Long userId;
+    private Long author;
+
+    private Sort sort;
 
     public Long getId() {
         return id;
@@ -88,11 +90,19 @@ public class Article {
         this.clickCount = clickCount;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getAuthor() {
+        return author;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setAuthor(Long author) {
+        this.author = author;
+    }
+
+    public Sort getSort() {
+        return sort;
+    }
+
+    public void setSort(Sort sort) {
+        this.sort = sort;
     }
 }

@@ -10,10 +10,10 @@ import javax.persistence.*;
 public class CollectArticleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "user_id", nullable = false)
     private Long userId;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

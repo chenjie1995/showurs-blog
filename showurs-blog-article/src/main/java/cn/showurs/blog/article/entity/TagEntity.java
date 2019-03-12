@@ -1,8 +1,8 @@
 package cn.showurs.blog.article.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by CJ on 2019/1/28 11:05.
@@ -12,14 +12,14 @@ import java.util.List;
 public class TagEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tag")
-    private List<ArticleTagEntity> articleTags = new ArrayList<>();
+    private Set<ArticleTagEntity> articleTags = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -37,11 +37,11 @@ public class TagEntity {
         this.name = name;
     }
 
-    public List<ArticleTagEntity> getArticleTags() {
+    public Set<ArticleTagEntity> getArticleTags() {
         return articleTags;
     }
 
-    public void setArticleTags(List<ArticleTagEntity> articleTags) {
+    public void setArticleTags(Set<ArticleTagEntity> articleTags) {
         this.articleTags = articleTags;
     }
 }

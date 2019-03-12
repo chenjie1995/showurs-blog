@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -28,7 +29,7 @@ public class RoleServiceImpl extends EntityServiceImpl<RoleEntity, Role> impleme
         }
 
         Role role = super.poToVo(po);
-        List<Power> powers = powerService.posToVos(po.getRolePowers().stream().map(RolePowerEntity::getPower).collect(Collectors.toList()));
+        Set<Power> powers = powerService.posToVos(po.getRolePowers().stream().map(RolePowerEntity::getPower).collect(Collectors.toSet()));
         role.setPowers(powers);
 
         return role;

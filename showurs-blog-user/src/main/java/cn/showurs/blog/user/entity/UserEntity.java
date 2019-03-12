@@ -12,47 +12,47 @@ import java.util.*;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(length = 128)
+    @Column(name = "nickname", length = 128)
     private String nickname;
 
-    @Column(length = 512)
+    @Column(name = "avatar", length = 512)
     private String avatar;
 
-    @Column
+    @Column(name = "sex")
     private Integer sex;
 
-    @Column
+    @Column(name = "birthday")
     private LocalDateTime birthday;
 
-    @Column(length = 512)
+    @Column(name = "signature", length = 512)
     private String signature;
 
-    @Column(length = 512)
+    @Column(name = "background_image", length = 512)
     private String backgroundImage;
 
-    @Column(nullable = false)
+    @Column(name = "create_time", nullable = false)
     private LocalDateTime createTime;
 
-    @Column
+    @Column(name = "last_login_time")
     private LocalDateTime lastLoginTime;
 
-    @Column(nullable = false)
+    @Column(name = "status", nullable = false)
     private Integer status;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    private List<UserRoleEntity> userRoles = new ArrayList<>();
+    private Set<UserRoleEntity> userRoles = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -158,11 +158,11 @@ public class UserEntity {
         this.status = status;
     }
 
-    public List<UserRoleEntity> getUserRoles() {
+    public Set<UserRoleEntity> getUserRoles() {
         return userRoles;
     }
 
-    public void setUserRoles(List<UserRoleEntity> userRoles) {
+    public void setUserRoles(Set<UserRoleEntity> userRoles) {
         this.userRoles = userRoles;
     }
 }

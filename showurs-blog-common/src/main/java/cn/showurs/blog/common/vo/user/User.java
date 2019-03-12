@@ -6,7 +6,9 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by CJ on 2018/12/7 23:47.
@@ -56,7 +58,7 @@ public class User implements Serializable {
     private Integer status;
 
     @ApiModelProperty("拥有的角色")
-    private List<Role> roles = new ArrayList<>();
+    private Set<Role> roles = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -162,11 +164,11 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 }

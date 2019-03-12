@@ -1,8 +1,8 @@
 package cn.showurs.blog.article.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by CJ on 2019/1/24 15:55.
@@ -12,17 +12,17 @@ import java.util.List;
 public class SortEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false, length = 64)
+    @Column(name = "name", nullable = false, length = 64)
     private String name;
 
-    @Column(length = 512)
+    @Column(name = "description", length = 512)
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sort")
-    private List<ArticleEntity> articles = new ArrayList<>();
+    private Set<ArticleEntity> articles = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -48,11 +48,11 @@ public class SortEntity {
         this.description = description;
     }
 
-    public List<ArticleEntity> getArticles() {
+    public Set<ArticleEntity> getArticles() {
         return articles;
     }
 
-    public void setArticles(List<ArticleEntity> articles) {
+    public void setArticles(Set<ArticleEntity> articles) {
         this.articles = articles;
     }
 }

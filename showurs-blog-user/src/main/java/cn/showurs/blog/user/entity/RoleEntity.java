@@ -2,7 +2,9 @@ package cn.showurs.blog.user.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by CJ on 2018/11/18 22:47.
@@ -12,20 +14,20 @@ import java.util.List;
 public class RoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @Column(length = 512)
+    @Column(name = "description", length = 512)
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "role")
-    private List<UserRoleEntity> userRoles = new ArrayList<>();
+    private Set<UserRoleEntity> userRoles = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "role")
-    private List<RolePowerEntity> rolePowers = new ArrayList<>();
+    private Set<RolePowerEntity> rolePowers = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -51,19 +53,19 @@ public class RoleEntity {
         this.description = description;
     }
 
-    public List<UserRoleEntity> getUserRoles() {
+    public Set<UserRoleEntity> getUserRoles() {
         return userRoles;
     }
 
-    public void setUserRoles(List<UserRoleEntity> userRoles) {
+    public void setUserRoles(Set<UserRoleEntity> userRoles) {
         this.userRoles = userRoles;
     }
 
-    public List<RolePowerEntity> getRolePowers() {
+    public Set<RolePowerEntity> getRolePowers() {
         return rolePowers;
     }
 
-    public void setRolePowers(List<RolePowerEntity> rolePowers) {
+    public void setRolePowers(Set<RolePowerEntity> rolePowers) {
         this.rolePowers = rolePowers;
     }
 }

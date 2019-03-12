@@ -2,8 +2,8 @@ package cn.showurs.blog.article.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by CJ on 2019/1/24 11:09.
@@ -13,45 +13,45 @@ import java.util.List;
 public class ArticleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false, length = 512)
+    @Column(name = "title", nullable = false, length = 512)
     private String title;
 
-    @Column(nullable = false, length = 10240)
+    @Column(name = "content", nullable = false, length = 10240)
     private String content;
 
-    @Column(nullable = false)
+    @Column(name = "create_time", nullable = false)
     private LocalDateTime createTime;
 
-    @Column
+    @Column(name = "last_edit_time")
     private LocalDateTime lastEditTime;
 
-    @Column
-    private LocalDateTime lastRePlyTime;
+    @Column(name = "last_reply_time")
+    private LocalDateTime lastReplyTime;
 
-    @Column
+    @Column(name = "title_image")
     private String titleImage;
 
-    @Column
+    @Column(name = "click_count")
     private Long clickCount;
 
-    @Column(nullable = false, unique = true)
-    private Long userId;
+    @Column(name = "author", nullable = false, unique = true)
+    private Long author;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "sort_id", nullable = false)
     private SortEntity sort;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "article")
-    private List<CollectArticleEntity> collectArticles = new ArrayList<>();
+    private Set<CollectArticleEntity> collectArticles = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "article")
-    private List<LikeArticleEntity> likeArticles = new ArrayList<>();
+    private Set<LikeArticleEntity> likeArticles = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "article")
-    private List<ArticleTagEntity> articleTags = new ArrayList<>();
+    private Set<ArticleTagEntity> articleTags = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -93,12 +93,12 @@ public class ArticleEntity {
         this.lastEditTime = lastEditTime;
     }
 
-    public LocalDateTime getLastRePlyTime() {
-        return lastRePlyTime;
+    public LocalDateTime getLastReplyTime() {
+        return lastReplyTime;
     }
 
-    public void setLastRePlyTime(LocalDateTime lastRePlyTime) {
-        this.lastRePlyTime = lastRePlyTime;
+    public void setLastReplyTime(LocalDateTime lastReplyTime) {
+        this.lastReplyTime = lastReplyTime;
     }
 
     public String getTitleImage() {
@@ -117,12 +117,12 @@ public class ArticleEntity {
         this.clickCount = clickCount;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getAuthor() {
+        return author;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setAuthor(Long author) {
+        this.author = author;
     }
 
     public SortEntity getSort() {
@@ -133,27 +133,27 @@ public class ArticleEntity {
         this.sort = sort;
     }
 
-    public List<CollectArticleEntity> getCollectArticles() {
+    public Set<CollectArticleEntity> getCollectArticles() {
         return collectArticles;
     }
 
-    public void setCollectArticles(List<CollectArticleEntity> collectArticles) {
+    public void setCollectArticles(Set<CollectArticleEntity> collectArticles) {
         this.collectArticles = collectArticles;
     }
 
-    public List<LikeArticleEntity> getLikeArticles() {
+    public Set<LikeArticleEntity> getLikeArticles() {
         return likeArticles;
     }
 
-    public void setLikeArticles(List<LikeArticleEntity> likeArticles) {
+    public void setLikeArticles(Set<LikeArticleEntity> likeArticles) {
         this.likeArticles = likeArticles;
     }
 
-    public List<ArticleTagEntity> getArticleTags() {
+    public Set<ArticleTagEntity> getArticleTags() {
         return articleTags;
     }
 
-    public void setArticleTags(List<ArticleTagEntity> articleTags) {
+    public void setArticleTags(Set<ArticleTagEntity> articleTags) {
         this.articleTags = articleTags;
     }
 }

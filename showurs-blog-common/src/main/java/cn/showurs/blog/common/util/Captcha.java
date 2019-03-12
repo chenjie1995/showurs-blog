@@ -9,7 +9,7 @@ import java.util.Random;
  * Created by CJ on 2018/12/27 11:00.
  */
 public class Captcha {
-    private static final String[] FONT_FAMILY = {"Microsoft YaHei", "console"};
+    private static final String[] FONT_FAMILY = {"Open Sans", "Cabin"};
     private static final int LINE_COUNT = 20;
 
     public static BufferedImage createCaptchaImage(String text, Integer width, Integer height) {

@@ -28,6 +28,7 @@ import javax.annotation.Resource;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -156,7 +157,7 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
 
         User user = super.poToVo(po);
 
-        List<Role> roles = roleService.posToVos(po.getUserRoles().stream().map(UserRoleEntity::getRole).collect(Collectors.toList()));
+        Set<Role> roles = roleService.posToVos(po.getUserRoles().stream().map(UserRoleEntity::getRole).collect(Collectors.toSet()));
 
         user.setRoles(roles);
 

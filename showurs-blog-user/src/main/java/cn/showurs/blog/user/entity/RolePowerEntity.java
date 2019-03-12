@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class RolePowerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

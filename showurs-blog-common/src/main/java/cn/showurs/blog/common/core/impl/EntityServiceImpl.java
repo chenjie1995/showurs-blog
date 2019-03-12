@@ -5,15 +5,16 @@ import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
+ * PO和VO互相转换抽象实现类
  * Created by CJ on 2018/12/7 23:48.
  *
- * @param <P>  数据库持久化PO
- * @param <V>  缺省返回的VO
+ * @param <P> 数据库持久化PO
+ * @param <V> 缺省返回的VO
  */
 public abstract class EntityServiceImpl<P, V> implements EntityService<P, V> {
     private static final int P_INDEX = 0;
@@ -35,6 +36,10 @@ public abstract class EntityServiceImpl<P, V> implements EntityService<P, V> {
 
     public <VO> List<P> vosToPos(List<VO> vos) {
         return vos.stream().map(this::voToPo).collect(Collectors.toList());
+    }
+
+    public <VO> Set<P> vosToPos(Set<VO> vos) {
+        return vos.stream().map(this::voToPo).collect(Collectors.toSet());
     }
 
     public <VO> VO poToVo(P po, Class<VO> voClass) {
@@ -60,6 +65,14 @@ public abstract class EntityServiceImpl<P, V> implements EntityService<P, V> {
     }
 
     public List<V> posToVos(List<P> pos) {
+        return posToVos(pos, getVClass());
+    }
+
+    public <VO> Set<VO> posToVos(Set<P> pos, Class<VO> voClass) {
+        return pos.stream().map(po -> poToVo(po, voClass)).collect(Collectors.toSet());
+    }
+
+    public Set<V> posToVos(Set<P> pos) {
         return posToVos(pos, getVClass());
     }
 
