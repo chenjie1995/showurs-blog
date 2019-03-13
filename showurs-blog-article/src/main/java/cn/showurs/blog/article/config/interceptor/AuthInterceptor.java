@@ -1,4 +1,4 @@
-package cn.showurs.blog.user.config.interceptor;
+package cn.showurs.blog.article.config.interceptor;
 
 import cn.showurs.blog.common.annotation.Auth;
 import cn.showurs.blog.common.constant.JwtInfo;

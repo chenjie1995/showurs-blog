@@ -17,3 +17,9 @@ spring:
         - Path=/user/**
         filters:
         - StripPrefix=1
+      - id: showurs-blog-article
+        uri: lb://showurs-blog-article
+        predicates:
+        - Path=/article/**
+        filters:
+        - StripPrefix=1

@@ -14,4 +14,5 @@ public interface ArticleService extends EntityService<ArticleEntity, Article> {
     Article findById(Long id);
     Page<Article> findPage(Pageable pageable);
     Article publish(ArticlePublish articlePublish, Long author);
+    void deleteById(Long id);
 }

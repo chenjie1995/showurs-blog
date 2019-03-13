@@ -27,7 +27,6 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -71,26 +70,18 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
         if (StringUtils.isEmpty(captcha)) {
             throw new BusinessException("验证码已过期");
         }
-
         if (!captcha.equalsIgnoreCase(userRegister.getCaptcha())) {
             throw new BusinessException("验证码错误");
         }
-
         if (userRepository.findByUsername(userRegister.getUsername()) != null) {
             throw new BusinessException("用户名（" + userRegister.getUsername() + "）已被使用");
         }
-
         if (userRepository.findByEmail(userRegister.getEmail()) != null) {
             throw new BusinessException("邮箱（" + userRegister.getEmail() + "）已被使用");
         }
-
         redisTemplate.delete(RedisKey.CAPTCHA_KEY + key);
 
-        UserEntity userEntity = voToPo(userRegister);
-        userEntity.setPassword(encryptService.encryptPassword(userRegister.getPassword(), userRegister.getUsername()));
-        userEntity.setNickname(userRegister.getUsername());
-        userEntity.setCreateTime(LocalDateTime.now());
-        userEntity.setStatus(UserStatus.NOT_EMAIL.getCode());
+        UserEntity userEntity = initUserEntity(userRegister);
         userRepository.save(userEntity);
 
         logger.info("用户保存ID：{}", userEntity.getId());
@@ -147,6 +138,15 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
         userToken.setToken(token);
 
         return userToken;
+    }
+
+    private UserEntity initUserEntity(UserRegister userRegister) {
+        UserEntity userEntity = voToPo(userRegister);
+        userEntity.setPassword(encryptService.encryptPassword(userRegister.getPassword(), userRegister.getUsername()));
+        userEntity.setNickname(userRegister.getUsername());
+        userEntity.setCreateTime(LocalDateTime.now());
+        userEntity.setStatus(UserStatus.NOT_EMAIL.getCode());
+        return userEntity;
     }
 
     @Override
