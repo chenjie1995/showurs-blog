@@ -7,10 +7,11 @@
         <groupId>cn.showurs.blog</groupId>
         <artifactId>showurs-blog</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
 
     <artifactId>showurs-blog-article</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <name>showurs-blog-article</name>
     <description>文章微服务</description>
 

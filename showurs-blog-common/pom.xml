@@ -8,9 +8,11 @@
         <artifactId>showurs-blog</artifactId>
         <groupId>cn.showurs.blog</groupId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>showurs-blog-common</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <name>showurs-blog-common</name>
     <description>业务共用内容</description>
 
