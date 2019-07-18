@@ -10,16 +10,6 @@ spring:
     password: guest
   cloud:
     gateway:
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins: "*"
-            allowedMethods:
-              - GET
-              - POST
-              - DELETE
-              - PUT
-              - PATCH
       routes:
         - id: showurs-blog-user
           uri: lb://showurs-blog-user
