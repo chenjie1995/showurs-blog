@@ -23,7 +23,7 @@ import javax.validation.constraints.Min;
 /**
  * Created by CJ on 2019/3/10 1:12.
  */
-@Api(value = "文章", description = "文章相关接口😋")
+@Api(value = "文章")
 @RestController
 @RequestMapping(value = "articles", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class ArticleController {

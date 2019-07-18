@@ -27,7 +27,7 @@ import java.io.OutputStream;
 /**
  * Created by CJ on 2018/12/23 22:10.
  */
-@Api(value = "用户", description = "用户相关接口😉")
+@Api(value = "用户")
 @RestController
 @RequestMapping(value = "users", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UserController {
