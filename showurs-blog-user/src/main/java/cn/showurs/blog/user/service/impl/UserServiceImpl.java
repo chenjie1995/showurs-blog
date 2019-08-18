@@ -22,11 +22,13 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -60,58 +62,54 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
     @Cacheable(value = "blogUser:user", key = "#id", unless = "#result == null")
     @Override
     public User findById(Long id) {
-        return userRepository.findById(id).map(this::poToVo).orElse(null);
+        return userRepository.findById(id).map(this::poToVo).orElse(new User());
     }
 
     @Transactional
     @Override
-    public User register(String key, UserRegister userRegister) {
+    public UserToken register(String key, UserRegister userRegister) {
         String captcha = (String) redisTemplate.opsForValue().get(RedisKey.CAPTCHA_KEY + key);
-        if (StringUtils.isEmpty(captcha)) {
-            throw new BusinessException("验证码已过期");
-        }
-        if (!captcha.equalsIgnoreCase(userRegister.getCaptcha())) {
-            throw new BusinessException("验证码错误");
-        }
-        if (userRepository.findByUsername(userRegister.getUsername()) != null) {
-            throw new BusinessException("用户名（" + userRegister.getUsername() + "）已被使用");
-        }
-        if (userRepository.findByEmail(userRegister.getEmail()) != null) {
-            throw new BusinessException("邮箱（" + userRegister.getEmail() + "）已被使用");
-        }
+
+        logger.info("输入验证码:{}  key:{}  验证码{}", userRegister.getCaptcha(), RedisKey.CAPTCHA_KEY + key, captcha);
+        validUserRegister(captcha, userRegister);
         redisTemplate.delete(RedisKey.CAPTCHA_KEY + key);
 
         UserEntity userEntity = initUserEntity(userRegister);
-        userRepository.save(userEntity);
-
-        logger.info("用户保存ID：{}", userEntity.getId());
 
         RoleEntity roleEntity = roleRepository.findByName(RoleInfo.ROLE_DEFAULT_BLOGGER_NAME);
         if (roleEntity == null) {
-            throw new BusinessException("角色信息缺失，请联系管理员");
+            roleEntity = new RoleEntity();
+            roleEntity.setName(RoleInfo.ROLE_DEFAULT_BLOGGER_NAME);
+            roleEntity.setDescription("博主");
+            roleRepository.save(roleEntity);
+//            throw new BusinessException("角色信息缺失，请联系管理员");
         }
 
         UserRoleEntity userRoleEntity = new UserRoleEntity();
         userRoleEntity.setUser(userEntity);
         userRoleEntity.setRole(roleEntity);
-
         userEntity.getUserRoles().add(userRoleEntity);
+        userRepository.save(userEntity);
 
-        return poToVo(userRepository.save(userEntity));
+        return login(userRegister.getUsername(), userRegister.getPassword());
     }
 
     @Transactional
     @Override
-    public CaptchaImage getCaptchaImage(Integer width, Integer height) {
+    public CaptchaImage getCaptchaImage(String key, Integer width, Integer height) {
+        if (StringUtils.isEmpty(key)) {
+            throw new BusinessException("获取验证码的请求不合法");
+        }
 
         String captcha = UUID.randomUUID().toString().substring(0, CAPTCHA_LENGTH);
-        String key = encryptService.generateToken();
 
         CaptchaImage captchaImage = new CaptchaImage();
         captchaImage.setImage(Captcha.createCaptchaImage(captcha, width, height));
         captchaImage.setKey(key);
 
         redisTemplate.opsForValue().set(RedisKey.CAPTCHA_KEY + key, captcha, CAPTCHA_EXPIRED_SECOND, TimeUnit.SECONDS);
+
+        logger.info("保存验证码:{}  key:{}", captcha, RedisKey.CAPTCHA_KEY + key);
 
         return captchaImage;
     }
@@ -136,10 +134,21 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
 
         UserToken userToken = new UserToken();
         userToken.setToken(token);
-
+        Set<Role> roles = poToVo(userEntity).getRoles();
+        Set<Power> powers = new HashSet<>();
+        if (!CollectionUtils.isEmpty(roles)) {
+            roles.forEach(role -> powers.addAll(role.getPowers()));
+        }
+        userToken.setRoles(roles);
+        userToken.setPowers(powers);
         return userToken;
     }
 
+    /**
+     * 初始化注册用户
+     * @param userRegister 注册用户信息
+     * @return 用户实体
+     */
     private UserEntity initUserEntity(UserRegister userRegister) {
         UserEntity userEntity = voToPo(userRegister);
         userEntity.setPassword(encryptService.encryptPassword(userRegister.getPassword(), userRegister.getUsername()));
@@ -149,6 +158,29 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
         return userEntity;
     }
 
+    /**
+     * 校验注册信息是否合法
+     * @param captcha 验证码
+     * @param userRegister 用户注册信息
+     */
+    private void validUserRegister(String captcha, UserRegister userRegister) {
+        if (!userRegister.getPassword().equals(userRegister.getConfirmPassword())) {
+            throw new BusinessException("密码不相同");
+        }
+        if (!captcha.equalsIgnoreCase(userRegister.getCaptcha())) {
+            throw new BusinessException("验证码错误");
+        }
+        if (StringUtils.isEmpty(captcha)) {
+            throw new BusinessException("验证码已过期");
+        }
+        if (userRepository.findByUsername(userRegister.getUsername()) != null) {
+            throw new BusinessException("用户名已被使用");
+        }
+        if (userRepository.findByEmail(userRegister.getEmail()) != null) {
+            throw new BusinessException("邮箱已被使用");
+        }
+    }
+
     @Override
     public User poToVo(UserEntity po) {
         if (po == null) {
@@ -156,9 +188,7 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
         }
 
         User user = super.poToVo(po);
-
         Set<Role> roles = roleService.posToVos(po.getUserRoles().stream().map(UserRoleEntity::getRole).collect(Collectors.toSet()));
-
         user.setRoles(roles);
 
         return user;

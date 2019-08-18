@@ -13,9 +13,9 @@ import cn.showurs.blog.user.entity.UserEntity;
 public interface UserService extends EntityService<UserEntity, User> {
     User findById(Long id);
 
-    User register(String key, UserRegister userRegister);
+    UserToken register(String key, UserRegister userRegister);
 
-    CaptchaImage getCaptchaImage(Integer width, Integer height);
+    CaptchaImage getCaptchaImage(String key, Integer width, Integer height);
 
     UserToken login(String username, String password);
 }

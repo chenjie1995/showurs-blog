@@ -129,4 +129,6 @@ public class GlobalExceptionHandler {
         return ResultGenerator.genFailResult(exception.getCode(), exception.getMessage());
     }
 
+    // ServletRequestBindingException
+
 }

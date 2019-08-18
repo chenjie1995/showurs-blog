@@ -37,7 +37,7 @@ public class UserController {
     @ApiImplicitParam(value = "验证码KEY", paramType = "header", required = true, name = RequestInfo.HEADER_CAPTCHA_KEY_NAME, dataType = "String")
     @ApiOperation("注册")
     @PostMapping(value = "register", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Result<User> register(@Validated @RequestBody UserRegister userRegister,
+    public Result<UserToken> register(@Validated @RequestBody UserRegister userRegister,
                                  @RequestHeader(RequestInfo.HEADER_CAPTCHA_KEY_NAME) String key) {
 
         if (StringUtils.isEmpty(key)) {
@@ -50,11 +50,12 @@ public class UserController {
     @ApiOperation("获取验证码图片")
     @GetMapping(value = "captcha-image")
     public void getCaptchaImage(@RequestParam(defaultValue = "120") Integer width,
-                                @RequestParam(defaultValue = "36") Integer height,
+                                @RequestParam(defaultValue = "32") Integer height,
+                                @RequestParam String key,
                                 HttpServletResponse response) {
 
         try {
-            CaptchaImage captchaImage = this.userService.getCaptchaImage(width, height);
+            CaptchaImage captchaImage = this.userService.getCaptchaImage(key, width, height);
 
             response.setHeader(ResponseInfo.HEADER_CAPTCHA_KEY_NAME, captchaImage.getKey());
 

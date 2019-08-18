@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -16,6 +17,7 @@ public class UserRegister implements Serializable {
     private static final long serialVersionUID = -4522892567400341L;
 
     @NotBlank(message = "用户名不能为空")
+    @Size(max = 18, message = "用户名长度过长")
     @ApiModelProperty("用户名")
     private String username;
 
@@ -25,10 +27,16 @@ public class UserRegister implements Serializable {
     private String email;
 
     @NotBlank(message = "密码不能为空")
+    @Size(min = 6, max = 18, message = "密码长度应在6-18位")
     @ApiModelProperty("密码")
     private String password;
 
+    @NotBlank(message = "确认密码不能为空")
+    @ApiModelProperty("确认密码")
+    private String confirmPassword;
+
     @NotBlank(message = "验证码不能为空")
+    @Size(max = 4, message = "验证码长度错误")
     @ApiModelProperty("验证码")
     private String captcha;
 
@@ -54,6 +62,14 @@ public class UserRegister implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public String getCaptcha() {

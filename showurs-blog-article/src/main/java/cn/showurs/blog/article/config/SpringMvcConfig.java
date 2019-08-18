@@ -2,10 +2,12 @@ package cn.showurs.blog.article.config;
 
 import cn.showurs.blog.article.config.interceptor.AuthInterceptor;
 import cn.showurs.blog.article.config.resolver.CurrentUserArgumentResolver;
+import cn.showurs.blog.common.constant.ResponseInfo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -42,10 +44,11 @@ public class SpringMvcConfig implements WebMvcConfigurer {
     }
 
     //跨域放行
-    /*@Override
+    @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("*")
-                .allowedMethods("GET", "POST", "DELETE", "PUT", "PATCH");
-    }*/
+                .exposedHeaders(ResponseInfo.HEADER_TOKEN_NAME)
+                .allowedMethods("GET", "POST", "DELETE", "PUT", "PATCH", "OPTIONS");
+    }
 }
