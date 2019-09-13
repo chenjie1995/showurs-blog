@@ -1,5 +1,6 @@
 package cn.showurs.blog.user.service.impl;
 
+import cn.showurs.blog.common.constant.RoleInfo;
 import cn.showurs.blog.common.core.impl.EntityServiceImpl;
 import cn.showurs.blog.user.entity.RoleEntity;
 import cn.showurs.blog.user.entity.RolePowerEntity;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,15 +25,14 @@ public class RoleServiceImpl extends EntityServiceImpl<RoleEntity, Role> impleme
     private PowerService powerService;
 
     @Override
-    public Role poToVo(RoleEntity po) {
-        if (po == null) {
-            return null;
+    public Optional<Role> poToVo(RoleEntity po) {
+        if (super.poToVo(po).isPresent()) {
+            Role role = super.poToVo(po).get();
+            Set<Power> powers = powerService.posToVos(po.getRolePowers().stream().map(RolePowerEntity::getPower).collect(Collectors.toSet()));
+            role.setPowers(powers);
+            return Optional.of(role);
+        } else {
+            return Optional.empty();
         }
-
-        Role role = super.poToVo(po);
-        Set<Power> powers = powerService.posToVos(po.getRolePowers().stream().map(RolePowerEntity::getPower).collect(Collectors.toSet()));
-        role.setPowers(powers);
-
-        return role;
     }
 }

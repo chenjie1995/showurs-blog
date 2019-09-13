@@ -1,6 +1,7 @@
 package cn.showurs.blog.common.core;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -19,7 +20,7 @@ public interface EntityService<P, V> {
      * @param <VO> 值对象泛型
      * @return 数据库对象
      */
-    <VO> P voToPo(VO vo);
+    <VO> Optional<P> voToPo(VO vo);
 
     /**
      * 值对象列表转数据库对象列表
@@ -47,7 +48,7 @@ public interface EntityService<P, V> {
      * @param <VO>    值对象泛型
      * @return 值对象
      */
-    <VO> VO poToVo(P po, Class<VO> voClass);
+    <VO> Optional<VO> poToVo(P po, Class<VO> voClass);
 
     /**
      * 数据库对象转缺省的值对象
@@ -55,7 +56,7 @@ public interface EntityService<P, V> {
      * @param po 数据库对象
      * @return 缺省的值对象
      */
-    V poToVo(P po);
+    Optional<V> poToVo(P po);
 
     /**
      * 数据库对象列表转值对象列表

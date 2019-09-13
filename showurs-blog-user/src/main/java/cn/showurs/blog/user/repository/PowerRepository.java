@@ -4,10 +4,12 @@ import cn.showurs.blog.user.entity.PowerEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * Created by CJ on 2018/12/7 22:04.
  */
 @Repository
 public interface PowerRepository extends JpaRepository<PowerEntity, Long> {
-    PowerEntity findByName(String name);
+    Optional<PowerEntity> findByName(String name);
 }

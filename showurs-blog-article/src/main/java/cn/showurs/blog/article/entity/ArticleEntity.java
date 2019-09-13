@@ -156,4 +156,5 @@ public class ArticleEntity {
     public void setArticleTags(Set<ArticleTagEntity> articleTags) {
         this.articleTags = articleTags;
     }
+
 }

@@ -29,6 +29,7 @@ import javax.annotation.Resource;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -45,16 +46,12 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
 
     @Resource
     private UserRepository userRepository;
-
     @Resource
     private RoleService roleService;
-
     @Resource
     private EncryptService encryptService;
-
     @Resource
     private RedisTemplate<String, Serializable> redisTemplate;
-
     @Resource
     private RoleRepository roleRepository;
 
@@ -62,7 +59,7 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
     @Cacheable(value = "blogUser:user", key = "#id", unless = "#result == null")
     @Override
     public User findById(Long id) {
-        return userRepository.findById(id).map(this::poToVo).orElse(new User());
+        return userRepository.findById(id).flatMap(this::poToVo).orElse(new User());
     }
 
     @Transactional
@@ -76,14 +73,8 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
 
         UserEntity userEntity = initUserEntity(userRegister);
 
-        RoleEntity roleEntity = roleRepository.findByName(RoleInfo.ROLE_DEFAULT_BLOGGER_NAME);
-        if (roleEntity == null) {
-            roleEntity = new RoleEntity();
-            roleEntity.setName(RoleInfo.ROLE_DEFAULT_BLOGGER_NAME);
-            roleEntity.setDescription("博主");
-            roleRepository.save(roleEntity);
-//            throw new BusinessException("角色信息缺失，请联系管理员");
-        }
+        RoleEntity roleEntity = roleRepository.findByName(RoleInfo.ROLE_DEFAULT_BLOGGER_NAME).orElseGet(RoleService::getInitBloggerRole);
+        roleRepository.save(roleEntity);
 
         UserRoleEntity userRoleEntity = new UserRoleEntity();
         userRoleEntity.setUser(userEntity);
@@ -117,11 +108,7 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
     @Transactional
     @Override
     public UserToken login(String username, String password) {
-        UserEntity userEntity = userRepository.findByUsername(username);
-
-        if (userEntity == null) {
-            throw new BusinessException("用户不存在");
-        }
+        UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(() -> new BusinessException("用户不存在"));
 
         if (!userEntity.getPassword().equals(encryptService.encryptPassword(password, username))) {
             throw new BusinessException("密码错误");
@@ -134,7 +121,7 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
 
         UserToken userToken = new UserToken();
         userToken.setToken(token);
-        Set<Role> roles = poToVo(userEntity).getRoles();
+        Set<Role> roles = poToVo(userEntity).orElse(new User()).getRoles();
         Set<Power> powers = new HashSet<>();
         if (!CollectionUtils.isEmpty(roles)) {
             roles.forEach(role -> powers.addAll(role.getPowers()));
@@ -150,7 +137,7 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
      * @return 用户实体
      */
     private UserEntity initUserEntity(UserRegister userRegister) {
-        UserEntity userEntity = voToPo(userRegister);
+        UserEntity userEntity = voToPo(userRegister).orElseThrow(() -> new BusinessException("注册信息错误"));
         userEntity.setPassword(encryptService.encryptPassword(userRegister.getPassword(), userRegister.getUsername()));
         userEntity.setNickname(userRegister.getUsername());
         userEntity.setCreateTime(LocalDateTime.now());
@@ -173,25 +160,24 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
         if (StringUtils.isEmpty(captcha)) {
             throw new BusinessException("验证码已过期");
         }
-        if (userRepository.findByUsername(userRegister.getUsername()) != null) {
+        userRepository.findByUsername(userRegister.getUsername()).ifPresent(user -> {
             throw new BusinessException("用户名已被使用");
-        }
-        if (userRepository.findByEmail(userRegister.getEmail()) != null) {
+        });
+        userRepository.findByEmail(userRegister.getEmail()).ifPresent(user -> {
             throw new BusinessException("邮箱已被使用");
-        }
+        });
     }
 
     @Override
-    public User poToVo(UserEntity po) {
-        if (po == null) {
-            return null;
+    public Optional<User> poToVo(UserEntity po) {
+        if (super.poToVo(po).isPresent()) {
+            User user = super.poToVo(po).get();
+            Set<Role> roles = roleService.posToVos(po.getUserRoles().stream().map(UserRoleEntity::getRole).collect(Collectors.toSet()));
+            user.setRoles(roles);
+            return Optional.of(user);
+        } else {
+            return Optional.empty();
         }
-
-        User user = super.poToVo(po);
-        Set<Role> roles = roleService.posToVos(po.getUserRoles().stream().map(UserRoleEntity::getRole).collect(Collectors.toSet()));
-        user.setRoles(roles);
-
-        return user;
     }
 
 }

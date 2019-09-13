@@ -5,8 +5,7 @@ import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -20,9 +19,9 @@ public abstract class EntityServiceImpl<P, V> implements EntityService<P, V> {
     private static final int P_INDEX = 0;
     private static final int V_INDEX = 1;
 
-    public <VO> P voToPo(VO vo) {
+    public <VO> Optional<P> voToPo(VO vo) {
         if (vo == null) {
-            return null;
+            return Optional.empty();
         }
         P po = null;
         try {
@@ -31,20 +30,32 @@ public abstract class EntityServiceImpl<P, V> implements EntityService<P, V> {
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
-        return po;
+        return Optional.ofNullable(po);
     }
 
     public <VO> List<P> vosToPos(List<VO> vos) {
-        return vos.stream().map(this::voToPo).collect(Collectors.toList());
+        if (vos == null) {
+            return new ArrayList<>();
+        }
+        return vos.stream()
+                .map(this::voToPo)
+                .map(Optional::get)
+                .collect(Collectors.toList());
     }
 
     public <VO> Set<P> vosToPos(Set<VO> vos) {
-        return vos.stream().map(this::voToPo).collect(Collectors.toSet());
+        if (vos == null) {
+            return new HashSet<>();
+        }
+        return vos.stream()
+                .map(this::voToPo)
+                .map(Optional::get)
+                .collect(Collectors.toSet());
     }
 
-    public <VO> VO poToVo(P po, Class<VO> voClass) {
+    public <VO> Optional<VO> poToVo(P po, Class<VO> voClass) {
         if (po == null) {
-            return null;
+            return Optional.empty();
         }
         VO vo = null;
         try {
@@ -53,15 +64,20 @@ public abstract class EntityServiceImpl<P, V> implements EntityService<P, V> {
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
-        return vo;
+        return Optional.ofNullable(vo);
     }
 
-    public V poToVo(P po) {
+    public Optional<V> poToVo(P po) {
         return poToVo(po, getVClass());
     }
 
     public <VO> List<VO> posToVos(List<P> pos, Class<VO> voClass) {
-        return pos.stream().map(po -> poToVo(po, voClass)).collect(Collectors.toList());
+        if (pos == null) {
+            return new ArrayList<>();
+        }
+        return pos.stream()
+                .map(po -> poToVo(po, voClass).orElse(null))
+                .collect(Collectors.toList());
     }
 
     public List<V> posToVos(List<P> pos) {
@@ -69,7 +85,12 @@ public abstract class EntityServiceImpl<P, V> implements EntityService<P, V> {
     }
 
     public <VO> Set<VO> posToVos(Set<P> pos, Class<VO> voClass) {
-        return pos.stream().map(po -> poToVo(po, voClass)).collect(Collectors.toSet());
+        if (pos == null) {
+            return new HashSet<>();
+        }
+        return pos.stream()
+                .map(po -> poToVo(po, voClass).orElse(null))
+                .collect(Collectors.toSet());
     }
 
     public Set<V> posToVos(Set<P> pos) {

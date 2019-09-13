@@ -18,11 +18,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by CJ on 2019/2/13 17:01.
@@ -33,60 +35,23 @@ public class ArticleServiceImpl extends EntityServiceImpl<ArticleEntity, Article
     private ArticleRepository articleRepository;
     @Resource
     private SortRepository sortRepository;
-    @Resource
-    private TagRepository tagRepository;
-    @Resource
-    private ArticleTagRepository articleTagRepository;
-    @Resource
-    private TagService tagService;
 
     @Transactional
     @Override
     public Article findById(Long id) {
-        return articleRepository.findById(id).map(this::poToVo).orElse(null);
+        return articleRepository.findById(id).flatMap(this::poToVo).orElse(new Article());
     }
 
     @Transactional
     @Override
     public Page<Article> findPage(Pageable pageable) {
-        return articleRepository.findAll(pageable).map(this::poToVo);
+        return articleRepository.findAll(pageable).map(po -> this.poToVo(po).orElse(null));
     }
 
     @Transactional
     @Override
     public Article publish(ArticlePublish articlePublish, Long author) {
-        if (!sortRepository.findById(articlePublish.getSortId()).isPresent()) {
-            throw new BusinessException("文章分类不存在");
-        }
-
-        ArticleEntity articleEntity = initArticleEntity(articlePublish, author);
-        articleRepository.save(articleEntity);
-
-        List<TagPublish> tagPublishes = articlePublish.getTagPublishes();
-        List<TagEntity> tagEntities = new ArrayList<>();
-
-        if (tagPublishes != null) {
-            for (TagPublish tagPublish : tagPublishes) {
-                if (tagRepository.findByName(tagPublish.getName()).isPresent()) {
-                    tagEntities.add(tagRepository.findByName(tagPublish.getName()).orElse(null));
-                } else {
-                    TagEntity tagEntity = tagService.voToPo(tagPublish);
-                    tagRepository.save(tagEntity);
-                    tagEntities.add(tagEntity);
-                }
-            }
-
-            List<ArticleTagEntity> articleTagEntities = new ArrayList<>();
-            for (TagEntity tagEntity : tagEntities) {
-                ArticleTagEntity articleTagEntity = new ArticleTagEntity();
-                articleTagEntity.setArticle(articleEntity);
-                articleTagEntity.setTag(tagEntity);
-            }
-
-            articleTagRepository.saveAll(articleTagEntities);
-        }
-
-        return poToVo(articleEntity);
+       return null;
     }
 
     @Transactional
@@ -96,7 +61,7 @@ public class ArticleServiceImpl extends EntityServiceImpl<ArticleEntity, Article
     }
 
     private ArticleEntity initArticleEntity(ArticlePublish articlePublish, Long author) {
-        ArticleEntity articleEntity = voToPo(articlePublish);
+        ArticleEntity articleEntity = voToPo(articlePublish).orElseThrow(() -> new BusinessException("文章信息错误"));
         articleEntity.setAuthor(author);
         articleEntity.setSort(sortRepository.getOne(articlePublish.getSortId()));
         articleEntity.setCreateTime(LocalDateTime.now());
