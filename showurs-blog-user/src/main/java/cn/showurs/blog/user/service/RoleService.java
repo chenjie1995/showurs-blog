@@ -15,8 +15,8 @@ public interface RoleService extends EntityService<RoleEntity, Role> {
      */
     static RoleEntity getInitBloggerRole() {
         RoleEntity roleEntity = new RoleEntity();
-        roleEntity.setName(RoleInfo.ROLE_DEFAULT_BLOGGER_NAME);
-        roleEntity.setDescription(RoleInfo.ROLE_DEFAULT_BLOGGER_DESCRIPTION);
+        roleEntity.setName(RoleInfo.BLOGGER_NAME);
+        roleEntity.setDescription(RoleInfo.BLOGGER_DESCRIPTION);
         return roleEntity;
     }
 }

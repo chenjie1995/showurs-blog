@@ -20,32 +20,32 @@ import java.util.List;
 @Configuration
 public class SpringMvcConfig implements WebMvcConfigurer {
 
-    //解析Token的拦截器
+    // 解析Token的拦截器
     @Bean
     public HandlerInterceptor authInterceptor() {
         return new AuthInterceptor();
     }
 
-    //获取Token信息的参数解析器
+    // 获取Token信息的参数解析器
     @Bean
     public HandlerMethodArgumentResolver currentUserArgumentResolver() {
         return new CurrentUserArgumentResolver();
     }
 
-    //添加拦截器
+    // 添加拦截器
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor())
                 .addPathPatterns("/**");
     }
 
-    //添加参数解析器
+    // 添加参数解析器
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(currentUserArgumentResolver());
     }
 
-    //跨域放行
+    // 跨域放行
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")

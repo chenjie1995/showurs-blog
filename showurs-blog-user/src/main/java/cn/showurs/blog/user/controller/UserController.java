@@ -27,7 +27,7 @@ import java.io.OutputStream;
 /**
  * Created by CJ on 2018/12/23 22:10.
  */
-@Api(value = "用户")
+@Api(tags = "用户")
 @RestController
 @RequestMapping(value = "users", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UserController {
@@ -78,15 +78,13 @@ public class UserController {
     }
 
     @Auth
-    @ApiImplicitParam(value = "用户Token", paramType = "header", required = true, name = RequestInfo.HEADER_TOKEN_NAME, dataType = "String")
     @ApiOperation("根据用户ID获取用户信息")
     @GetMapping(value = "{id}")
     public Result<User> getById(@PathVariable Long id) {
-        return ResultGenerator.genSuccessResult(userService.findById(id));
+        return ResultGenerator.genSuccessResult(userService.findUser(id));
     }
 
     @Auth
-    @ApiImplicitParam(value = "用户Token", paramType = "header", required = true, name = RequestInfo.HEADER_TOKEN_NAME, dataType = "String")
     @ApiOperation("获取当前用户信息")
     @GetMapping(value = "me")
     public Result<User> me(@ApiIgnore @CurrentUser User user) {

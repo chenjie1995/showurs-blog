@@ -1,6 +1,7 @@
 package cn.showurs.blog.common.core.impl;
 
 import cn.showurs.blog.common.core.EntityService;
+import cn.showurs.blog.common.exception.BusinessException;
 import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.ParameterizedType;
@@ -19,80 +20,96 @@ public abstract class EntityServiceImpl<P, V> implements EntityService<P, V> {
     private static final int P_INDEX = 0;
     private static final int V_INDEX = 1;
 
-    public <VO> Optional<P> voToPo(VO vo) {
+    @Override
+    public <VO> P voToPo(VO vo) {
         if (vo == null) {
-            return Optional.empty();
+            return null;
         }
-        P po = null;
+        P po;
         try {
             po = getPClass().newInstance();
             BeanUtils.copyProperties(vo, po);
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
+            throw new BusinessException("Bean转换错误");
         }
-        return Optional.ofNullable(po);
+        return po;
     }
 
+    @Override
+    public <VO> Optional<P> voToPoOptional(VO vo) {
+        return Optional.ofNullable(voToPo(vo));
+    }
+
+    @Override
     public <VO> List<P> vosToPos(List<VO> vos) {
         if (vos == null) {
             return new ArrayList<>();
         }
-        return vos.stream()
-                .map(this::voToPo)
-                .map(Optional::get)
-                .collect(Collectors.toList());
+        return vos.stream().map(this::voToPo).collect(Collectors.toList());
     }
 
+    @Override
     public <VO> Set<P> vosToPos(Set<VO> vos) {
         if (vos == null) {
             return new HashSet<>();
         }
-        return vos.stream()
-                .map(this::voToPo)
-                .map(Optional::get)
-                .collect(Collectors.toSet());
+        return vos.stream().map(this::voToPo).collect(Collectors.toSet());
     }
 
-    public <VO> Optional<VO> poToVo(P po, Class<VO> voClass) {
+    @Override
+    public <VO> VO poToVo(P po, Class<VO> voClass) {
         if (po == null) {
-            return Optional.empty();
+            return null;
         }
-        VO vo = null;
+        VO vo;
         try {
             vo = voClass.newInstance();
             BeanUtils.copyProperties(po, vo);
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
+            throw new BusinessException("Bean转换错误");
         }
-        return Optional.ofNullable(vo);
+        return vo;
     }
 
-    public Optional<V> poToVo(P po) {
+    @Override
+    public <VO> Optional<VO> poToVoOptional(P po, Class<VO> voClass) {
+        return Optional.ofNullable(poToVo(po, voClass));
+    }
+
+    @Override
+    public V poToVo(P po) {
         return poToVo(po, getVClass());
     }
 
+    @Override
+    public Optional<V> poToVoOptional(P po) {
+        return poToVoOptional(po, getVClass());
+    }
+
+    @Override
     public <VO> List<VO> posToVos(List<P> pos, Class<VO> voClass) {
         if (pos == null) {
             return new ArrayList<>();
         }
-        return pos.stream()
-                .map(po -> poToVo(po, voClass).orElse(null))
-                .collect(Collectors.toList());
+        return pos.stream().map(po -> poToVo(po, voClass)).collect(Collectors.toList());
     }
 
+    @Override
     public List<V> posToVos(List<P> pos) {
         return posToVos(pos, getVClass());
     }
 
+    @Override
     public <VO> Set<VO> posToVos(Set<P> pos, Class<VO> voClass) {
         if (pos == null) {
             return new HashSet<>();
         }
-        return pos.stream()
-                .map(po -> poToVo(po, voClass).orElse(null))
-                .collect(Collectors.toSet());
+        return pos.stream().map(po -> poToVo(po, voClass)).collect(Collectors.toSet());
     }
 
+    @Override
     public Set<V> posToVos(Set<P> pos) {
         return posToVos(pos, getVClass());
     }

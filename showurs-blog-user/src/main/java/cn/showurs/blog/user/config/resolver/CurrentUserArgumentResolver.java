@@ -34,7 +34,7 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
     }
 
     @Override
-    public Object resolveArgument(@NonNull MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, @NonNull NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
+    public Object resolveArgument(@NonNull MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, @NonNull NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) {
         HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
 
         if (request == null) {
@@ -52,7 +52,7 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
         }
 
         if (User.class.isAssignableFrom(methodParameter.getParameterType())) {
-            return userService.findById(userJwtSubject.getUserId());
+            return userService.findUser(userJwtSubject.getUserId());
         }
 
         return null;

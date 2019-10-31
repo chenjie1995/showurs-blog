@@ -23,7 +23,7 @@ import javax.validation.constraints.Min;
 /**
  * Created by CJ on 2019/3/10 1:12.
  */
-@Api(value = "文章")
+@Api(tags = "文章")
 @RestController
 @RequestMapping(value = "articles", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class ArticleController {
@@ -44,7 +44,6 @@ public class ArticleController {
     }
 
     @Auth
-    @ApiImplicitParam(value = "用户Token", paramType = "header", required = true, name = RequestInfo.HEADER_TOKEN_NAME, dataType = "String")
     @ApiOperation("发布文章")
     @PostMapping("")
     public Result<Article> publish(@Validated @RequestBody ArticlePublish articlePublish,
@@ -53,7 +52,6 @@ public class ArticleController {
     }
 
     @Auth
-    @ApiImplicitParam(value = "用户Token", paramType = "header", required = true, name = RequestInfo.HEADER_TOKEN_NAME, dataType = "String")
     @ApiOperation("删除文章")
     @DeleteMapping("{id}")
     public Result deleteById(@PathVariable Long id) {

@@ -58,8 +58,8 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
     @Cacheable(value = "blogUser:user", key = "#id", unless = "#result == null")
     @Override
-    public User findById(Long id) {
-        return userRepository.findById(id).flatMap(this::poToVo).orElse(new User());
+    public User findUser(Long id) {
+        return userRepository.findById(id).flatMap(this::poToVoOptional).orElse(new User());
     }
 
     @Transactional
@@ -73,7 +73,7 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
 
         UserEntity userEntity = initUserEntity(userRegister);
 
-        RoleEntity roleEntity = roleRepository.findByName(RoleInfo.ROLE_DEFAULT_BLOGGER_NAME).orElseGet(RoleService::getInitBloggerRole);
+        RoleEntity roleEntity = roleRepository.findByName(RoleInfo.BLOGGER_NAME).orElseGet(RoleService::getInitBloggerRole);
         roleRepository.save(roleEntity);
 
         UserRoleEntity userRoleEntity = new UserRoleEntity();
@@ -121,7 +121,7 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
 
         UserToken userToken = new UserToken();
         userToken.setToken(token);
-        Set<Role> roles = poToVo(userEntity).orElse(new User()).getRoles();
+        Set<Role> roles = poToVoOptional(userEntity).orElse(new User()).getRoles();
         Set<Power> powers = new HashSet<>();
         if (!CollectionUtils.isEmpty(roles)) {
             roles.forEach(role -> powers.addAll(role.getPowers()));
@@ -137,7 +137,7 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
      * @return 用户实体
      */
     private UserEntity initUserEntity(UserRegister userRegister) {
-        UserEntity userEntity = voToPo(userRegister).orElseThrow(() -> new BusinessException("注册信息错误"));
+        UserEntity userEntity = voToPoOptional(userRegister).orElseThrow(() -> new BusinessException("注册信息错误"));
         userEntity.setPassword(encryptService.encryptPassword(userRegister.getPassword(), userRegister.getUsername()));
         userEntity.setNickname(userRegister.getUsername());
         userEntity.setCreateTime(LocalDateTime.now());
@@ -169,15 +169,13 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
     }
 
     @Override
-    public Optional<User> poToVo(UserEntity po) {
-        if (super.poToVo(po).isPresent()) {
-            User user = super.poToVo(po).get();
-            Set<Role> roles = roleService.posToVos(po.getUserRoles().stream().map(UserRoleEntity::getRole).collect(Collectors.toSet()));
-            user.setRoles(roles);
-            return Optional.of(user);
-        } else {
-            return Optional.empty();
+    public User poToVo(UserEntity po) {
+        if (po == null) {
+            return null;
         }
+        User user = super.poToVo(po);
+        Set<Role> roles = roleService.posToVos(po.getUserRoles().stream().map(UserRoleEntity::getRole).collect(Collectors.toSet()));
+        user.setRoles(roles);
+        return user;
     }
-
 }
