@@ -1,4 +1,4 @@
-package cn.showurs.blog.common.vo;
+package cn.showurs.blog.common.vo.common;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

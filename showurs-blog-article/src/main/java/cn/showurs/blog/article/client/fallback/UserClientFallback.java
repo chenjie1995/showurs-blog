@@ -1,7 +1,7 @@
 package cn.showurs.blog.article.client.fallback;
 
 import cn.showurs.blog.article.client.UserClient;
-import cn.showurs.blog.common.vo.Result;
+import cn.showurs.blog.common.vo.common.Result;
 import cn.showurs.blog.common.vo.user.User;
 
 /**

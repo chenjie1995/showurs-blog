@@ -1,7 +1,7 @@
 package cn.showurs.blog.common.util;
 
 import cn.showurs.blog.common.constant.code.ResultCode;
-import cn.showurs.blog.common.vo.Result;
+import cn.showurs.blog.common.vo.common.Result;
 
 /**
  * Created by CJ on 2018/12/8 23:25.

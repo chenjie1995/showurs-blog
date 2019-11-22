@@ -121,13 +121,7 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
 
         UserToken userToken = new UserToken();
         userToken.setToken(token);
-        Set<Role> roles = poToVoOptional(userEntity).orElse(new User()).getRoles();
-        Set<Power> powers = new HashSet<>();
-        if (!CollectionUtils.isEmpty(roles)) {
-            roles.forEach(role -> powers.addAll(role.getPowers()));
-        }
-        userToken.setRoles(roles);
-        userToken.setPowers(powers);
+        userToken.setUser(poToVo(userEntity));
         return userToken;
     }
 

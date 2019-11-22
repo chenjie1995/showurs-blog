@@ -1,7 +1,7 @@
 package cn.showurs.blog.article.client;
 
 import cn.showurs.blog.article.client.fallback.UserClientFallback;
-import cn.showurs.blog.common.vo.Result;
+import cn.showurs.blog.common.vo.common.Result;
 import cn.showurs.blog.common.vo.user.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

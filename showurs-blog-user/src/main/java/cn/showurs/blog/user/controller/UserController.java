@@ -6,9 +6,9 @@ import cn.showurs.blog.common.constant.RequestInfo;
 import cn.showurs.blog.common.constant.ResponseInfo;
 import cn.showurs.blog.common.exception.BusinessException;
 import cn.showurs.blog.common.util.ResultGenerator;
+import cn.showurs.blog.common.vo.common.Result;
 import cn.showurs.blog.common.vo.user.*;
 import cn.showurs.blog.user.service.UserService;
-import cn.showurs.blog.common.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -38,7 +38,7 @@ public class UserController {
     @ApiOperation("注册")
     @PostMapping(value = "register", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Result<UserToken> register(@Validated @RequestBody UserRegister userRegister,
-                                 @RequestHeader(RequestInfo.HEADER_CAPTCHA_KEY_NAME) String key) {
+                                      @RequestHeader(RequestInfo.HEADER_CAPTCHA_KEY_NAME) String key) {
 
         if (StringUtils.isEmpty(key)) {
             throw new BusinessException("验证码KEY值不能为空");

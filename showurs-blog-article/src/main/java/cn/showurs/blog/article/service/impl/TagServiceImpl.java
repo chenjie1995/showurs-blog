@@ -6,6 +6,8 @@ import cn.showurs.blog.common.core.impl.EntityServiceImpl;
 import cn.showurs.blog.common.vo.article.Tag;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * Created by CJ on 2019/3/13 11:23.
  */

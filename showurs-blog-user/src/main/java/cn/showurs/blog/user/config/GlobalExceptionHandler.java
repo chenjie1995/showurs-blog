@@ -4,7 +4,7 @@ import cn.showurs.blog.common.constant.code.ResultCode;
 import cn.showurs.blog.common.exception.BusinessException;
 import cn.showurs.blog.common.exception.UnauthorizedException;
 import cn.showurs.blog.common.util.ResultGenerator;
-import cn.showurs.blog.common.vo.Result;
+import cn.showurs.blog.common.vo.common.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.converter.HttpMessageNotReadableException;

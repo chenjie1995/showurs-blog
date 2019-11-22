@@ -25,18 +25,6 @@ public class RoleServiceImpl extends EntityServiceImpl<RoleEntity, Role> impleme
     private PowerService powerService;
 
     @Override
-    public Optional<Role> poToVoOptional(RoleEntity po) {
-        if (super.poToVoOptional(po).isPresent()) {
-            Role role = super.poToVoOptional(po).get();
-            Set<Power> powers = powerService.posToVos(po.getRolePowers().stream().map(RolePowerEntity::getPower).collect(Collectors.toSet()));
-            role.setPowers(powers);
-            return Optional.of(role);
-        } else {
-            return Optional.empty();
-        }
-    }
-
-    @Override
     public Role poToVo(RoleEntity po) {
         if (po == null) {
             return null;

@@ -13,6 +13,7 @@ spring:
         git:
           uri: https://github.com/chenjie1995/showurs-blog.git
           search-paths: /config-file/**
+          timeout: 20
       label: master
     bus:
       trace:

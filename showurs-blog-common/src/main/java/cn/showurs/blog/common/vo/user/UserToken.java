@@ -16,9 +16,7 @@ public class UserToken implements Serializable {
     @ApiModelProperty("Token")
     private String token;
 
-    private Set<Role> roles;
-
-    private Set<Power> powers;
+    private User user;
 
     public String getToken() {
         return token;
@@ -28,19 +26,11 @@ public class UserToken implements Serializable {
         this.token = token;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public User getUser() {
+        return user;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    public Set<Power> getPowers() {
-        return powers;
-    }
-
-    public void setPowers(Set<Power> powers) {
-        this.powers = powers;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
