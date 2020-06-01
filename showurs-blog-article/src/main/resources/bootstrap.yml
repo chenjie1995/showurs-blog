@@ -3,35 +3,3 @@ spring:
     name: showurs-blog-article
   profiles:
     active: dev
-
----
-spring:
-  profiles: dev
-  cloud:
-    config:
-      profile: dev
-      discovery:
-        enabled: true
-        service-id: showurs-blog-config
-      label: master
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:9000/eureka/
-
----
-spring:
-  profiles: prod
-  cloud:
-    config:
-      profile: prod
-      discovery:
-        enabled: true
-        service-id: showurs-blog-config
-      label: master
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:9000/eureka/

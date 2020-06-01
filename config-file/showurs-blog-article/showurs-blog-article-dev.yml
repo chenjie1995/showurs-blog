@@ -23,7 +23,6 @@ spring:
       cache-null-values: false #是否允许缓存空值
       use-key-prefix: true #写入redis前是否使用密钥前缀
       time-to-live: 1h #进入到期。默认情况下，这些条目永不到期
-  #      key-prefix: #blogUser: #键前缀
   redis:
     host: localhost #Redis服务器主机
     port: 6379 #redis服务器端口
