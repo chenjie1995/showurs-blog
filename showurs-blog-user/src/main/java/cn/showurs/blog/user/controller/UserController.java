@@ -12,6 +12,8 @@ import cn.showurs.blog.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -31,6 +33,8 @@ import java.io.OutputStream;
 @RestController
 @RequestMapping(value = "users", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UserController {
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    
     @Resource
     private UserService userService;
 
@@ -53,19 +57,16 @@ public class UserController {
                                 @RequestParam(defaultValue = "32") Integer height,
                                 @RequestParam String key,
                                 HttpServletResponse response) {
-
+        CaptchaImage captchaImage = userService.getCaptchaImage(key, width, height);
+        response.setHeader(ResponseInfo.HEADER_CAPTCHA_KEY_NAME, captchaImage.getKey());
+        OutputStream outputStream;
         try {
-            CaptchaImage captchaImage = this.userService.getCaptchaImage(key, width, height);
-
-            response.setHeader(ResponseInfo.HEADER_CAPTCHA_KEY_NAME, captchaImage.getKey());
-
-            OutputStream outputStream = response.getOutputStream();
+            outputStream = response.getOutputStream();
             ImageIO.write(captchaImage.getImage(), "png", outputStream);
-
             outputStream.flush();
             outputStream.close();
-
         } catch (IOException e) {
+            logger.error("获取验证码图片IO错误，错误信息：{}", e.getMessage());
             e.printStackTrace();
         }
 

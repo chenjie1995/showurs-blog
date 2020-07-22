@@ -140,10 +140,10 @@ public abstract class EntityServiceImpl<P, V> implements EntityService<P, V> {
      * @param i 下标
      * @return Class
      */
-    private Class getParamsClass(int i) {
+    private Class<?> getParamsClass(int i) {
         Type superclass = getClass().getGenericSuperclass();
         ParameterizedType parameterizedType = (ParameterizedType) superclass;
         Type[] params = parameterizedType.getActualTypeArguments();
-        return (Class) params[i];
+        return (Class<?>) params[i];
     }
 }
