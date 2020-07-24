@@ -12,7 +12,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/showurs_blog?characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
-    password: 228136
+    password: 123456
   jpa:
     hibernate:
       ddl-auto: update
@@ -26,7 +26,6 @@ spring:
   redis:
     host: localhost
     port: 6379
-    password:
     timeout: 15s
     database: 0
     lettuce:
