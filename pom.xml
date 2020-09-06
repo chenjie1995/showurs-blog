@@ -15,7 +15,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.6.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <properties>
@@ -59,26 +59,9 @@
 
     </dependencyManagement>
 
-    <!-- 公共依赖 -->
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
     </dependencies>
 
-    <!-- 子模块 -->
     <modules>
         <module>showurs-blog-eureka</module>
         <module>showurs-blog-config</module>
@@ -86,6 +69,7 @@
         <module>showurs-blog-common</module>
         <module>showurs-blog-user</module>
         <module>showurs-blog-article</module>
+        <module>showurs-blog-security</module>
     </modules>
 
 </project>

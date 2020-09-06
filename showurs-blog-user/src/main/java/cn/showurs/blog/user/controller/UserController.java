@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @ApiOperation("获取验证码图片")
-    @GetMapping(value = "captcha-image")
+    @GetMapping("captcha-image")
     public void getCaptchaImage(@RequestParam(defaultValue = "120") Integer width,
                                 @RequestParam(defaultValue = "32") Integer height,
                                 @RequestParam String key,
@@ -80,14 +80,14 @@ public class UserController {
 
     @Auth
     @ApiOperation("根据用户ID获取用户信息")
-    @GetMapping(value = "{id}")
+    @GetMapping("{id}")
     public Result<User> getById(@PathVariable Long id) {
         return ResultGenerator.genSuccessResult(userService.findUser(id));
     }
 
     @Auth
     @ApiOperation("获取当前用户信息")
-    @GetMapping(value = "me")
+    @GetMapping("me")
     public Result<User> me(@ApiIgnore @CurrentUser User user) {
         return ResultGenerator.genSuccessResult(user);
     }
