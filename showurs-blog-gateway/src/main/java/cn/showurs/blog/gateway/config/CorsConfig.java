@@ -24,7 +24,6 @@ public class CorsConfig {
         // 在生产环境上最好指定域名，以免产生跨域安全问题
         corsConfiguration.addAllowedOrigin("*");
         corsConfiguration.addAllowedHeader("*");
-        // corsConfiguration.addExposedHeader("CaptchaKey");
         corsConfiguration.addAllowedMethod("*");
         return corsConfiguration;
     }
