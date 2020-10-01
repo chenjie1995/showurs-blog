@@ -22,14 +22,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -38,6 +35,7 @@ import java.util.stream.Collectors;
 /**
  * Created by CJ on 2018/11/18 21:58.
  */
+@Transactional
 @Service
 public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> implements UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -62,7 +60,6 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
         return userRepository.findById(id).flatMap(this::poToVoOptional).orElse(new User());
     }
 
-    @Transactional
     @Override
     public UserToken register(String key, UserRegister userRegister) {
         String captcha = (String) redisTemplate.opsForValue().get(RedisKey.CAPTCHA_KEY + key);
@@ -85,7 +82,6 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
         return login(userRegister.getUsername(), userRegister.getPassword());
     }
 
-    @Transactional
     @Override
     public CaptchaImage getCaptchaImage(String key, Integer width, Integer height) {
         if (StringUtils.isEmpty(key)) {
@@ -105,7 +101,6 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
         return captchaImage;
     }
 
-    @Transactional
     @Override
     public UserToken login(String username, String password) {
         UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(() -> new BusinessException("用户不存在"));
