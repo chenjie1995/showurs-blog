@@ -52,7 +52,7 @@ public class UserEntity {
     private Integer status;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    private Set<UserRoleEntity> userRoles = new HashSet<>();
+    private List<UserRoleEntity> userRoles = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -158,11 +158,11 @@ public class UserEntity {
         this.status = status;
     }
 
-    public Set<UserRoleEntity> getUserRoles() {
+    public List<UserRoleEntity> getUserRoles() {
         return userRoles;
     }
 
-    public void setUserRoles(Set<UserRoleEntity> userRoles) {
+    public void setUserRoles(List<UserRoleEntity> userRoles) {
         this.userRoles = userRoles;
     }
 }
