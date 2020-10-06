@@ -12,7 +12,6 @@ import cn.showurs.blog.user.entity.UserEntity;
  */
 public interface UserService extends EntityService<UserEntity, User> {
 
-
     /**
      * 根据用户ID获取用户信息
      * @param id 用户ID

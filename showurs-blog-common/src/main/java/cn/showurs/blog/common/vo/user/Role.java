@@ -27,7 +27,7 @@ public class Role implements Serializable {
     private String description;
 
     @ApiModelProperty("拥有的权限")
-    private Set<Power> powers = new HashSet<>();
+    private List<Power> powers = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -53,11 +53,11 @@ public class Role implements Serializable {
         this.description = description;
     }
 
-    public Set<Power> getPowers() {
+    public List<Power> getPowers() {
         return powers;
     }
 
-    public void setPowers(Set<Power> powers) {
+    public void setPowers(List<Power> powers) {
         this.powers = powers;
     }
 }

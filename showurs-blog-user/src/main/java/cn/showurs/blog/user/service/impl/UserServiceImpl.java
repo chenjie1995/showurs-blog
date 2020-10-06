@@ -27,6 +27,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -163,7 +164,7 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
             return null;
         }
         User user = super.poToVo(po);
-        Set<Role> roles = roleService.posToVos(po.getUserRoles().stream().map(UserRoleEntity::getRole).collect(Collectors.toSet()));
+        List<Role> roles = roleService.posToVos(po.getUserRoles().stream().map(UserRoleEntity::getRole).collect(Collectors.toList()));
         user.setRoles(roles);
         return user;
     }

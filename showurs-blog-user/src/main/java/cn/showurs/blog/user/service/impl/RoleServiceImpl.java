@@ -30,7 +30,7 @@ public class RoleServiceImpl extends EntityServiceImpl<RoleEntity, Role> impleme
             return null;
         }
         Role role = super.poToVo(po);
-        Set<Power> powers = powerService.posToVos(po.getRolePowers().stream().map(RolePowerEntity::getPower).collect(Collectors.toSet()));
+        List<Power> powers = powerService.posToVos(po.getRolePowers().stream().map(RolePowerEntity::getPower).collect(Collectors.toList()));
         role.setPowers(powers);
         return role;
     }

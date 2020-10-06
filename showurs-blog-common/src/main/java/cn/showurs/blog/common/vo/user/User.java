@@ -55,7 +55,7 @@ public class User implements Serializable {
     private Integer status;
 
     @ApiModelProperty("拥有的角色")
-    private Set<Role> roles = new HashSet<>();
+    private List<Role> roles = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -153,11 +153,11 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 }

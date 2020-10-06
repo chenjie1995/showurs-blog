@@ -16,6 +16,7 @@ public class UserToken implements Serializable {
     @ApiModelProperty("Token")
     private String token;
 
+    @ApiModelProperty("用户信息")
     private User user;
 
     public String getToken() {
