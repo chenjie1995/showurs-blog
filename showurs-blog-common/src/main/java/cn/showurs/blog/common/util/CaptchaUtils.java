@@ -8,9 +8,11 @@ import java.util.Random;
 /**
  * Created by CJ on 2018/12/27 11:00.
  */
-public class Captcha {
+public class CaptchaUtils {
     private static final String[] FONT_FAMILY = {"Open Sans", "Cabin"};
     private static final int LINE_COUNT = 20;
+
+    private CaptchaUtils() {}
 
     public static BufferedImage createCaptchaImage(String text, Integer width, Integer height) {
         Random random = new Random();
@@ -49,7 +51,6 @@ public class Captcha {
             g2d.draw(line);
         }
 
-
         // 消除文字锯齿
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
@@ -57,7 +58,6 @@ public class Captcha {
         g2d.setColor(getRandColor(80, 200));
         g2d.rotate(random.nextInt(6) * 3.14 / 180, 0, 0);
         g2d.drawString(text, fontSize + random.nextInt(width - fontSize * 4), fontSize);
-
 
         // 释放g所占用的系统资源
         g2d.dispose();

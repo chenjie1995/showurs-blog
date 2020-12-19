@@ -31,7 +31,7 @@ import java.io.OutputStream;
  */
 @Api(tags = "用户")
 @RestController
-@RequestMapping(value = "users", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "users")
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     
@@ -40,7 +40,7 @@ public class UserController {
 
     @ApiImplicitParam(value = "验证码KEY", paramType = "header", required = true, name = RequestInfo.HEADER_CAPTCHA_KEY_NAME, dataType = "String")
     @ApiOperation("注册")
-    @PostMapping(value = "register", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "register")
     public Result<UserToken> register(@Validated @RequestBody UserRegister userRegister,
                                       @RequestHeader(RequestInfo.HEADER_CAPTCHA_KEY_NAME) String key) {
 
@@ -59,6 +59,7 @@ public class UserController {
                                 HttpServletResponse response) {
         CaptchaImage captchaImage = userService.getCaptchaImage(key, width, height);
         response.setHeader(ResponseInfo.HEADER_CAPTCHA_KEY_NAME, captchaImage.getKey());
+        response.setContentType(MediaType.IMAGE_PNG_VALUE);
         OutputStream outputStream;
         try {
             outputStream = response.getOutputStream();

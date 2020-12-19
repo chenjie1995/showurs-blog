@@ -1,6 +1,6 @@
 package cn.showurs.blog.common.util;
 
-import cn.showurs.blog.common.constant.code.ResultCode;
+import cn.showurs.blog.common.enumz.ResultCode;
 import cn.showurs.blog.common.vo.common.Result;
 
 /**

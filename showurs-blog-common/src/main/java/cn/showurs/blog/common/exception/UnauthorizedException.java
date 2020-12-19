@@ -1,6 +1,6 @@
 package cn.showurs.blog.common.exception;
 
-import cn.showurs.blog.common.constant.code.ResultCode;
+import cn.showurs.blog.common.enumz.ResultCode;
 
 /**
  * Created by CJ on 2018/12/12 0:15.

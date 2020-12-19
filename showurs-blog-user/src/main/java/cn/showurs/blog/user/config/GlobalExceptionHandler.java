@@ -1,6 +1,6 @@
 package cn.showurs.blog.user.config;
 
-import cn.showurs.blog.common.constant.code.ResultCode;
+import cn.showurs.blog.common.enumz.ResultCode;
 import cn.showurs.blog.common.exception.BusinessException;
 import cn.showurs.blog.common.exception.UnauthorizedException;
 import cn.showurs.blog.common.util.ResultGenerator;

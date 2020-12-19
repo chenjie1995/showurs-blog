@@ -1,4 +1,4 @@
-package cn.showurs.blog.common.constant.code;
+package cn.showurs.blog.common.enumz;
 
 /**
  * Created by CJ on 2018/12/8 23:27.

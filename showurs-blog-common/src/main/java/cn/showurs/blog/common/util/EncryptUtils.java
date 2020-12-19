@@ -6,9 +6,11 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Created by CJ on 2018/12/21 23:31.
  */
-public class Encrypt {
+public class EncryptUtils {
     private static final String SHA_256 = "SHA-256";
     private static final String SHA_512 = "SHA-512";
+
+    private EncryptUtils() {}
 
     public static String sha256(final String text) {
         return encryptText(text, SHA_256);

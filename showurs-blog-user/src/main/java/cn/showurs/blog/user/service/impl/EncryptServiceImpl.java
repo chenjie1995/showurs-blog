@@ -2,7 +2,7 @@ package cn.showurs.blog.user.service.impl;
 
 import cn.showurs.blog.common.constant.JwtInfo;
 import cn.showurs.blog.common.exception.BusinessException;
-import cn.showurs.blog.common.util.Encrypt;
+import cn.showurs.blog.common.util.EncryptUtils;
 import cn.showurs.blog.common.vo.user.UserJwtSubject;
 import cn.showurs.blog.user.service.EncryptService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,13 +21,13 @@ import java.util.UUID;
 public class EncryptServiceImpl implements EncryptService {
     @Override
     public String encryptPassword(String password, String salt) {
-        String temp = Encrypt.sha256(password + salt);
-        return Encrypt.sha256(temp + salt);
+        String temp = EncryptUtils.sha256(password + salt);
+        return EncryptUtils.sha256(temp + salt);
     }
 
     @Override
     public String generateToken() {
-        return Encrypt.sha256(UUID.randomUUID().toString() + System.currentTimeMillis());
+        return EncryptUtils.sha256(UUID.randomUUID().toString() + System.currentTimeMillis());
     }
 
     @Override

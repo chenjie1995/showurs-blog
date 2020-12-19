@@ -2,10 +2,10 @@ package cn.showurs.blog.user.service.impl;
 
 import cn.showurs.blog.common.constant.RedisKey;
 import cn.showurs.blog.common.constant.RoleInfo;
-import cn.showurs.blog.common.constant.code.UserStatus;
+import cn.showurs.blog.common.enumz.UserStatus;
 import cn.showurs.blog.common.core.impl.EntityServiceImpl;
 import cn.showurs.blog.common.exception.BusinessException;
-import cn.showurs.blog.common.util.Captcha;
+import cn.showurs.blog.common.util.CaptchaUtils;
 import cn.showurs.blog.common.vo.user.*;
 import cn.showurs.blog.user.entity.RoleEntity;
 import cn.showurs.blog.user.entity.UserEntity;
@@ -28,7 +28,6 @@ import javax.annotation.Resource;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -92,7 +91,7 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
         String captcha = UUID.randomUUID().toString().substring(0, CAPTCHA_LENGTH);
 
         CaptchaImage captchaImage = new CaptchaImage();
-        captchaImage.setImage(Captcha.createCaptchaImage(captcha, width, height));
+        captchaImage.setImage(CaptchaUtils.createCaptchaImage(captcha, width, height));
         captchaImage.setKey(key);
 
         redisTemplate.opsForValue().set(RedisKey.CAPTCHA_KEY + key, captcha, CAPTCHA_EXPIRED_SECOND, TimeUnit.SECONDS);
