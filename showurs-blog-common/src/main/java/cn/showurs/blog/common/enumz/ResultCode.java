@@ -11,19 +11,19 @@ public enum ResultCode {
     UNPROCESSABLE_ENTITY(422, "不可处理的实体"),
     ERROR(500, "服务器错误");
 
-    private int code;
+    private Integer code;
     private String description;
 
-    ResultCode(int code, String description) {
+    ResultCode(Integer code, String description) {
         this.code = code;
         this.description = description;
     }
 
-    public int getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 

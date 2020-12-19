@@ -10,7 +10,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // 排除登录
+        // 排除相关资源
         http.authorizeRequests()
                 .antMatchers("/user/login").permitAll()
                 .anyRequest().authenticated();

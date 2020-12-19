@@ -8,8 +8,8 @@ import cn.showurs.blog.common.vo.common.Result;
  */
 public class ResultGenerator {
 
-    public static Result<?> genSuccessResult() {
-        Result<?> result = new Result<>();
+    public static Result<Void> genSuccessResult() {
+        Result<Void> result = new Result<>();
         result.setCode(ResultCode.SUCCESS.getCode());
         result.setMessage(ResultCode.SUCCESS.getDescription());
         return result;
@@ -23,8 +23,8 @@ public class ResultGenerator {
         return result;
     }
 
-    public static Result<?> genFailResult(int code, String message) {
-        Result<?> result = new Result<>();
+    public static Result<Void> genFailResult(Integer code, String message) {
+        Result<Void> result = new Result<>();
         result.setCode(code);
         result.setMessage(message);
         return result;
