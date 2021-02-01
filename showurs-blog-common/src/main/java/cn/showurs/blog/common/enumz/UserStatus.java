@@ -9,11 +9,11 @@ public enum UserStatus {
     NOT_EMAIL(2, "邮箱未激活");
 
     private Integer code;
-    private String description;
+    private String text;
 
-    UserStatus(Integer code, String description) {
+    UserStatus(Integer code, String text) {
         this.code = code;
-        this.description = description;
+        this.text = text;
     }
 
     public Integer getCode() {
@@ -24,11 +24,11 @@ public enum UserStatus {
         this.code = code;
     }
 
-    public String getDescription() {
-        return description;
+    public String getText() {
+        return text;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setText(String text) {
+        this.text = text;
     }
 }

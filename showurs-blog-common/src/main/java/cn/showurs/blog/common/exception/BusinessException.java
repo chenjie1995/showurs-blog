@@ -11,11 +11,11 @@ public class BusinessException extends RuntimeException {
     private int code;
 
     public BusinessException() {
-        this(BusinessCode.FAIL.getCode(), BusinessCode.FAIL.getDescription());
+        this(BusinessCode.FAIL.getCode(), BusinessCode.FAIL.getText());
     }
 
     public BusinessException(int code) {
-        this(code, BusinessCode.FAIL.getDescription());
+        this(code, BusinessCode.FAIL.getText());
     }
 
     public BusinessException(String message) {

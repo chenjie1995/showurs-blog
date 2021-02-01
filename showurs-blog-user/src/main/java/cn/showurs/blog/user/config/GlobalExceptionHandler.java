@@ -35,12 +35,12 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler
     public Result<?> defaultExceptionHandler(HttpServletRequest request,
-                                          HttpServletResponse response,
-                                          Exception exception) {
+                                             HttpServletResponse response,
+                                             Exception exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
         exception.printStackTrace();
         response.setStatus(BusinessCode.ERROR.getCode());
-        return ResultGenerator.genFailResult(BusinessCode.ERROR.getCode(), BusinessCode.ERROR.getDescription());
+        return ResultGenerator.genFailResult(BusinessCode.ERROR.getCode(), BusinessCode.ERROR.getText());
     }
 
     /**
@@ -53,8 +53,8 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public Result<?> MethodArgumentTypeMismatchExceptionHandler(HttpServletRequest request,
-                                                             HttpServletResponse response,
-                                                             MethodArgumentTypeMismatchException exception) {
+                                                                HttpServletResponse response,
+                                                                MethodArgumentTypeMismatchException exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
         response.setStatus(BusinessCode.UNSUPPORTED_MEDIA_TYPE.getCode());
         return ResultGenerator.genFailResult(BusinessCode.UNSUPPORTED_MEDIA_TYPE.getCode(), "方法参数类型不匹配");
@@ -70,8 +70,8 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public Result<?> httpMessageNotReadableExceptionHandler(HttpServletRequest request,
-                                                         HttpServletResponse response,
-                                                         HttpMessageNotReadableException exception) {
+                                                            HttpServletResponse response,
+                                                            HttpMessageNotReadableException exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
         response.setStatus(BusinessCode.UNSUPPORTED_MEDIA_TYPE.getCode());
         return ResultGenerator.genFailResult(BusinessCode.UNSUPPORTED_MEDIA_TYPE.getCode(), "请求的JSON格式错误");
@@ -87,8 +87,8 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Result<?> MethodArgumentNotValidExceptionHandler(HttpServletRequest request,
-                                                         HttpServletResponse response,
-                                                         MethodArgumentNotValidException exception) {
+                                                            HttpServletResponse response,
+                                                            MethodArgumentNotValidException exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
         String message = exception.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
         response.setStatus(BusinessCode.UNPROCESSABLE_ENTITY.getCode());
@@ -105,8 +105,8 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(BusinessException.class)
     public Result<?> businessExceptionHandler(HttpServletRequest request,
-                                           HttpServletResponse response,
-                                           BusinessException exception) {
+                                              HttpServletResponse response,
+                                              BusinessException exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
         response.setStatus(exception.getCode());
         return ResultGenerator.genFailResult(exception.getCode(), exception.getMessage());
@@ -122,13 +122,10 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(UnauthorizedException.class)
     public Result<?> unauthorizedExceptionHandler(HttpServletRequest request,
-                                               HttpServletResponse response,
-                                               BusinessException exception) {
+                                                  HttpServletResponse response,
+                                                  BusinessException exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
         response.setStatus(exception.getCode());
         return ResultGenerator.genFailResult(exception.getCode(), exception.getMessage());
     }
-
-    // ServletRequestBindingException
-
 }

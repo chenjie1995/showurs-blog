@@ -12,11 +12,11 @@ public enum BusinessCode {
     ERROR(500, "服务器错误");
 
     private Integer code;
-    private String description;
+    private String text;
 
-    BusinessCode(Integer code, String description) {
+    BusinessCode(Integer code, String text) {
         this.code = code;
-        this.description = description;
+        this.text = text;
     }
 
     public Integer getCode() {
@@ -27,11 +27,11 @@ public enum BusinessCode {
         this.code = code;
     }
 
-    public String getDescription() {
-        return description;
+    public String getText() {
+        return text;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setText(String text) {
+        this.text = text;
     }
 }

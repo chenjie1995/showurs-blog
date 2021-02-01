@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
         exception.printStackTrace();
         response.setStatus(BusinessCode.ERROR.getCode());
-        return ResultGenerator.genFailResult(BusinessCode.ERROR.getCode(), BusinessCode.ERROR.getDescription());
+        return ResultGenerator.genFailResult(BusinessCode.ERROR.getCode(), BusinessCode.ERROR.getText());
     }
 
     /**

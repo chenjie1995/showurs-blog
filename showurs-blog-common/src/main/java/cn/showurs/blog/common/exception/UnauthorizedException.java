@@ -9,7 +9,7 @@ public class UnauthorizedException extends BusinessException {
     private static final long serialVersionUID = 5792637866566222873L;
 
     public UnauthorizedException() {
-        super(BusinessCode.UNAUTHORIZED.getCode(), BusinessCode.UNAUTHORIZED.getDescription());
+        super(BusinessCode.UNAUTHORIZED.getCode(), BusinessCode.UNAUTHORIZED.getText());
     }
 
     public UnauthorizedException(String message) {

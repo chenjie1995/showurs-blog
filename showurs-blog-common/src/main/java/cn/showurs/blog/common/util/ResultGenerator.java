@@ -1,6 +1,7 @@
 package cn.showurs.blog.common.util;
 
 import cn.showurs.blog.common.enumz.BusinessCode;
+import cn.showurs.blog.common.exception.BusinessException;
 import cn.showurs.blog.common.vo.common.Result;
 
 /**
@@ -9,20 +10,22 @@ import cn.showurs.blog.common.vo.common.Result;
 public class ResultGenerator {
 
     public static Result<Void> genSuccessResult() {
-        return new Result<>(BusinessCode.SUCCESS.getCode(), BusinessCode.SUCCESS.getDescription());
+        return new Result<>(BusinessCode.SUCCESS.getCode(), BusinessCode.SUCCESS.getText());
     }
 
     public static <T> Result<T> genSuccessResult(T data) {
-        return new Result<>(BusinessCode.SUCCESS.getCode(), BusinessCode.SUCCESS.getDescription(), data);
+        return new Result<>(BusinessCode.SUCCESS.getCode(), BusinessCode.SUCCESS.getText(), data);
     }
 
     public static Result<Void> genFailResult(int code, String message) {
-        Result<Void> result = new Result<>();
-        result.setCode(code);
-        result.setMessage(message);
-        return result;
+        return new Result<>(code, message);
     }
 
+    public static Result<Void> genFailResult(BusinessException e) {
+        return new Result<>(e.getCode(), e.getMessage());
+    }
 
-
+    public static <T> Result<T> genResult(int code, String message, T data) {
+        return new Result<>(code, message, data);
+    }
 }
