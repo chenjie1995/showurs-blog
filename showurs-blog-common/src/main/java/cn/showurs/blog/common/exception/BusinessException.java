@@ -1,6 +1,6 @@
 package cn.showurs.blog.common.exception;
 
-import cn.showurs.blog.common.enumz.ResultCode;
+import cn.showurs.blog.common.enumz.BusinessCode;
 
 /**
  * Created by CJ on 2018/12/12 0:05.
@@ -11,15 +11,15 @@ public class BusinessException extends RuntimeException {
     private int code;
 
     public BusinessException() {
-        this(ResultCode.FAIL.getCode(), ResultCode.FAIL.getDescription());
+        this(BusinessCode.FAIL.getCode(), BusinessCode.FAIL.getDescription());
     }
 
     public BusinessException(int code) {
-        this(code, ResultCode.FAIL.getDescription());
+        this(code, BusinessCode.FAIL.getDescription());
     }
 
     public BusinessException(String message) {
-        this(ResultCode.FAIL.getCode(), message);
+        this(BusinessCode.FAIL.getCode(), message);
     }
 
     public BusinessException(int code, String message) {

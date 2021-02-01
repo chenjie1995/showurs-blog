@@ -5,16 +5,12 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 
 /**
  * Created by CJ on 2019/1/18 9:56.
  */
 @ApiModel("用户登录信息")
-public class UserLogin implements Serializable {
-
-    private static final long serialVersionUID = 8481526090353821345L;
-
+public class UserLogin {
     @NotBlank(message = "用户名不能为空")
     @Size(max = 18, message = "用户名长度过长")
     @ApiModelProperty("用户名")

@@ -1,15 +1,13 @@
 package cn.showurs.blog.common.vo.user;
 
 import java.awt.image.BufferedImage;
-import java.io.Serializable;
 
 /**
  * 图片验证码
  *
  * Created by CJ on 2018/12/27 17:03.
  */
-public class CaptchaImage implements Serializable {
-    private static final long serialVersionUID = -5442880512983501437L;
+public class CaptchaImage {
     private String key;
     private BufferedImage image;
 

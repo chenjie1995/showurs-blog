@@ -1,6 +1,6 @@
 package cn.showurs.blog.user.config;
 
-import cn.showurs.blog.common.enumz.ResultCode;
+import cn.showurs.blog.common.enumz.BusinessCode;
 import cn.showurs.blog.common.exception.BusinessException;
 import cn.showurs.blog.common.exception.UnauthorizedException;
 import cn.showurs.blog.common.util.ResultGenerator;
@@ -39,8 +39,8 @@ public class GlobalExceptionHandler {
                                           Exception exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
         exception.printStackTrace();
-        response.setStatus(ResultCode.ERROR.getCode());
-        return ResultGenerator.genFailResult(ResultCode.ERROR.getCode(), ResultCode.ERROR.getDescription());
+        response.setStatus(BusinessCode.ERROR.getCode());
+        return ResultGenerator.genFailResult(BusinessCode.ERROR.getCode(), BusinessCode.ERROR.getDescription());
     }
 
     /**
@@ -56,8 +56,8 @@ public class GlobalExceptionHandler {
                                                              HttpServletResponse response,
                                                              MethodArgumentTypeMismatchException exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
-        response.setStatus(ResultCode.UNSUPPORTED_MEDIA_TYPE.getCode());
-        return ResultGenerator.genFailResult(ResultCode.UNSUPPORTED_MEDIA_TYPE.getCode(), "方法参数类型不匹配");
+        response.setStatus(BusinessCode.UNSUPPORTED_MEDIA_TYPE.getCode());
+        return ResultGenerator.genFailResult(BusinessCode.UNSUPPORTED_MEDIA_TYPE.getCode(), "方法参数类型不匹配");
     }
 
     /**
@@ -73,8 +73,8 @@ public class GlobalExceptionHandler {
                                                          HttpServletResponse response,
                                                          HttpMessageNotReadableException exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
-        response.setStatus(ResultCode.UNSUPPORTED_MEDIA_TYPE.getCode());
-        return ResultGenerator.genFailResult(ResultCode.UNSUPPORTED_MEDIA_TYPE.getCode(), "请求的JSON格式错误");
+        response.setStatus(BusinessCode.UNSUPPORTED_MEDIA_TYPE.getCode());
+        return ResultGenerator.genFailResult(BusinessCode.UNSUPPORTED_MEDIA_TYPE.getCode(), "请求的JSON格式错误");
     }
 
     /**
@@ -91,8 +91,8 @@ public class GlobalExceptionHandler {
                                                          MethodArgumentNotValidException exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
         String message = exception.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
-        response.setStatus(ResultCode.UNPROCESSABLE_ENTITY.getCode());
-        return ResultGenerator.genFailResult(ResultCode.UNPROCESSABLE_ENTITY.getCode(), message);
+        response.setStatus(BusinessCode.UNPROCESSABLE_ENTITY.getCode());
+        return ResultGenerator.genFailResult(BusinessCode.UNPROCESSABLE_ENTITY.getCode(), message);
     }
 
     /**

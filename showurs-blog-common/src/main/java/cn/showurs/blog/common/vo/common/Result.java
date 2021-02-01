@@ -3,16 +3,12 @@ package cn.showurs.blog.common.vo.common;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
-
 /**
  * Created by CJ on 2018/11/30 22:44.
  */
 @ApiModel(value = "结果")
-public class Result<T> implements Serializable {
-    private static final long serialVersionUID = -7263005976774998331L;
-
-    @ApiModelProperty("编码")
+public class Result<T> {
+    @ApiModelProperty("业务编码")
     private Integer code;
 
     @ApiModelProperty("消息")
@@ -20,6 +16,20 @@ public class Result<T> implements Serializable {
 
     @ApiModelProperty("数据")
     private T data;
+
+    public Result() {
+    }
+
+    public Result(Integer code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public Result(Integer code, String message, T data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
 
     public Integer getCode() {
         return code;
