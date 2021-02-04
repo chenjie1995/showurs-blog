@@ -9,23 +9,35 @@ import cn.showurs.blog.common.vo.common.Result;
  */
 public class ResultGenerator {
 
-    public static Result<Void> genSuccessResult() {
+    public static Result<Void> getSuccessResult() {
         return new Result<>(BusinessCode.SUCCESS.getCode(), BusinessCode.SUCCESS.getText());
     }
 
-    public static <T> Result<T> genSuccessResult(T data) {
+    public static Result<Void> getSuccessResult(String message) {
+        return new Result<>(BusinessCode.SUCCESS.getCode(), message);
+    }
+
+    public static <T> Result<T> getSuccessResult(T data) {
         return new Result<>(BusinessCode.SUCCESS.getCode(), BusinessCode.SUCCESS.getText(), data);
     }
 
-    public static Result<Void> genFailResult(int code, String message) {
+    public static Result<Void> getFailResult() {
+        return new Result<>(BusinessCode.FAIL.getCode(), BusinessCode.FAIL.getText());
+    }
+
+    public static Result<Void> getFailResult(String message) {
+        return new Result<>(BusinessCode.FAIL.getCode(), message);
+    }
+
+    public static Result<Void> getFailResult(int code, String message) {
         return new Result<>(code, message);
     }
 
-    public static Result<Void> genFailResult(BusinessException e) {
+    public static Result<Void> getFailResult(BusinessException e) {
         return new Result<>(e.getCode(), e.getMessage());
     }
 
-    public static <T> Result<T> genResult(int code, String message, T data) {
+    public static <T> Result<T> getResult(int code, String message, T data) {
         return new Result<>(code, message, data);
     }
 }
