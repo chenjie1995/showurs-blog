@@ -2,8 +2,8 @@ package cn.showurs.blog.user.service.impl;
 
 import cn.showurs.blog.common.constant.RedisKey;
 import cn.showurs.blog.common.constant.RoleInfo;
-import cn.showurs.blog.common.enumz.UserStatus;
 import cn.showurs.blog.common.core.impl.EntityServiceImpl;
+import cn.showurs.blog.common.enumz.UserStatus;
 import cn.showurs.blog.common.exception.BusinessException;
 import cn.showurs.blog.common.util.CaptchaUtils;
 import cn.showurs.blog.common.vo.user.*;
@@ -25,7 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -49,7 +48,7 @@ public class UserServiceImpl extends EntityServiceImpl<UserEntity, User> impleme
     @Resource
     private EncryptService encryptService;
     @Resource
-    private RedisTemplate<String, Serializable> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
     @Resource
     private RoleRepository roleRepository;
 
