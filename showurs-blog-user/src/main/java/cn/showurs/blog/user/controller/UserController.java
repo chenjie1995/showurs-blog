@@ -48,7 +48,7 @@ public class UserController {
             throw new BusinessException("验证码KEY值不能为空");
         }
 
-        return ResultGenerator.genSuccessResult(userService.register(key, userRegister));
+        return ResultGenerator.getSuccessResult(userService.register(key, userRegister));
     }
 
     @ApiOperation("获取验证码图片")
@@ -76,20 +76,20 @@ public class UserController {
     @ApiOperation("登录")
     @PostMapping("login")
     public Result<UserToken> login(@Validated @RequestBody UserLogin userLogin) {
-        return ResultGenerator.genSuccessResult(userService.login(userLogin.getUsername(), userLogin.getPassword()));
+        return ResultGenerator.getSuccessResult(userService.login(userLogin.getUsername(), userLogin.getPassword()));
     }
 
     @Auth
     @ApiOperation("根据用户ID获取用户信息")
     @GetMapping("{id}")
     public Result<User> getById(@PathVariable Long id) {
-        return ResultGenerator.genSuccessResult(userService.findUser(id));
+        return ResultGenerator.getSuccessResult(userService.findUser(id));
     }
 
     @Auth
     @ApiOperation("获取当前用户信息")
     @GetMapping("me")
     public Result<User> me(@ApiIgnore @CurrentUser User user) {
-        return ResultGenerator.genSuccessResult(user);
+        return ResultGenerator.getSuccessResult(user);
     }
 }

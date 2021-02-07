@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
         exception.printStackTrace();
         response.setStatus(BusinessCode.ERROR.getCode());
-        return ResultGenerator.genFailResult(BusinessCode.ERROR.getCode(), BusinessCode.ERROR.getText());
+        return ResultGenerator.getFailResult(BusinessCode.ERROR.getCode(), BusinessCode.ERROR.getText());
     }
 
     /**
@@ -57,7 +57,7 @@ public class GlobalExceptionHandler {
                                                                 MethodArgumentTypeMismatchException exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
         response.setStatus(BusinessCode.UNSUPPORTED_MEDIA_TYPE.getCode());
-        return ResultGenerator.genFailResult(BusinessCode.UNSUPPORTED_MEDIA_TYPE.getCode(), "方法参数类型不匹配");
+        return ResultGenerator.getFailResult(BusinessCode.UNSUPPORTED_MEDIA_TYPE.getCode(), "方法参数类型不匹配");
     }
 
     /**
@@ -74,7 +74,7 @@ public class GlobalExceptionHandler {
                                                             HttpMessageNotReadableException exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
         response.setStatus(BusinessCode.UNSUPPORTED_MEDIA_TYPE.getCode());
-        return ResultGenerator.genFailResult(BusinessCode.UNSUPPORTED_MEDIA_TYPE.getCode(), "请求的JSON格式错误");
+        return ResultGenerator.getFailResult(BusinessCode.UNSUPPORTED_MEDIA_TYPE.getCode(), "请求的JSON格式错误");
     }
 
     /**
@@ -92,7 +92,7 @@ public class GlobalExceptionHandler {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
         String message = exception.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
         response.setStatus(BusinessCode.UNPROCESSABLE_ENTITY.getCode());
-        return ResultGenerator.genFailResult(BusinessCode.UNPROCESSABLE_ENTITY.getCode(), message);
+        return ResultGenerator.getFailResult(BusinessCode.UNPROCESSABLE_ENTITY.getCode(), message);
     }
 
     /**
@@ -109,7 +109,7 @@ public class GlobalExceptionHandler {
                                               BusinessException exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
         response.setStatus(exception.getCode());
-        return ResultGenerator.genFailResult(exception.getCode(), exception.getMessage());
+        return ResultGenerator.getFailResult(exception.getCode(), exception.getMessage());
     }
 
     /**
@@ -126,6 +126,6 @@ public class GlobalExceptionHandler {
                                                   BusinessException exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
         response.setStatus(exception.getCode());
-        return ResultGenerator.genFailResult(exception.getCode(), exception.getMessage());
+        return ResultGenerator.getFailResult(exception.getCode(), exception.getMessage());
     }
 }

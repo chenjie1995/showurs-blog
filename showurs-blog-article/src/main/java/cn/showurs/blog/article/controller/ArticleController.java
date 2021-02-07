@@ -23,7 +23,7 @@ import javax.validation.constraints.Min;
  */
 @Api(tags = "文章")
 @RestController
-@RequestMapping(value = "articles", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "articles")
 public class ArticleController {
     @Resource
     private ArticleService articleService;
@@ -31,14 +31,14 @@ public class ArticleController {
     @ApiOperation("根据ID获取文章")
     @GetMapping("{id}")
     public Result<Article> getById(@PathVariable Long id) {
-        return ResultGenerator.genSuccessResult(articleService.findById(id));
+        return ResultGenerator.getSuccessResult(articleService.findById(id));
     }
 
     @ApiOperation("分页获取文章")
     @GetMapping("")
     public Result<Page<Article>> getPage(@Min(value = 1, message = "当页大小不能小于1") @RequestParam(required = false, defaultValue = "15") Integer pageSize,
                                          @Min(value = 1, message = "页码不能小于1") @RequestParam(required = false, defaultValue = "1") Integer pageNum) {
-        return ResultGenerator.genSuccessResult(articleService.findPage(PageRequest.of(pageNum, pageSize)));
+        return ResultGenerator.getSuccessResult(articleService.findPage(PageRequest.of(pageNum, pageSize)));
     }
 
     @Auth
@@ -46,7 +46,7 @@ public class ArticleController {
     @PostMapping("")
     public Result<Article> publish(@Validated @RequestBody ArticlePublish articlePublish,
                                    @CurrentUser Long author) {
-        return ResultGenerator.genSuccessResult(articleService.publish(articlePublish, author));
+        return ResultGenerator.getSuccessResult(articleService.publish(articlePublish, author));
     }
 
     @Auth
@@ -54,6 +54,6 @@ public class ArticleController {
     @DeleteMapping("{id}")
     public Result deleteById(@PathVariable Long id) {
         articleService.deleteById(id);
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.getSuccessResult();
     }
 }
