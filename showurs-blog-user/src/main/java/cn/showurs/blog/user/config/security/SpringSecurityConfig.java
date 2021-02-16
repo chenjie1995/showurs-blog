@@ -22,11 +22,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // 排除相关资源
         http.authorizeRequests()
-                .antMatchers("/user/login").permitAll()
+                .antMatchers("/users/login").permitAll()
                 .anyRequest().authenticated();
 
-        // 未认证处理
-        http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
+        // 未认证未授权处理
+        http.exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPoint)
                 .accessDeniedHandler(accessDeniedHandler);
 
         // 禁用session
