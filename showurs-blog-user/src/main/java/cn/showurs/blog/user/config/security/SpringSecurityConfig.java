@@ -25,6 +25,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/login").permitAll()
                 .anyRequest().authenticated();
 
+
+
         // 未认证未授权处理
         http.exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint)

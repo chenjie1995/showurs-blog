@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by CJ on 2019/3/13 16:07.
  */
 public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolver {
-    private static final Logger logger = LoggerFactory.getLogger(CurrentUserArgumentResolver.class);
+    private static final Logger log = LoggerFactory.getLogger(CurrentUserArgumentResolver.class);
 
     @Resource
     private UserClient userClient;
