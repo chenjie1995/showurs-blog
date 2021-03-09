@@ -6,26 +6,39 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AccessDeniedHandler accessDeniedHandler;
+    private final AuthenticationSuccessHandler authenticationSuccessHandler;
+    private final AuthenticationFailureHandler authenticationFailureHandler;
+
+    public static final String LOGIN_PROCESSING_URL = "/login";
 
     public SpringSecurityConfig(AuthenticationEntryPoint authenticationEntryPoint,
-                                AccessDeniedHandler accessDeniedHandler) {
+                                AccessDeniedHandler accessDeniedHandler,
+                                AuthenticationSuccessHandler authenticationSuccessHandler,
+                                AuthenticationFailureHandler authenticationFailureHandler) {
         this.authenticationEntryPoint = authenticationEntryPoint;
         this.accessDeniedHandler = accessDeniedHandler;
+        this.authenticationSuccessHandler = authenticationSuccessHandler;
+        this.authenticationFailureHandler = authenticationFailureHandler;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 排除相关资源
         http.authorizeRequests()
-                .antMatchers("/users/login").permitAll()
+                .antMatchers("/login").permitAll()
                 .anyRequest().authenticated();
 
-
+        http.formLogin()
+                .loginProcessingUrl(LOGIN_PROCESSING_URL)
+                .successHandler(authenticationSuccessHandler)
+                .failureHandler(authenticationFailureHandler);
 
         // 未认证未授权处理
         http.exceptionHandling()
