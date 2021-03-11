@@ -24,6 +24,7 @@ public class JsonAuthenticationSuccessHandler implements AuthenticationSuccessHa
             return;
         }
 
+        Object o = authentication.getPrincipal();
 
     }
 

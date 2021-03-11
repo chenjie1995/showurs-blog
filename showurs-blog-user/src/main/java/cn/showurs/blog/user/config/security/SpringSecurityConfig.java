@@ -16,7 +16,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
     private final AuthenticationFailureHandler authenticationFailureHandler;
 
-    public static final String LOGIN_PROCESSING_URL = "/login";
+    public static final String LOGIN_PROCESSING_URL = "/doLogin";
 
     public SpringSecurityConfig(AuthenticationEntryPoint authenticationEntryPoint,
                                 AccessDeniedHandler accessDeniedHandler,
@@ -31,9 +31,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 排除相关资源
-        http.authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .anyRequest().authenticated();
+//        http.authorizeRequests()
+//                .antMatchers("/login").permitAll()
+//                .anyRequest().authenticated();
+
+        // 禁用CSRF
+        http.csrf().disable();
 
         http.formLogin()
                 .loginProcessingUrl(LOGIN_PROCESSING_URL)

@@ -3,6 +3,8 @@ package cn.showurs.blog.user.config.security;
 import cn.showurs.blog.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,12 +24,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if (StringUtils.isEmpty(username)) {
-            log.info("用户名为空");
             throw new UsernameNotFoundException("用户名为空");
         }
 
 
-
-        return null;
+        return new User("123", "{noop}123", AuthorityUtils.createAuthorityList("ROLE_BLOGGER"));
     }
 }
