@@ -13,7 +13,7 @@ import org.springframework.util.StringUtils;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
     private final UserService userService;
 
@@ -26,7 +26,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (StringUtils.isEmpty(username)) {
             throw new UsernameNotFoundException("用户名为空");
         }
-
 
         return new User("123", "{noop}123", AuthorityUtils.createAuthorityList("ROLE_BLOGGER"));
     }

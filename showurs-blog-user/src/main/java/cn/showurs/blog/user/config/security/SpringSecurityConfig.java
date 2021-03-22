@@ -30,18 +30,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // 排除相关资源
-//        http.authorizeRequests()
-//                .antMatchers("/login").permitAll()
-//                .anyRequest().authenticated();
-
         // 禁用CSRF
         http.csrf().disable();
 
-        http.formLogin()
-                .loginProcessingUrl(LOGIN_PROCESSING_URL)
-                .successHandler(authenticationSuccessHandler)
-                .failureHandler(authenticationFailureHandler);
+        // 排除相关资源
+        http.authorizeRequests()
+                .antMatchers("/login").permitAll()
+                .anyRequest().authenticated();
+
+//        http.formLogin()
+//                .loginProcessingUrl(LOGIN_PROCESSING_URL)
+//                .successHandler(authenticationSuccessHandler)
+//                .failureHandler(authenticationFailureHandler);
 
         // 未认证未授权处理
         http.exceptionHandling()

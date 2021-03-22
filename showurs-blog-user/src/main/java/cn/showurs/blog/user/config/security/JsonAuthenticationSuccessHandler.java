@@ -15,17 +15,17 @@ import java.io.IOException;
 @Component
 public class JsonAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(JsonAuthenticationSuccessHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(JsonAuthenticationSuccessHandler.class);
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         if (response.isCommitted()) {
-            log.debug("响应已经提交");
+            logger.debug("响应已经提交");
             return;
         }
 
         Object o = authentication.getPrincipal();
-
+        logger.info("login success: {}", o);
     }
 
     @Override

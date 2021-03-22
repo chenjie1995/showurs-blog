@@ -7,8 +7,6 @@ import cn.showurs.blog.common.exception.BusinessException;
 import cn.showurs.blog.common.exception.UnauthorizedException;
 import cn.showurs.blog.common.vo.user.User;
 import cn.showurs.blog.common.vo.user.UserJwtSubject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -23,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
  * Created by CJ on 2019/3/13 16:07.
  */
 public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolver {
-    private static final Logger log = LoggerFactory.getLogger(CurrentUserArgumentResolver.class);
 
     @Resource
     private UserClient userClient;
