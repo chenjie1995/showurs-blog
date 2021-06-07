@@ -1,36 +1,20 @@
 package cn.showurs.blog.user.entity;
 
+import cn.showurs.blog.common.core.entity.GenericEntity;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by CJ on 2018/11/25 21:58.
  */
 @Entity
 @Table(name = "power")
-public class PowerEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class PowerEntity extends GenericEntity<Long> {
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @Column(name = "description", length = 512)
     private String description;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "power")
-    private List<RolePowerEntity> rolePowers = new ArrayList<>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -46,13 +30,5 @@ public class PowerEntity {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public List<RolePowerEntity> getRolePowers() {
-        return rolePowers;
-    }
-
-    public void setRolePowers(List<RolePowerEntity> rolePowers) {
-        this.rolePowers = rolePowers;
     }
 }

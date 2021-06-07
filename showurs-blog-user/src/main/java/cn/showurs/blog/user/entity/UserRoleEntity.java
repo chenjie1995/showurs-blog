@@ -1,5 +1,7 @@
 package cn.showurs.blog.user.entity;
 
+import cn.showurs.blog.common.core.entity.GenericEntity;
+
 import javax.persistence.*;
 
 /**
@@ -7,41 +9,29 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "user_role", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role_id"})})
-public class UserRoleEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class UserRoleEntity extends GenericEntity<Long> {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity user;
+    private UserEntity userEntity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", nullable = false)
-    private RoleEntity role;
+    private RoleEntity roleEntity;
 
-    public Long getId() {
-        return id;
+    public UserEntity getUserEntity() {
+        return userEntity;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
-    public UserEntity getUser() {
-        return user;
+    public RoleEntity getRoleEntity() {
+        return roleEntity;
     }
 
-    public void setUser(UserEntity user) {
-        this.user = user;
-    }
-
-    public RoleEntity getRole() {
-        return role;
-    }
-
-    public void setRole(RoleEntity role) {
-        this.role = role;
+    public void setRoleEntity(RoleEntity roleEntity) {
+        this.roleEntity = roleEntity;
     }
 }

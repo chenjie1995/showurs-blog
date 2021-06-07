@@ -1,5 +1,7 @@
 package cn.showurs.blog.user.entity;
 
+import cn.showurs.blog.common.core.entity.GenericEntity;
+
 import javax.persistence.*;
 
 /**
@@ -7,41 +9,29 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "role_power", uniqueConstraints = {@UniqueConstraint(columnNames = {"role_id", "power_id"})})
-public class RolePowerEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class RolePowerEntity extends GenericEntity<Long> {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", nullable = false)
-    private RoleEntity role;
+    private RoleEntity roleEntity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "power_id", nullable = false)
-    private PowerEntity power;
+    private PowerEntity powerEntity;
 
-    public Long getId() {
-        return id;
+    public RoleEntity getRoleEntity() {
+        return roleEntity;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setRoleEntity(RoleEntity roleEntity) {
+        this.roleEntity = roleEntity;
     }
 
-    public RoleEntity getRole() {
-        return role;
+    public PowerEntity getPowerEntity() {
+        return powerEntity;
     }
 
-    public void setRole(RoleEntity role) {
-        this.role = role;
-    }
-
-    public PowerEntity getPower() {
-        return power;
-    }
-
-    public void setPower(PowerEntity power) {
-        this.power = power;
+    public void setPowerEntity(PowerEntity powerEntity) {
+        this.powerEntity = powerEntity;
     }
 }

@@ -4,6 +4,7 @@ package cn.showurs.blog.common.enumz;
  * Created by CJ on 2018/12/24 20:55.
  */
 public enum UserStatus {
+
     DISABLE(0, "禁用"),
     NORMAL(1, "正常"),
     NOT_EMAIL(2, "邮箱未激活");

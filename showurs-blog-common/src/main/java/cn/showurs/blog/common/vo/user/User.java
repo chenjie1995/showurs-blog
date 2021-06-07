@@ -1,5 +1,6 @@
 package cn.showurs.blog.common.vo.user;
 
+import cn.showurs.blog.common.vo.common.GenericValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -11,9 +12,7 @@ import java.util.List;
  * Created by CJ on 2018/12/7 23:47.
  */
 @ApiModel(value = "用户")
-public class User {
-    @ApiModelProperty("ID")
-    private Long id;
+public class User extends GenericValue<Long> {
 
     @ApiModelProperty("用户名")
     private String username;
@@ -39,9 +38,6 @@ public class User {
     @ApiModelProperty("背景图")
     private String backgroundImage;
 
-    @ApiModelProperty("创建时间")
-    private LocalDateTime createTime;
-
     @ApiModelProperty("上一次登录时间")
     private LocalDateTime lastLoginTime;
 
@@ -50,14 +46,6 @@ public class User {
 
     @ApiModelProperty("拥有的角色")
     private List<Role> roles = new ArrayList<>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -121,14 +109,6 @@ public class User {
 
     public void setBackgroundImage(String backgroundImage) {
         this.backgroundImage = backgroundImage;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
     }
 
     public LocalDateTime getLastLoginTime() {

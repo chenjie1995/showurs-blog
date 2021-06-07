@@ -1,5 +1,6 @@
 package cn.showurs.blog.common.vo.user;
 
+import cn.showurs.blog.common.vo.common.GenericValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -10,9 +11,7 @@ import java.util.List;
  * Created by CJ on 2018/12/24 16:06.
  */
 @ApiModel(value = "角色")
-public class Role {
-    @ApiModelProperty("ID")
-    private Long id;
+public class Role extends GenericValue<Long> {
 
     @ApiModelProperty("名称")
     private String name;
@@ -22,14 +21,6 @@ public class Role {
 
     @ApiModelProperty("拥有的权限")
     private List<Power> powers = new ArrayList<>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

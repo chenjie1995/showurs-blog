@@ -4,6 +4,7 @@ package cn.showurs.blog.common.enumz;
  * Created by CJ on 2018/12/8 23:27.
  */
 public enum BusinessCode {
+
     SUCCESS(200, "成功"),
     FAIL(400, "业务异常"),
     UNAUTHORIZED(401, "未认证"),

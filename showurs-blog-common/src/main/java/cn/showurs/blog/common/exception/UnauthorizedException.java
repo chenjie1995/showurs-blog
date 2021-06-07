@@ -6,6 +6,7 @@ import cn.showurs.blog.common.enumz.BusinessCode;
  * Created by CJ on 2018/12/12 0:15.
  */
 public class UnauthorizedException extends BusinessException {
+
     private static final long serialVersionUID = 5792637866566222873L;
 
     public UnauthorizedException() {

@@ -1,37 +1,29 @@
 package cn.showurs.blog.user.service.impl;
 
-import cn.showurs.blog.common.constant.RoleInfo;
-import cn.showurs.blog.common.core.impl.EntityServiceImpl;
-import cn.showurs.blog.user.entity.RoleEntity;
-import cn.showurs.blog.user.entity.RolePowerEntity;
-import cn.showurs.blog.user.service.PowerService;
-import cn.showurs.blog.user.service.RoleService;
-import cn.showurs.blog.common.vo.user.Power;
+import cn.showurs.blog.common.core.repository.GenericRepository;
+import cn.showurs.blog.common.core.service.impl.GenericServiceImpl;
 import cn.showurs.blog.common.vo.user.Role;
+import cn.showurs.blog.user.entity.RoleEntity;
+import cn.showurs.blog.user.repository.RoleRepository;
+import cn.showurs.blog.user.service.RoleService;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by CJ on 2018/12/24 16:23.
  */
+@Transactional
 @Service
-public class RoleServiceImpl extends EntityServiceImpl<RoleEntity, Role> implements RoleService {
-    @Resource
-    private PowerService powerService;
+public class RoleServiceImpl extends GenericServiceImpl<RoleEntity, Role, Long> implements RoleService {
+
+    private final RoleRepository roleRepository;
+
+    public RoleServiceImpl(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
 
     @Override
-    public Role poToVo(RoleEntity po) {
-        if (po == null) {
-            return null;
-        }
-        Role role = super.poToVo(po);
-        List<Power> powers = powerService.posToVos(po.getRolePowers().stream().map(RolePowerEntity::getPower).collect(Collectors.toList()));
-        role.setPowers(powers);
-        return role;
+    public GenericRepository<RoleEntity, Long> getRepository() {
+        return roleRepository;
     }
 }

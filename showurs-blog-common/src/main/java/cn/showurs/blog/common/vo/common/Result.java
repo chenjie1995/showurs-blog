@@ -17,8 +17,7 @@ public class Result<T> {
     @ApiModelProperty("数据")
     private T data;
 
-    public Result() {
-    }
+    public Result() {}
 
     public Result(Integer code, String message) {
         this.code = code;
