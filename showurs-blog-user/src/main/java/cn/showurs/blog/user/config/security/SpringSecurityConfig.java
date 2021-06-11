@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AccessDeniedHandler accessDeniedHandler;
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
@@ -38,10 +39,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .anyRequest().authenticated();
 
-//        http.formLogin()
-//                .loginProcessingUrl(LOGIN_PROCESSING_URL)
-//                .successHandler(authenticationSuccessHandler)
-//                .failureHandler(authenticationFailureHandler);
+        // 登录认证处理
+        http.formLogin()
+                .loginProcessingUrl(LOGIN_PROCESSING_URL)
+                .successHandler(authenticationSuccessHandler)
+                .failureHandler(authenticationFailureHandler);
 
         // 未认证未授权处理
         http.exceptionHandling()

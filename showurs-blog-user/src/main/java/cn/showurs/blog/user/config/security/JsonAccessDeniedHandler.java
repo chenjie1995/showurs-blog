@@ -18,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 
 @Component
 public class JsonAccessDeniedHandler implements AccessDeniedHandler {
+
     private final ObjectMapper objectMapper;
 
     public JsonAccessDeniedHandler(ObjectMapper objectMapper) {

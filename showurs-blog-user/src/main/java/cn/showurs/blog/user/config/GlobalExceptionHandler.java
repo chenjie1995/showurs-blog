@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
      * @return 异常信息
      */
     @ExceptionHandler
-    public Result<?> defaultExceptionHandler(HttpServletRequest request,
+    public Result<Void> defaultExceptionHandler(HttpServletRequest request,
                                              HttpServletResponse response,
                                              Exception exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
      * @return 异常信息
      */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public Result<?> MethodArgumentTypeMismatchExceptionHandler(HttpServletRequest request,
+    public Result<Void> MethodArgumentTypeMismatchExceptionHandler(HttpServletRequest request,
                                                                 HttpServletResponse response,
                                                                 MethodArgumentTypeMismatchException exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
@@ -69,7 +69,7 @@ public class GlobalExceptionHandler {
      * @return 异常信息
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public Result<?> httpMessageNotReadableExceptionHandler(HttpServletRequest request,
+    public Result<Void> httpMessageNotReadableExceptionHandler(HttpServletRequest request,
                                                             HttpServletResponse response,
                                                             HttpMessageNotReadableException exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
@@ -86,7 +86,7 @@ public class GlobalExceptionHandler {
      * @return 异常信息
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Result<?> MethodArgumentNotValidExceptionHandler(HttpServletRequest request,
+    public Result<Void> MethodArgumentNotValidExceptionHandler(HttpServletRequest request,
                                                             HttpServletResponse response,
                                                             MethodArgumentNotValidException exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
@@ -104,7 +104,7 @@ public class GlobalExceptionHandler {
      * @return 异常信息
      */
     @ExceptionHandler(BusinessException.class)
-    public Result<?> businessExceptionHandler(HttpServletRequest request,
+    public Result<Void> businessExceptionHandler(HttpServletRequest request,
                                               HttpServletResponse response,
                                               BusinessException exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());
@@ -121,7 +121,7 @@ public class GlobalExceptionHandler {
      * @return 异常信息
      */
     @ExceptionHandler(UnauthorizedException.class)
-    public Result<?> unauthorizedExceptionHandler(HttpServletRequest request,
+    public Result<Void> unauthorizedExceptionHandler(HttpServletRequest request,
                                                   HttpServletResponse response,
                                                   BusinessException exception) {
         logger.warn("Uri:{}, Method:{}, Exception:{}", request.getRequestURI(), request.getMethod(), exception.toString());

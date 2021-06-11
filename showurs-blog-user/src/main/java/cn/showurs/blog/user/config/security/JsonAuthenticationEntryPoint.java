@@ -18,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 
 @Component
 public class JsonAuthenticationEntryPoint implements AuthenticationEntryPoint {
+
     private final ObjectMapper objectMapper;
 
     public JsonAuthenticationEntryPoint(ObjectMapper objectMapper) {
