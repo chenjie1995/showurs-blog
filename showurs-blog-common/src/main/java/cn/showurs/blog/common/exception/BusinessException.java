@@ -3,24 +3,27 @@ package cn.showurs.blog.common.exception;
 import cn.showurs.blog.common.enumz.BusinessCode;
 
 /**
- * Created by CJ on 2018/12/12 0:05.
+ * 业务异常
  */
 public class BusinessException extends RuntimeException {
 
     private static final long serialVersionUID = 1257805953937768429L;
 
+    private static final int DEFAULT_CODE = BusinessCode.FAIL.getCode();
+    private static final String DEFAULT_MESSAGE = BusinessCode.FAIL.getText();
+
     private final int code;
 
     public BusinessException() {
-        this(BusinessCode.FAIL.getCode(), BusinessCode.FAIL.getText());
+        this(DEFAULT_CODE, DEFAULT_MESSAGE);
     }
 
     public BusinessException(int code) {
-        this(code, BusinessCode.FAIL.getText());
+        this(code, DEFAULT_MESSAGE);
     }
 
     public BusinessException(String message) {
-        this(BusinessCode.FAIL.getCode(), message);
+        this(DEFAULT_CODE, message);
     }
 
     public BusinessException(int code, String message) {
@@ -29,15 +32,15 @@ public class BusinessException extends RuntimeException {
     }
 
     public BusinessException(Throwable cause) {
-        this(BusinessCode.FAIL.getCode(), BusinessCode.FAIL.getText(), cause);
+        this(DEFAULT_CODE, DEFAULT_MESSAGE, cause);
     }
 
     public BusinessException(String message, Throwable cause) {
-        this(BusinessCode.FAIL.getCode(), message, cause);
+        this(DEFAULT_CODE, message, cause);
     }
 
     public BusinessException(int code, Throwable cause) {
-        this(code, BusinessCode.FAIL.getText(), cause);
+        this(code, DEFAULT_MESSAGE, cause);
     }
 
     public BusinessException(int code, String message, Throwable cause) {

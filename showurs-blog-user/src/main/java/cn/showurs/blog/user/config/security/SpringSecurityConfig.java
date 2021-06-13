@@ -17,8 +17,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
     private final AuthenticationFailureHandler authenticationFailureHandler;
 
-    public static final String LOGIN_PROCESSING_URL = "/doLogin";
-
     public SpringSecurityConfig(AuthenticationEntryPoint authenticationEntryPoint,
                                 AccessDeniedHandler accessDeniedHandler,
                                 AuthenticationSuccessHandler authenticationSuccessHandler,
@@ -41,9 +39,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 登录认证处理
         http.formLogin()
-                .loginProcessingUrl(LOGIN_PROCESSING_URL)
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler);
+
+
 
         // 未认证未授权处理
         http.exceptionHandling()

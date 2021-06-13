@@ -1,6 +1,6 @@
 package cn.showurs.blog.user.config.security;
 
-import cn.showurs.blog.common.enumz.BusinessCode;
+import cn.showurs.blog.common.exception.ForbiddenException;
 import cn.showurs.blog.common.util.ResultGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * 未授权处理
+ */
 @Component
 public class JsonAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
@@ -27,11 +30,11 @@ public class JsonAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
-        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        response.setStatus(HttpStatus.FORBIDDEN.value());
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         PrintWriter printWriter = response.getWriter();
-        printWriter.print(objectMapper.writeValueAsString(ResultGenerator.getFailResult(BusinessCode.UNAUTHORIZED.getCode(), BusinessCode.UNAUTHORIZED.getText())));
+        printWriter.print(objectMapper.writeValueAsString(ResultGenerator.getFailResult(new ForbiddenException())));
         printWriter.flush();
         printWriter.close();
     }
