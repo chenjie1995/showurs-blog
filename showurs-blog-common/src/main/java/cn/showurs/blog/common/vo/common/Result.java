@@ -3,9 +3,6 @@ package cn.showurs.blog.common.vo.common;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-/**
- * Created by CJ on 2018/11/30 22:44.
- */
 @ApiModel(value = "结果")
 public class Result<T> {
     @ApiModelProperty("业务编码")

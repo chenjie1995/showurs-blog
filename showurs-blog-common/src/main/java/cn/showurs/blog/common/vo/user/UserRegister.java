@@ -7,9 +7,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-/**
- * Created by CJ on 2018/12/24 21:07.
- */
 @ApiModel(value = "用户注册信息")
 public class UserRegister {
     @NotBlank(message = "用户名不能为空")

@@ -5,9 +5,6 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by CJ on 2019/1/24 11:09.
- */
 @Entity
 @Table(name = "article")
 public class ArticleEntity {

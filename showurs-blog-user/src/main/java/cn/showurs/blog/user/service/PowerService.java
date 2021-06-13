@@ -4,8 +4,5 @@ import cn.showurs.blog.common.core.service.GenericService;
 import cn.showurs.blog.common.vo.user.Power;
 import cn.showurs.blog.user.entity.PowerEntity;
 
-/**
- * Created by CJ on 2018/12/24 16:26.
- */
 public interface PowerService extends GenericService<PowerEntity, Power, Long> {
 }

@@ -1,8 +1,5 @@
 package cn.showurs.blog.common.enumz;
 
-/**
- * Created by CJ on 2018/12/24 20:55.
- */
 public enum UserStatus {
 
     DISABLE(0, "禁用"),

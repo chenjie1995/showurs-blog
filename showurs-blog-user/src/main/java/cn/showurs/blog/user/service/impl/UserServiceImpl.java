@@ -27,9 +27,6 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by CJ on 2018/11/18 21:58.
- */
 @Transactional
 @Service
 public class UserServiceImpl extends GenericServiceImpl<UserEntity, User, Long> implements UserService {

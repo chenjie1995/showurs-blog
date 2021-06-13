@@ -4,9 +4,6 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by CJ on 2019/1/24 15:55.
- */
 @Entity
 @Table(name = "sort")
 public class SortEntity {

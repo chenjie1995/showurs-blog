@@ -7,9 +7,6 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by CJ on 2018/12/24 16:06.
- */
 @ApiModel(value = "角色")
 public class Role extends GenericValue<Long> {
 

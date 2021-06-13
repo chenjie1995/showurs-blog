@@ -9,9 +9,6 @@ import cn.showurs.blog.common.vo.user.Power;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Created by CJ on 2018/12/24 16:26.
- */
 @Transactional
 @Service
 public class PowerServiceImpl extends GenericServiceImpl<PowerEntity, Power, Long> implements PowerService {

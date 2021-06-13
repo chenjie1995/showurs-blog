@@ -3,9 +3,6 @@ package cn.showurs.blog.common.vo.user;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-/**
- * Created by CJ on 2019/1/17 17:19.
- */
 @ApiModel("用户Token")
 public class UserToken {
     @ApiModelProperty("Token")

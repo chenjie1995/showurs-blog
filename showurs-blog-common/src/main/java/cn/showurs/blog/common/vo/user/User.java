@@ -8,9 +8,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by CJ on 2018/12/7 23:47.
- */
 @ApiModel(value = "用户")
 public class User extends GenericValue<Long> {
 

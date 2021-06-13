@@ -4,9 +4,6 @@ import cn.showurs.blog.common.enumz.BusinessCode;
 import cn.showurs.blog.common.exception.BusinessException;
 import cn.showurs.blog.common.vo.common.Result;
 
-/**
- * Created by CJ on 2018/12/8 23:25.
- */
 public class ResultGenerator {
 
     public static Result<Void> getSuccessResult() {

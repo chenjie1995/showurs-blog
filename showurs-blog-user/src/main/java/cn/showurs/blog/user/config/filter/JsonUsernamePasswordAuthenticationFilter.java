@@ -1,5 +1,6 @@
 package cn.showurs.blog.user.config.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -31,7 +32,7 @@ public class JsonUsernamePasswordAuthenticationFilter extends AbstractAuthentica
             throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
         }
 
-        String username;
+        ObjectMapper objectMapper = new ObjectMapper();
 
         return null;
     }

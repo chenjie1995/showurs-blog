@@ -2,9 +2,6 @@ package cn.showurs.blog.common.vo.article;
 
 import java.time.LocalDateTime;
 
-/**
- * Created by CJ on 2019/2/13 17:02.
- */
 public class Article {
     private Long id;
 

@@ -2,9 +2,6 @@ package cn.showurs.blog.common.vo.article;
 
 import java.util.List;
 
-/**
- * Created by CJ on 2019/3/10 1:12.
- */
 public class ArticlePublish {
 
     private String title;

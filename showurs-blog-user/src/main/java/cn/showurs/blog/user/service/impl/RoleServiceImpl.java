@@ -9,9 +9,6 @@ import cn.showurs.blog.user.service.RoleService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Created by CJ on 2018/12/24 16:23.
- */
 @Transactional
 @Service
 public class RoleServiceImpl extends GenericServiceImpl<RoleEntity, Role, Long> implements RoleService {

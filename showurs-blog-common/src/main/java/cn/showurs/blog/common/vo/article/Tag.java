@@ -1,8 +1,5 @@
 package cn.showurs.blog.common.vo.article;
 
-/**
- * Created by CJ on 2019/3/13 11:21.
- */
 public class Tag {
     private Long id;
     private String name;

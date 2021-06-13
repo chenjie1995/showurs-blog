@@ -6,9 +6,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by CJ on 2018/11/18 22:47.
- */
 @Entity
 @Table(name = "role")
 public class RoleEntity extends GenericEntity<Long> {

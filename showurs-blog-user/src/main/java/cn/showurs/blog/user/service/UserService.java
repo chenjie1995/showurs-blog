@@ -7,9 +7,6 @@ import cn.showurs.blog.common.vo.user.UserRegister;
 import cn.showurs.blog.common.vo.user.UserToken;
 import cn.showurs.blog.user.entity.UserEntity;
 
-/**
- * Created by CJ on 2018/11/10 23:54.
- */
 public interface UserService extends GenericService<UserEntity, User, Long> {
 
     /**

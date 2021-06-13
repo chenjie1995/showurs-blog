@@ -2,11 +2,6 @@ package cn.showurs.blog.common.vo.user;
 
 import java.awt.image.BufferedImage;
 
-/**
- * 图片验证码
- *
- * Created by CJ on 2018/12/27 17:03.
- */
 public class CaptchaImage {
     private String key;
     private BufferedImage image;

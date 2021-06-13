@@ -14,9 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.UUID;
 
-/**
- * Created by CJ on 2018/12/24 9:47.
- */
 @Service
 public class EncryptServiceImpl implements EncryptService {
     @Override

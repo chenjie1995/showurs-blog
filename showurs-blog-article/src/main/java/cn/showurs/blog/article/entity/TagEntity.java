@@ -4,9 +4,6 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by CJ on 2019/1/28 11:05.
- */
 @Entity
 @Table(name = "tag")
 public class TagEntity {

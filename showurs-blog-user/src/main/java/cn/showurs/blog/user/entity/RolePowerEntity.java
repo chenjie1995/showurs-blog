@@ -4,9 +4,6 @@ import cn.showurs.blog.common.core.entity.GenericEntity;
 
 import javax.persistence.*;
 
-/**
- * Created by CJ on 2018/12/2 23:36.
- */
 @Entity
 @Table(name = "role_power", uniqueConstraints = {@UniqueConstraint(columnNames = {"role_id", "power_id"})})
 public class RolePowerEntity extends GenericEntity<Long> {

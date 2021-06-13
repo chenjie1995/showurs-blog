@@ -6,9 +6,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
-/**
- * Created by CJ on 2018/11/6 22:03.
- */
 @Entity
 @Table(name = "user")
 public class UserEntity extends GenericEntity<Long> {

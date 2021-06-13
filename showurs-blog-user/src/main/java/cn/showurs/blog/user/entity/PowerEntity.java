@@ -4,9 +4,6 @@ import cn.showurs.blog.common.core.entity.GenericEntity;
 
 import javax.persistence.*;
 
-/**
- * Created by CJ on 2018/11/25 21:58.
- */
 @Entity
 @Table(name = "power")
 public class PowerEntity extends GenericEntity<Long> {

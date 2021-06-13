@@ -26,9 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 
-/**
- * Created by CJ on 2018/12/23 22:10.
- */
 @Api(tags = "用户")
 @RestController
 @RequestMapping(value = "users")
