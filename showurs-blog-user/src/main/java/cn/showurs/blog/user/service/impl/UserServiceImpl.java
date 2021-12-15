@@ -8,22 +8,20 @@ import cn.showurs.blog.common.exception.BusinessException;
 import cn.showurs.blog.common.util.CaptchaUtils;
 import cn.showurs.blog.common.vo.user.*;
 import cn.showurs.blog.user.entity.UserEntity;
-import cn.showurs.blog.user.repository.RoleRepository;
 import cn.showurs.blog.user.repository.UserRepository;
 import cn.showurs.blog.user.service.EncryptService;
-import cn.showurs.blog.user.service.RoleService;
 import cn.showurs.blog.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -31,38 +29,33 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class UserServiceImpl extends GenericServiceImpl<UserEntity, User, Long> implements UserService {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
     private static final int CAPTCHA_LENGTH = 4;
     private static final int CAPTCHA_EXPIRED_SECOND = 60 * 30;
 
     @Resource
     private UserRepository userRepository;
     @Resource
-    private RoleService roleService;
-    @Resource
     private EncryptService encryptService;
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
-    @Resource
-    private RoleRepository roleRepository;
 
     @Override
     public GenericRepository<UserEntity, Long> getRepository() {
         return userRepository;
     }
 
-    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
-    @Cacheable(value = "blogUser:user", key = "#id", unless = "#result == null")
     @Override
-    public User findUser(Long id) {
-        return userRepository.findById(id).flatMap(this::poToVoOptional).orElse(new User());
+    public Optional<UserEntity> findByUsername(String username) {
+        Assert.hasText(username, "用户名不能为空");
+        return userRepository.findByUsername(username);
     }
 
     @Override
     public UserToken register(String key, UserRegister userRegister) {
         String captcha = (String) redisTemplate.opsForValue().get(RedisKey.CAPTCHA_KEY + key);
 
-        logger.info("输入验证码:{}  key:{}  验证码{}", userRegister.getCaptcha(), RedisKey.CAPTCHA_KEY + key, captcha);
+        log.info("输入验证码:{}  key:{}  验证码{}", userRegister.getCaptcha(), RedisKey.CAPTCHA_KEY + key, captcha);
         validUserRegister(captcha, userRegister);
         redisTemplate.delete(RedisKey.CAPTCHA_KEY + key);
 
@@ -86,7 +79,7 @@ public class UserServiceImpl extends GenericServiceImpl<UserEntity, User, Long> 
 
         redisTemplate.opsForValue().set(RedisKey.CAPTCHA_KEY + key, captcha, CAPTCHA_EXPIRED_SECOND, TimeUnit.SECONDS);
 
-        logger.info("保存验证码:{}  key:{}", captcha, RedisKey.CAPTCHA_KEY + key);
+        log.info("保存验证码:{}  key:{}", captcha, RedisKey.CAPTCHA_KEY + key);
 
         return captchaImage;
     }

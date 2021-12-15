@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class SpringMvcConfig implements WebMvcConfigurer {
-    // 跨域放行
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")

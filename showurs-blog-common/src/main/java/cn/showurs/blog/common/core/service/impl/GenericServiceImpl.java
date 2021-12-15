@@ -12,13 +12,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.Assert;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public abstract class GenericServiceImpl<T extends GenericEntity<ID>, V extends GenericValue<ID>, ID> implements GenericService<T, V, ID> {
+public abstract class GenericServiceImpl<T extends GenericEntity<ID>, V extends GenericValue<ID>, ID extends Serializable> implements GenericService<T, V, ID> {
 
     private static final int P_INDEX = 0;
     private static final int V_INDEX = 1;

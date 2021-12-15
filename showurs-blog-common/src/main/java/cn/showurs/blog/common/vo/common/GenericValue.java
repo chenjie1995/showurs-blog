@@ -1,6 +1,8 @@
 package cn.showurs.blog.common.vo.common;
 
-public class GenericValue<ID> {
+import java.io.Serializable;
+
+public class GenericValue<ID extends Serializable> {
 
     protected ID id;
 

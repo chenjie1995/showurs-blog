@@ -9,10 +9,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-public interface GenericService<T extends GenericEntity<ID>, V extends GenericValue<ID>, ID> {
+public interface GenericService<T extends GenericEntity<ID>, V extends GenericValue<ID>, ID extends Serializable> {
 
     GenericRepository<T, ID> getRepository();
 

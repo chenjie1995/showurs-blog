@@ -12,21 +12,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsJpaService implements UserDetailsService {
     
-    private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(UserDetailsJpaService.class);
 
     private final UserService userService;
 
-    public UserDetailsServiceImpl(UserService userService) {
+    public UserDetailsJpaService(UserService userService) {
         this.userService = userService;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if (StringUtils.isEmpty(username)) {
+            log.warn("加载用户错误，用户名为空");
             throw new UsernameNotFoundException("用户名为空");
         }
+
+//        final UserEntity userEntity = userService.findByUsername(username)
+//                .orElseThrow(() -> new BusinessException("用户 " + username + " 不存在"));
 
         return new User("123", "{noop}123", AuthorityUtils.createAuthorityList("ROLE_BLOGGER"));
     }

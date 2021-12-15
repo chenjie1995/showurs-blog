@@ -7,14 +7,16 @@ import cn.showurs.blog.common.vo.user.UserRegister;
 import cn.showurs.blog.common.vo.user.UserToken;
 import cn.showurs.blog.user.entity.UserEntity;
 
+import java.util.Optional;
+
 public interface UserService extends GenericService<UserEntity, User, Long> {
 
     /**
-     * 根据用户ID获取用户信息
-     * @param id 用户ID
-     * @return 用户信息
+     * 根据用户名获取用户实体
+     * @param username 用户名
+     * @return 用户实体
      */
-    User findUser(Long id);
+    Optional<UserEntity> findByUsername(String username);
 
     /**
      * 注册用户
@@ -40,4 +42,5 @@ public interface UserService extends GenericService<UserEntity, User, Long> {
      * @return 用户token
      */
     UserToken login(String username, String password);
+
 }

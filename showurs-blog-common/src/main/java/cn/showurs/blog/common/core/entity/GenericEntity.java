@@ -3,19 +3,22 @@ package cn.showurs.blog.common.core.entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class GenericEntity<ID> {
+@MappedSuperclass
+public class GenericEntity<ID extends Serializable> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected ID id;
 
-    protected ID createId;
+    protected ID createUser;
 
     protected LocalDateTime createTime;
 
-    protected ID updateId;
+    protected ID updateUser;
 
     protected LocalDateTime updateTime;
 
@@ -27,12 +30,12 @@ public class GenericEntity<ID> {
         this.id = id;
     }
 
-    public ID getCreateId() {
-        return createId;
+    public ID getCreateUser() {
+        return createUser;
     }
 
-    public void setCreateId(ID createId) {
-        this.createId = createId;
+    public void setCreateUser(ID createUser) {
+        this.createUser = createUser;
     }
 
     public LocalDateTime getCreateTime() {
@@ -43,12 +46,12 @@ public class GenericEntity<ID> {
         this.createTime = createTime;
     }
 
-    public ID getUpdateId() {
-        return updateId;
+    public ID getUpdateUser() {
+        return updateUser;
     }
 
-    public void setUpdateId(ID updateId) {
-        this.updateId = updateId;
+    public void setUpdateUser(ID updateUser) {
+        this.updateUser = updateUser;
     }
 
     public LocalDateTime getUpdateTime() {
