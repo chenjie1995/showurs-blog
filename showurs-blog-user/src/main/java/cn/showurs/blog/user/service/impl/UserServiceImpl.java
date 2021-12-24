@@ -5,21 +5,25 @@ import cn.showurs.blog.common.core.repository.GenericRepository;
 import cn.showurs.blog.common.core.service.impl.GenericServiceImpl;
 import cn.showurs.blog.common.enumz.UserStatus;
 import cn.showurs.blog.common.exception.BusinessException;
+import cn.showurs.blog.common.util.AssertUtils;
 import cn.showurs.blog.common.util.CaptchaUtils;
 import cn.showurs.blog.common.vo.user.*;
 import cn.showurs.blog.user.entity.UserEntity;
 import cn.showurs.blog.user.repository.UserRepository;
 import cn.showurs.blog.user.service.EncryptService;
+import cn.showurs.blog.user.service.PowerService;
+import cn.showurs.blog.user.service.RoleService;
 import cn.showurs.blog.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
@@ -33,12 +37,27 @@ public class UserServiceImpl extends GenericServiceImpl<UserEntity, User, Long> 
     private static final int CAPTCHA_LENGTH = 4;
     private static final int CAPTCHA_EXPIRED_SECOND = 60 * 30;
 
-    @Resource
-    private UserRepository userRepository;
-    @Resource
-    private EncryptService encryptService;
-    @Resource
-    private RedisTemplate<String, Object> redisTemplate;
+    private final UserRepository userRepository;
+    private final EncryptService encryptService;
+    private final RedisTemplate<String, Object> redisTemplate;
+    private final RoleService roleService;
+    private final PowerService powerService;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserRepository userRepository,
+                           EncryptService encryptService,
+                           RedisTemplate<String, Object> redisTemplate,
+                           RoleService roleService,
+                           PowerService powerService,
+                           PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.encryptService = encryptService;
+        this.redisTemplate = redisTemplate;
+        this.roleService = roleService;
+        this.powerService = powerService;
+        this.passwordEncoder = passwordEncoder;
+    }
+
 
     @Override
     public GenericRepository<UserEntity, Long> getRepository() {
@@ -47,7 +66,7 @@ public class UserServiceImpl extends GenericServiceImpl<UserEntity, User, Long> 
 
     @Override
     public Optional<UserEntity> findByUsername(String username) {
-        Assert.hasText(username, "用户名不能为空");
+        Assert.hasText(username, "username不能为空");
         return userRepository.findByUsername(username);
     }
 
@@ -101,6 +120,25 @@ public class UserServiceImpl extends GenericServiceImpl<UserEntity, User, Long> 
         userToken.setToken(token);
         userToken.setUser(poToVo(userEntity));
         return userToken;
+    }
+
+    @Override
+    public UserDetails buildSecurityUser(UserEntity userEntity) {
+        AssertUtils.notNull(userEntity, "userEntity不能为空");
+
+        final String[] roles = roleService.getRoleNames(userEntity).toArray(new String[0]);
+        final String[] authorities = powerService.getPowerNames(userEntity).toArray(new String[0]);
+
+        return org.springframework.security.core.userdetails.User.withUsername(userEntity.getUsername())
+                .password(userEntity.getPassword())
+                .passwordEncoder(passwordEncoder::encode)
+                .roles(roles)
+                .authorities(authorities)
+                .accountExpired(false)
+                .accountLocked(false)
+                .credentialsExpired(false)
+                .disabled(false)
+                .build();
     }
 
     /**

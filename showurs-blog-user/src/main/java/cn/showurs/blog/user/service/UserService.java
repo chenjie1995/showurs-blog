@@ -6,6 +6,7 @@ import cn.showurs.blog.common.vo.user.User;
 import cn.showurs.blog.common.vo.user.UserRegister;
 import cn.showurs.blog.common.vo.user.UserToken;
 import cn.showurs.blog.user.entity.UserEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
@@ -43,4 +44,11 @@ public interface UserService extends GenericService<UserEntity, User, Long> {
      */
     UserToken login(String username, String password);
 
+    /**
+     * 构造UserDetails
+     *
+     * @param userEntity 用户实体
+     * @return UserDetails
+     */
+    UserDetails buildSecurityUser(UserEntity userEntity);
 }
