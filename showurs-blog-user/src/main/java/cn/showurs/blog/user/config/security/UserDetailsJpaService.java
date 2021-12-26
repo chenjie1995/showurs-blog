@@ -1,10 +1,9 @@
 package cn.showurs.blog.user.config.security;
 
+import cn.showurs.blog.user.entity.UserEntity;
 import cn.showurs.blog.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,13 +24,13 @@ public class UserDetailsJpaService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if (StringUtils.isEmpty(username)) {
-            log.warn("加载用户错误，用户名为空");
+            log.error("获取用户错误，用户名为空");
             throw new UsernameNotFoundException("用户名为空");
         }
 
-//        final UserEntity userEntity = userService.findByUsername(username)
-//                .orElseThrow(() -> new BusinessException("用户 " + username + " 不存在"));
+        final UserEntity userEntity = userService.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("用户不存在"));
 
-        return new User("123", "{noop}123", AuthorityUtils.createAuthorityList("ROLE_BLOGGER"));
+        return userService.buildSecurityUser(userEntity);
     }
 }

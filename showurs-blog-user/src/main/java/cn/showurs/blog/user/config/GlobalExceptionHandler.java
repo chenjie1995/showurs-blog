@@ -3,7 +3,7 @@ package cn.showurs.blog.user.config;
 import cn.showurs.blog.common.enumz.BusinessCode;
 import cn.showurs.blog.common.exception.BusinessException;
 import cn.showurs.blog.common.exception.UnauthorizedException;
-import cn.showurs.blog.common.util.ResultGenerator;
+import cn.showurs.blog.common.factory.ResultGenerator;
 import cn.showurs.blog.common.vo.common.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

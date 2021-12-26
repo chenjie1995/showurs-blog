@@ -3,7 +3,7 @@ package cn.showurs.blog.user.controller;
 import cn.showurs.blog.common.constant.RequestInfo;
 import cn.showurs.blog.common.constant.ResponseInfo;
 import cn.showurs.blog.common.exception.BusinessException;
-import cn.showurs.blog.common.util.ResultGenerator;
+import cn.showurs.blog.common.factory.ResultGenerator;
 import cn.showurs.blog.common.vo.common.Result;
 import cn.showurs.blog.common.vo.user.CaptchaImage;
 import cn.showurs.blog.common.vo.user.UserLogin;

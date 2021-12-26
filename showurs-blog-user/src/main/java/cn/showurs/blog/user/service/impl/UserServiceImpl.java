@@ -18,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -42,20 +41,17 @@ public class UserServiceImpl extends GenericServiceImpl<UserEntity, User, Long> 
     private final RedisTemplate<String, Object> redisTemplate;
     private final RoleService roleService;
     private final PowerService powerService;
-    private final PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepository userRepository,
                            EncryptService encryptService,
                            RedisTemplate<String, Object> redisTemplate,
                            RoleService roleService,
-                           PowerService powerService,
-                           PasswordEncoder passwordEncoder) {
+                           PowerService powerService) {
         this.userRepository = userRepository;
         this.encryptService = encryptService;
         this.redisTemplate = redisTemplate;
         this.roleService = roleService;
         this.powerService = powerService;
-        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -131,7 +127,6 @@ public class UserServiceImpl extends GenericServiceImpl<UserEntity, User, Long> 
 
         return org.springframework.security.core.userdetails.User.withUsername(userEntity.getUsername())
                 .password(userEntity.getPassword())
-                .passwordEncoder(passwordEncoder::encode)
                 .roles(roles)
                 .authorities(authorities)
                 .accountExpired(false)

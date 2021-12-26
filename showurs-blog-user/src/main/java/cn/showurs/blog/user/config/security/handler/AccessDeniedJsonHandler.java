@@ -1,7 +1,7 @@
 package cn.showurs.blog.user.config.security.handler;
 
 import cn.showurs.blog.common.exception.UnauthorizedException;
-import cn.showurs.blog.common.util.ResultGenerator;
+import cn.showurs.blog.common.factory.ResultGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

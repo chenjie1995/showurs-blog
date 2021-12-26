@@ -5,7 +5,7 @@ import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class CaptchaUtils {
+public abstract class CaptchaUtils {
     private static final String[] FONT_FAMILY = {"Open Sans", "Cabin"};
     private static final int LINE_COUNT = 20;
 

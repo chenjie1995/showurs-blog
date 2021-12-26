@@ -1,4 +1,4 @@
-package cn.showurs.blog.common.util;
+package cn.showurs.blog.common.factory;
 
 import cn.showurs.blog.common.enumz.BusinessCode;
 import cn.showurs.blog.common.exception.BusinessException;

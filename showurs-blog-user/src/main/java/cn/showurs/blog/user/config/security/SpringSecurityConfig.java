@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -51,7 +53,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         // 登录认证处理
         http.formLogin();
 
-        // 替换Filter
+        // 替换默认的用户名密码认证Filter
         http.addFilterAt(jsonUsernamePasswordAuthenticationFilter(objectMapper), UsernamePasswordAuthenticationFilter.class);
 
         // 禁用session
@@ -109,5 +111,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationFailureHandler authenticationFailureHandler() {
         return new JsonAuthenticationFailureHandler();
+    }
+
+    /**
+     * 密码编码方式
+     * @return BCryptPasswordEncoder
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

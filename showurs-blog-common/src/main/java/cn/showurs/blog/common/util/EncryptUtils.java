@@ -3,7 +3,7 @@ package cn.showurs.blog.common.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class EncryptUtils {
+public abstract class EncryptUtils {
     private static final String SHA_256 = "SHA-256";
     private static final String SHA_512 = "SHA-512";
 
