@@ -17,9 +17,9 @@ import java.util.stream.Collectors;
 /**
  * 用于处理成功用户身份验证的策略
  */
-public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+public class JsonAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(JwtAuthenticationSuccessHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(JsonAuthenticationSuccessHandler.class);
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {

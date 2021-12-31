@@ -3,7 +3,7 @@ package cn.showurs.blog.user.config.security;
 import cn.showurs.blog.user.config.filter.JsonUsernamePasswordAuthenticationFilter;
 import cn.showurs.blog.user.config.security.handler.AccessDeniedJsonHandler;
 import cn.showurs.blog.user.config.security.handler.JsonAuthenticationFailureHandler;
-import cn.showurs.blog.user.config.security.handler.JwtAuthenticationSuccessHandler;
+import cn.showurs.blog.user.config.security.handler.JsonAuthenticationSuccessHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -101,7 +101,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return new JwtAuthenticationSuccessHandler();
+        return new JsonAuthenticationSuccessHandler();
     }
 
     /**

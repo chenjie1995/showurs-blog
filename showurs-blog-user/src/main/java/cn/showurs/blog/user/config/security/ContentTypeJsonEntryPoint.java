@@ -11,7 +11,6 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -30,9 +29,6 @@ public class ContentTypeJsonEntryPoint implements AuthenticationEntryPoint {
         response.setStatus(HttpStatus.FORBIDDEN.value());
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        PrintWriter printWriter = response.getWriter();
-        printWriter.print(objectMapper.writeValueAsString(ResultGenerator.getFailResult(new ForbiddenException())));
-        printWriter.flush();
-        printWriter.close();
+        response.getWriter().print(objectMapper.writeValueAsString(ResultGenerator.getFailResult(new ForbiddenException())));
     }
 }
