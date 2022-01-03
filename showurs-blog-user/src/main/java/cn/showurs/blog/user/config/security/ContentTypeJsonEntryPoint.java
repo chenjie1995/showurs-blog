@@ -26,9 +26,10 @@ public class ContentTypeJsonEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
+        String body = objectMapper.writeValueAsString(ResultGenerator.getFailResult(new ForbiddenException()));
         response.setStatus(HttpStatus.FORBIDDEN.value());
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.getWriter().print(objectMapper.writeValueAsString(ResultGenerator.getFailResult(new ForbiddenException())));
+        response.getWriter().print(body);
     }
 }

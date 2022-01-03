@@ -26,9 +26,10 @@ public class AccessDeniedJsonHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException {
+        String body = objectMapper.writeValueAsString(ResultGenerator.getFailResult(new UnauthorizedException()));
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.getWriter().print(objectMapper.writeValueAsString(ResultGenerator.getFailResult(new UnauthorizedException())));
+        response.getWriter().print(body);
     }
 }
