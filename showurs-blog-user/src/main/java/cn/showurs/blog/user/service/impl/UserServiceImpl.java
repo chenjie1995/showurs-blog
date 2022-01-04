@@ -8,6 +8,7 @@ import cn.showurs.blog.common.exception.BusinessException;
 import cn.showurs.blog.common.util.AssertUtils;
 import cn.showurs.blog.common.util.CaptchaUtils;
 import cn.showurs.blog.common.vo.user.*;
+import cn.showurs.blog.user.config.security.SecurityUser;
 import cn.showurs.blog.user.entity.UserEntity;
 import cn.showurs.blog.user.repository.UserRepository;
 import cn.showurs.blog.user.service.EncryptService;
@@ -125,7 +126,9 @@ public class UserServiceImpl extends GenericServiceImpl<UserEntity, User, Long> 
         final String[] roles = roleService.getRoleNames(userEntity).toArray(new String[0]);
         final String[] authorities = powerService.getPowerNames(userEntity).toArray(new String[0]);
 
-        return org.springframework.security.core.userdetails.User.withUsername(userEntity.getUsername())
+        return SecurityUser.builder()
+                .id(userEntity.getId())
+                .username(userEntity.getUsername())
                 .password(userEntity.getPassword())
                 .roles(roles)
                 .authorities(authorities)
